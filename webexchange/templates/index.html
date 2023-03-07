@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Welcome to my site</title>
+  {% load static %}
+  <link rel="stylesheet" href="{% static '/index/style.css' %}">
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+  <script src="{% static '/index/index.js' %}"></script>
+</head>
+<body>
+  <div>
+    <h1>Welcome to Coin Center Exchange</h1>
+    <div id="user">
+      <div>
+        <button id="login" name="login">Login</button>
+        <button id="sign" name="sign">Sign up</button>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

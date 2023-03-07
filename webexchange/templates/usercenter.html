@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title>User Center</title>
+	{% load static %}
+	<link rel="stylesheet" href="{% static '/usercenter/style.css' %}">
+</head>
+
+<body>
+	<nav>
+		<h1>User Center</h1>
+		<h3>{{ username }}</h3>
+		<ul>
+			<li><a href="#wallet-management">Wallet Management</a></li>
+			<li><a href="{% url 'asset' username=username %}">Asset Verification</a></li>
+			<li><a href="#transaction">Transaction</a></li>
+		</ul>
+	</nav>
+	<div class="container">
+		<div class="transaction-history">
+			<h2>Transaction History</h2>
+			<table>
+				<thead>
+					<tr>
+						<th>Action</th>
+						<th>Time Stamp</th>
+						<th>Coin Wallet</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>Deposit</td>
+						<td>2023-03-05 10:00:00</td>
+						<td>BTC</td>
+					</tr>
+					<tr>
+						<td>Withdrawal</td>
+						<td>2023-03-04 15:30:00</td>
+						<td>ETC</td>
+					</tr>
+					<tr>
+						<td>Transfer</td>
+						<td>2023-03-03 20:45:00</td>
+						<td>Luna</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<div class="wallet">
+			<h2>Wallet</h2>
+			<table>
+				<thead>
+					<tr>
+						<th>Coin Type</th>
+						<th>Amount</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>BTC</td>
+						<td>0.12345678</td>
+					</tr>
+					<tr>
+						<td>ETH</td>
+						<td>10.23456789</td>
+					</tr>
+					<tr>
+						<td>LTC</td>
+						<td>100.00000000</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</body>
+
+</html>

@@ -1,0 +1,64 @@
+body {
+	margin: 0;
+	padding: 0;
+	font-family: Arial, sans-serif;
+	font-size: 16px;
+}
+
+nav {
+	background-color: #222;
+	color: #fff;
+	padding: 20px;
+}
+
+nav h1 {
+	margin: 0;
+	font-size: 28px;
+}
+
+nav ul {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+}
+
+nav li {
+	display: inline-block;
+	margin-right: 20px;
+}
+
+nav a {
+	color: #fff;
+	text-decoration: none;
+}
+
+.container {
+	max-width: 800px;
+	margin: 20px auto;
+	padding: 20px;
+}
+
+.transaction-history table,
+.wallet table {
+	border-collapse: collapse;
+	width: 100%;
+}
+
+.transaction-history th,
+.transaction-history td,
+.wallet th,
+.wallet td {
+	padding: 10px;
+	text-align: left;
+}
+
+.transaction-history th,
+.wallet th {
+	background-color: #222;
+	color: #fff;
+}
+
+.transaction-history tr:nth-child(even),
+.wallet tr:nth-child(even) {
+	background-color: #f2f2f2;
+}

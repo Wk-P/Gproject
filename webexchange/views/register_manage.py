@@ -1,11 +1,11 @@
-from . import *
+from ..views import *
 name_pattern = r'^[A-Za-z]+.*'
 password_pattern = r'.*\s+.*'
 
-def hash_encrypt(string):
-    hash_obj = hashlib.md5()
-    hash_obj.update(string.encode('utf-8'))
-    return hash_obj.hexdigest()
+# def hash_encrypt(string):
+#     hash_obj = hashlib.md5()
+#     hash_obj.update(string.encode('utf-8'))
+#     return hash_obj.hexdigest()
 
 # check user name and password
 def register_input_check(username, password, passworda):

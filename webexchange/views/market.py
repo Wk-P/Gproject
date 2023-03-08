@@ -1,4 +1,4 @@
-from . import *
+from ..views import *
 
 # market
 class market(View):

@@ -1,4 +1,4 @@
-from . import *
+from ..views import *
 
 # 404
 class pagenotfound(View):

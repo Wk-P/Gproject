@@ -23,10 +23,13 @@
             <th>Status</th>
         </tr>
         <tr>
-            <td>BTC</td>
-            <td id="btc_amount">12390194</td>
-            <td><button id="verify_btn">Verify</button></td>
-            <td id="status"></td>
+            <form method="post">
+                {% csrf_token %}
+                <td name="coin_type">BTC</td>
+                <td id="btc_amount" name="amount">12390194</td>
+                <td><button id="verify_btn" name="verify">Verify</button></td>
+                <td id="status"></td>
+            <form>
         </tr>
     </table>
 </body>

@@ -13,11 +13,11 @@
 <body>
     <div>
         <h1>Asset</h1>
-        <h3>{{ username }}</h3>
+        <h3>{{ user_name }}</h3>
     </div>
     <table>
         <tr>
-            <th>Wallet</th>
+            <th>Coin Type</th>
             <th>Amount</th>
             <th>Vertify</th>
             <th>Status</th>
@@ -25,10 +25,14 @@
         <tr>
             <form method="post">
                 {% csrf_token %}
-                <td name="coin_type">BTC</td>
-                <td id="btc_amount" name="amount">12390194</td>
+                <td name="coin_type">{{ user_data.asset_type }}</td>
+                <td id="btc_amount" name="amount">{{ user_data.asset_amount }}</td>
                 <td><button id="verify_btn" name="verify">Verify</button></td>
-                <td id="status"></td>
+                <td id="status">
+                {% if result %}
+                    {{ result }}
+                {% endif %}
+                </td>
             <form>
         </tr>
     </table>

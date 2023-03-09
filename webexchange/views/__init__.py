@@ -147,6 +147,7 @@ def get_user_data(username):
     wallets_obj = Wallets.objects.filter(user=user_obj)
     
     if wallets_obj.exists():
+        # get first wallet
         wallet_obj = wallets_obj.first()
         wallet_ID = wallet_obj.wallet_ID
 
@@ -157,6 +158,7 @@ def get_user_data(username):
     assets_obj = Asset.objects.filter(wallet=wallet_obj)
 
     if assets_obj.exists():
+        # get first type asset coin
         asset_obj = assets_obj.first()
         asset_type = asset_obj.asset_type
         asset_amount = asset_obj.asset_amount

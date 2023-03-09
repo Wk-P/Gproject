@@ -4,8 +4,11 @@ from ..views import *
 class asset(View):
     def get(self, request, **kwargs):
         username = kwargs.get('username')
+
+        user_data = get_user_data(username)
+
         if username_check(username):
-            return render(request, 'asset.html', {'username': username})
+            return render(request, 'asset.html', {'user_name': username, 'user_data': user_data})
         else:
             return redirect('404')
         
@@ -23,11 +26,11 @@ class asset(View):
         # take_wallet():
         #   pass 
             # verification information
-            amount = request.POST.get('amount')
-            coin_type = request.POST.get('coin_type')
+            user_data = get_user_data(username)
+
             if get_verification_information(username):
-                print("Yes")
-                return render(request, 'asset.html')
+                result='True'
+                return render(request, 'asset.html', context={'user_name': username, 'user_data': user_data, 'status': 'Finished', 'result': result})
             else:
                 return redirect('404')
             # get user asset data from database

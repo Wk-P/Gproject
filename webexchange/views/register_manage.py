@@ -19,6 +19,7 @@ class register(View):
             username = request.POST.get('username')
             userpassword = request.POST.get('userpassword')
             userpassworda = request.POST.get('userpassworda')
+
             # check 
             msg = register_input_check(username, userpassword, userpassworda)
             if msg['type'] == '0':
@@ -27,14 +28,38 @@ class register(View):
                 user_ID = hash_encrypt(username)
                 hash_password = hash_encrypt(userpassword)
 
-                User(user_ID=user_ID, 
+                user = User(user_ID=user_ID, 
                     user_name=username, 
                     user_password=hash_password, 
-                    user_create_date=timezone.now()).save()
+                    user_create_date=timezone.now())
+                user.save()
+                
+
+                 # default generate wallet and BTC coin amount
             
+                random.seed(time.time())
+                rnum = random.randint(0, 5000)
+
+                # wallet generate
+                wallet_ID = hash_encrypt(str(rnum)+username)
+                wallet_create_date=timezone.now()
+                wallet = Wallets(wallet_ID=wallet_ID, 
+                        user=user,
+                        wallet_create_date=wallet_create_date)
+                wallet.save()
+                
+                # BTC coin amount generate
+                asset_amount = 10314.5
+                asset_type = 'BTC'
+                Asset(wallet=wallet, asset_type=asset_type, 
+                    asset_amount=asset_amount).save()
+
             msg['count'] = str(User.objects.all().count())
             return render(request, 'register.html', msg)
+        
         elif 'cancel' in request.POST:
             return redirect(reverse('index'))
+        
+        # add wallet and coin
         else:
             return render(request, 'register.html')

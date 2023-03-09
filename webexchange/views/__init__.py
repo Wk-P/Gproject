@@ -1,11 +1,41 @@
 from django.shortcuts import render, redirect
 from django.views import View
 from ..models import User, Wallets, Asset
-import re
+import re,random, time, hashlib
 from django.utils import timezone
-import hashlib
 from django.urls import reverse
 
+# Get all wallet data bu user name
+def fetch_wallet_data(user):
+    wallet_data = {
+        'wallet': None,
+        'wallet_ID': [],
+    }
+    wallets = Wallets.objects.filter(user=user)
+    if wallets.exists():
+        for wallet in wallets:
+            wallet_data['wallet_ID'] = wallet.wallet_ID
+            wallet_data['wallet'] = wallet
+    else:
+        wallet_data = None
+    
+    return wallet_data
+
+# Get all asset data bu wallet
+def fetch_asset_data(wallet, ctype):
+    asset_data = {
+        'wallet': None,
+        'asset_amount': None,
+    }
+    asset = Asset.objects.filter(wallet=wallet, asset_type=ctype).first()
+    if asset.exists():
+        asset_data['wallet'] = wallet
+        asset_data['asset_amount'] = asset.asset_amount
+    else:
+        asset_data = None
+    
+    return asset_data
+    
 def hash_encrypt(string):
     hash_obj = hashlib.md5()
     hash_obj.update(string.encode('utf-8'))
@@ -104,13 +134,6 @@ def username_check(username):
 
 
 def get_user_data(username):
-    user_data = {
-        'user_name': user_name,
-        'wallet_ID': wallet_ID,
-        'user_ID': user_obj.user_ID,
-        'asset_amount': asset_amount,
-        'asset_type': asset_type,
-    }
     try:
         user_obj = User.objects.get(user_name=username)
         user_ID = user_obj.user_ID  
@@ -121,7 +144,7 @@ def get_user_data(username):
 
     # Not access empty attribute
 
-    wallets_obj = Wallets.objects.filter(user_ID=user_ID)
+    wallets_obj = Wallets.objects.filter(user=user_obj)
     
     if wallets_obj.exists():
         wallet_obj = wallets_obj.first()
@@ -131,7 +154,7 @@ def get_user_data(username):
         user_data = None
         return user_data
     
-    assets_obj = Asset.objects.filter(wallet_ID=wallet_ID)
+    assets_obj = Asset.objects.filter(wallet=wallet_obj)
 
     if assets_obj.exists():
         asset_obj = assets_obj.first()
@@ -144,7 +167,7 @@ def get_user_data(username):
     user_data = {
         'user_name': user_name,
         'wallet_ID': wallet_ID,
-        'user_ID': user_obj.user_ID,
+        'user_ID': user_ID,
         'asset_amount': asset_amount,
         'asset_type': asset_type,
     }
@@ -232,4 +255,6 @@ def get_verification_information(username):
     ret_set['except'] = False
     return ret_set
 
-__all__ = ['get_verification_information', 'username_check', 'render', 'View', 'User', 'Wallets', 'Asset', 're', 'timezone', 'hashlib', 'reverse', 'redirect', 'hash_encrypt', 'login_input_check', 'register_input_check']
+__all__ = ['fetch_asset_data', 'fetch_wallet_data', 'get_user_data', 'time','random', 'get_verification_information', 
+           'username_check', 'render', 'View', 'User', 'Wallets', 'Asset', 're', 'timezone', 'hashlib', 
+           'reverse', 'redirect', 'hash_encrypt', 'login_input_check', 'register_input_check']

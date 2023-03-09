@@ -14,15 +14,14 @@ class User(models.Model):
 # Wallets data related with User by user_ID
 class Wallets(models.Model):
     # hash field
-    user_ID = models.ForeignKey(User, on_delete=models.CASCADE, default=None)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, default=None)
     wallet_ID = models.CharField(max_length=200, default=None)
-    wallet_asset = models.CharField(max_length=200, default=None)
 
     # usuall field
     wallet_create_date = models.DateTimeField()
 
 class Asset(models.Model):
-    wallet_ID = models.ForeignKey(Wallets, on_delete=models.CASCADE, default=None)
+    wallet = models.ForeignKey(Wallets, on_delete=models.CASCADE, default=None)
     
     # usuall field
     asset_type = models.CharField(max_length=200, default=None)

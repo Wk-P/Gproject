@@ -102,52 +102,134 @@ def username_check(username):
         return False
     return True
 
+
+def get_user_data(username):
+    user_data = {
+        'user_name': user_name,
+        'wallet_ID': wallet_ID,
+        'user_ID': user_obj.user_ID,
+        'asset_amount': asset_amount,
+        'asset_type': asset_type,
+    }
+    try:
+        user_obj = User.objects.get(user_name=username)
+        user_ID = user_obj.user_ID  
+        user_name = user_obj.user_name
+    except:
+        user_data = None
+        return user_data
+
+    # Not access empty attribute
+
+    wallets_obj = Wallets.objects.filter(user_ID=user_ID)
+    
+    if wallets_obj.exists():
+        wallet_obj = wallets_obj.first()
+        wallet_ID = wallet_obj.wallet_ID
+
+    else:
+        user_data = None
+        return user_data
+    
+    assets_obj = Asset.objects.filter(wallet_ID=wallet_ID)
+
+    if assets_obj.exists():
+        asset_obj = assets_obj.first()
+        asset_type = asset_obj.asset_type
+        asset_amount = asset_obj.asset_amount
+    else: 
+        user_data = None
+        return user_data
+        
+    user_data = {
+        'user_name': user_name,
+        'wallet_ID': wallet_ID,
+        'user_ID': user_obj.user_ID,
+        'asset_amount': asset_amount,
+        'asset_type': asset_type,
+    }
+    
+    return user_data
+
 def get_verification_information(username):
-    user_hashmd_obj = hashlib.md5()
+    ret_set = {
+        'all_user_data': None,
+        'verificating_user_data': None,
+        'except': False
+    }
+
+    all_user_data = []
+    # all_user_data style
     # all user
     #   wallet_ID, user_ID, asset_amount
     try:
-        all_user_ID = User.objects.values_list('user_ID', flat=True)
-        all_wallet_ID = Wallets.objects.values_list('wallet_ID', flat=True)
-        all_asset_amount: Asset.objects.values_list('asset_amount', flat=True)
+        all_username = User.objects.all().values_list('user_name', flat=True)
+        for username in all_username:
+            try:
+                user_data = get_user_data(user_name)
+                all_user_data.append(user_data)
+            except:
+                ret_set['all_user_data'] = None
+                ret_set['verificating_user_data'] = None
+                ret_set['except'] = True
+                return ret_set
 
-        print(type(all_user_ID))
-
-        all_user_data = {
-            'all_wallet_ID': [],
-            'all_user_ID': [],
-            'all_asset_amount': []
-        }
-    
     except:
-        print("Error!01")
-        return 0
+        ret_set['all_user_data'] = None
+        ret_set['verificating_user_data'] = None
+        ret_set['except'] = True
+        return ret_set
+    
+
     # single user
     #   wallet_ID, user_ID, asset_amount, asset_type, user_name
     try:
         user_obj = User.objects.get(user_name=username)
         user_ID = user_obj.user_ID  
         user_name = user_obj.user_name
+    except:
+        ret_set['all_user_data'] = None
+        ret_set['verificating_user_data'] = None
+        ret_set['except'] = True
+        return ret_set
 
-        wallets_obj = Wallets.objects.filter(user_ID=user_ID).exclude(id=None)
+    # Not access empty attribute
+
+    wallets_obj = Wallets.objects.filter(user_ID=user_ID)
+    
+    if wallets_obj.exists():
         wallet_obj = wallets_obj.first()
         wallet_ID = wallet_obj.wallet_ID
+
+    else:
+        ret_set['all_user_data'] = None
+        ret_set['verificating_user_data'] = None
+        ret_set['except'] = True
+        return ret_set
     
-        assets_obj = Asset.objects.filter(wallet_ID=wallet_ID).exclude(id=None)
+    assets_obj = Asset.objects.filter(wallet_ID=wallet_ID)
+
+    if assets_obj.exists():
         asset_obj = assets_obj.first()
         asset_type = asset_obj.asset_type
         asset_amount = asset_obj.asset_amount
+    else: 
+        ret_set['all_user_data'] = None
+        ret_set['verificating_user_data'] = None
+        ret_set['except'] = True
+        return ret_set
+        
+    verificated_user_data = {
+        'user_name': user_name,
+        'wallet_ID': wallet_ID,
+        'user_ID': user_obj.user_ID,
+        'asset_amount': asset_amount,
+        'asset_type': asset_type,
+    }
 
-        data = {
-            'user_name': user_name,
-            'wallet_ID': wallet_ID,
-            'user_ID': user_obj.user_ID,
-            'asset_amount': asset_amount,
-            'asset_type': asset_type,
-        }
-        return 1
-    except:
-        print("Error!02")
-        return 0
+    ret_set['all_user_data'] = all_user_data
+    ret_set['verificating_user_data'] = verificated_user_data
+    ret_set['except'] = False
+    return ret_set
 
 __all__ = ['get_verification_information', 'username_check', 'render', 'View', 'User', 'Wallets', 'Asset', 're', 'timezone', 'hashlib', 'reverse', 'redirect', 'hash_encrypt', 'login_input_check', 'register_input_check']

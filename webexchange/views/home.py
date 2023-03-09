@@ -4,8 +4,11 @@ from ..views import *
 class main(View):
     def get(self, request, **kwargs):
         username = kwargs.get('username')
-        return render(request, 'main.html', context={'username': username})
-    
+        if username_check(username):
+            return render(request, 'main.html', context={'username': username})
+        else:
+            return redirect('404')
+        
     def post(self, request):
         return render(request, 'main.html')
 
@@ -15,7 +18,9 @@ class index(View):
         return render(request, 'index.html')
     
     def post(self, request):
-        if 'login' in request:
-            return render(request, 'login.html')
-        elif 'sign' in request:
-            return render(request, 'register.html')
+        if 'login' in request.POST:
+            return redirect(reverse('login'))
+        elif 'sign' in request.POST:
+            return redirect(reverse('register'))
+        else:
+            return render(request, 'index.html')

@@ -8,11 +8,6 @@
     {% load static %}
     <link rel="stylesheet" href="{% static '/login/style.css' %}">
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-    {% if 'type' %}
-    <script>
-        alert('{{ type }}');
-    </script>
-    {% endif %}
 </head>
 <body>
     <h1>Login</h1>
@@ -25,5 +20,10 @@
         <button id="submit" name="submit">Submit</button>
         <button id="cancel" name="cancel">Cancel</button>
     </form>
+    {% if alert %}
+    <script>
+        alert('{{ alert }}')
+    </script>
+    {% endif %}
 </body>
 </html>

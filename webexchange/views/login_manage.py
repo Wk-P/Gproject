@@ -13,14 +13,13 @@ class login(View):
             userpassword_input = request.POST.get('userpassword')
 
             msg = login_input_check(username_input, userpassword_input)
-
             if msg['type'] == '0':
-                return redirect(reverse('main', kwargs={'username': username_input}))
+                return redirect(reverse('main', kwargs={'username': username_input}), context=msg)
             else:
                 return render(request, 'login.html', msg)
         
         elif 'cancel' in request.POST:
-            return render(request, 'index.html')
+            return redirect(reverse('index'))
         
         else:
             return render(request, 'login.html')

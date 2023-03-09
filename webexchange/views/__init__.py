@@ -71,6 +71,7 @@ def register_input_check(username, password, passworda):
         msg['alert'] = 'Invalid Input'
         msg['type'] = '1'
     else:
+        print('sss')
         # password input wrong
         if password != passworda:
             msg['alert'] = "Password must be same"
@@ -94,5 +95,10 @@ def register_input_check(username, password, passworda):
                 return msg
     return msg
 
-
-__all__ = ['render', 'View', 'User', 'Wallets', 'Asset', 're', 'timezone', 'hashlib', 'reverse', 'redirect', 'hash_encrypt', 'login_input_check', 'register_input_check']
+def username_check(username):
+    try:
+        User.objects.get(user_name=username)
+    except:
+        return False
+    return True
+__all__ = ['username_check', 'render', 'View', 'User', 'Wallets', 'Asset', 're', 'timezone', 'hashlib', 'reverse', 'redirect', 'hash_encrypt', 'login_input_check', 'register_input_check']

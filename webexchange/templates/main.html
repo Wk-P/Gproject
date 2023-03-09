@@ -9,10 +9,10 @@
     <link rel="stylesheet" href="{% static '/main/style.css' %}">
 </head>
 <body>
-    <h1>MAIN PAGE</h1>
+    <h1>Main Page</h1>
     <h3>{{ username }}</h3>
     <a href="{% url 'usercenter' username=username %}" method="GET"> User Center </a>
-    <a href="/market"> Market </a>
+    <a href="{% url 'market' %}"> Market </a>
     <a href=""> Exchange </a>
 </body>
 </html>

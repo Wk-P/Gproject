@@ -2,7 +2,7 @@ def post(self, request, **kwargs):
         
         # users request amount verification and send a request data package with wallet amount from users' local (or from server)
         # 从服务器端直接验证
-        name = kwargs.get('username')
+        username = kwargs.get('username')
         wallet = kwargs.get('wallet')
         # wallet data from users
             
@@ -12,9 +12,9 @@ def post(self, request, **kwargs):
         # take_wallet():
         #   pass 
 
-        if check_username(name):
+        if username_check(username):
             self.url = 'wallet.html'
-            self.context['username'] = name
+            self.context['username'] = username
 
 
             '''
@@ -37,3 +37,4 @@ def post(self, request, **kwargs):
             self.url = '404.html'
             return render(request, self.url, self.context)
         return render(request, self.url, self.context)
+        pass

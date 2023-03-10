@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.views import View
-from ..models import User, Wallets, Asset
+from webexchange.models import User, Wallets, Asset
 import re,random, time, hashlib
 from django.utils import timezone
 from django.urls import reverse

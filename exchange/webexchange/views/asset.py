@@ -27,7 +27,6 @@ class asset(View):
         #   pass 
             # verification information
             user_data = get_user_data(username)
-
             if get_verification_information(username):
                 result='True'
                 return render(request, 'asset.html', context={'user_name': username, 'user_data': user_data, 'status': 'Finished', 'result': result})

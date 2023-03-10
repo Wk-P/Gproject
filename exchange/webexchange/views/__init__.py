@@ -5,21 +5,43 @@ import re,random, time, hashlib
 from django.utils import timezone
 from django.urls import reverse
 
+def test(ctype):
+    print(get_all_user_data(ctype))
+
+def get_all_user_data(ctype):
+    users_obj = User.objects.all()
+    user_data_set = []
+    for user_obj in users_obj:
+        # print(user_obj['user_name'])
+        data = {}
+        data['asset_type'] = ctype
+        data['user_name'] = user_obj.user_name
+        data['user_ID'] = user_obj.user_ID
+
+        wallets_data = fetch_wallets_data(user_obj)
+        for wallet_data in wallets_data:
+            data['wallet_ID'] = wallet_data['wallet_ID']
+            asset = fetch_asset_data(wallet_data['wallet'], ctype)
+            data['asset_amount'] = asset['asset_amount']
+
+            user_data_set.append(data)
+    
+    return user_data_set
+
 # Get all wallet data bu user name
-def fetch_wallet_data(user):
-    wallet_data = {
-        'wallet': None,
-        'wallet_ID': [],
-    }
+def fetch_wallets_data(user):
+    wallets_data = []
     wallets = Wallets.objects.filter(user=user)
     if wallets.exists():
         for wallet in wallets:
-            wallet_data['wallet_ID'] = wallet.wallet_ID
-            wallet_data['wallet'] = wallet
+            wallets_data.append({
+                'wallet_ID': wallet.wallet_ID,
+                'wallet': wallet,
+            })
     else:
-        wallet_data = None
+        wallets_data = None
     
-    return wallet_data
+    return wallets_data
 
 # Get all asset data bu wallet
 def fetch_asset_data(wallet, ctype):
@@ -27,10 +49,9 @@ def fetch_asset_data(wallet, ctype):
         'wallet': None,
         'asset_amount': None,
     }
-    asset = Asset.objects.filter(wallet=wallet, asset_type=ctype).first()
+    asset = Asset.objects.filter(wallet=wallet, asset_type=ctype)
     if asset.exists():
-        asset_data['wallet'] = wallet
-        asset_data['asset_amount'] = asset.asset_amount
+        asset_data['asset_amount'] = asset.first().asset_amount
     else:
         asset_data = None
     
@@ -257,6 +278,6 @@ def get_verification_information(username):
     ret_set['except'] = False
     return ret_set
 
-__all__ = ['fetch_asset_data', 'fetch_wallet_data', 'get_user_data', 'time','random', 'get_verification_information', 
+__all__ = ['fetch_asset_data', 'fetch_wallets_data', 'get_user_data', 'time','random', 'get_verification_information', 
            'username_check', 'render', 'View', 'User', 'Wallets', 'Asset', 're', 'timezone', 'hashlib', 
-           'reverse', 'redirect', 'hash_encrypt', 'login_input_check', 'register_input_check']
+           'reverse', 'redirect', 'hash_encrypt', 'login_input_check', 'register_input_check', 'test']

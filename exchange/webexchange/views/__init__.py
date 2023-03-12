@@ -154,7 +154,7 @@ def username_check(username):
     return True
 
 
-def get_user_data(username):
+def get_user_data(username, ctype):
     try:
         user_obj = User.objects.get(user_name=username)
         user_ID = user_obj.user_ID  
@@ -176,8 +176,9 @@ def get_user_data(username):
         user_data = None
         return user_data
     
-    assets_obj = Asset.objects.filter(wallet=wallet_obj)
+    assets_obj = Asset.objects.filter(wallet=wallet_obj, asset_type=ctype)
 
+    
     if assets_obj.exists():
         # get first type asset coin
         asset_obj = assets_obj.first()

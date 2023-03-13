@@ -154,48 +154,54 @@ def username_check(username):
     return True
 
 
-def get_user_data(username, ctype):
-    try:
-        user_obj = User.objects.get(user_name=username)
-        user_ID = user_obj.user_ID  
-        user_name = user_obj.user_name
-    except:
-        user_data = None
-        return user_data
-
-    # Not access empty attribute
-
-    wallets_obj = Wallets.objects.filter(user=user_obj)
-    
-    if wallets_obj.exists():
-        # get first wallet
-        wallet_obj = wallets_obj.first()
-        wallet_ID = wallet_obj.wallet_ID
-
-    else:
-        user_data = None
-        return user_data
-    
-    assets_obj = Asset.objects.filter(wallet=wallet_obj, asset_type=ctype)
-
-    
-    if assets_obj.exists():
-        # get first type asset coin
-        asset_obj = assets_obj.first()
-        asset_type = asset_obj.asset_type
-        asset_amount = asset_obj.asset_amount
-    else: 
-        user_data = None
-        return user_data
-        
+def get_user_data(username):
+    # get user object
+    # get all wallets of user
+    # get all assets of wallets
     user_data = {
-        'user_name': user_name,
-        'wallet_ID': wallet_ID,
-        'user_ID': user_ID,
-        'asset_amount': asset_amount,
-        'asset_type': asset_type,
+        'user_name': None,
+        'user_ID': None,
+        'assets': [],
     }
-    
+    '''
+        user_data = {
+            "user_name"
+            "user_ID"
+            "assets": [{
+                "wallet_ID"
+                "asset_type"
+                "asset_amount"
+            }]
+        }
+    '''
+
+    users = User.objects.filter(user_name=username)
+    if users.exists():
+        user = users.first()
+        user_data['user_name'] = user.user_name
+        user_data['user_ID'] = user.user_ID
+
+        wallets = Wallets.objects.filter(user=user)
+        if wallets.exists():
+            for wallet in wallets:
+
+                assets = Asset.objects.filter(wallet=wallet)
+                if assets.exists():
+                    for asset in assets:
+                        user_data['assets'].append({
+                            'wallet_ID': wallet.wallet_ID,
+                            'asset_type': asset.asset_type,
+                            'asset_amount': asset.asset_amount,
+                        })
+                else:
+                    pass
+        else:
+            return None
+        return user_data
+    else:
+        return None
+
+
     return user_data
 
 def get_verification_information(username):

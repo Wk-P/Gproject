@@ -7,7 +7,6 @@ class usercenter(View):
 
         if username_check(username):
             user_data = get_user_data(username)
-            print(user_data)
             return render(request, 'usercenter.html', context={'username': username, 'user_data': user_data})
         else:
             return redirect('404')

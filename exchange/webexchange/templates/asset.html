@@ -17,16 +17,19 @@
     </div>
     <table>
         <tr>
+            <th>Wallet</th>
             <th>Coin Type</th>
             <th>Amount</th>
             <th>Vertify</th>
             <th>Status</th>
         </tr>
+        {% for asset in user_data.assets %}
         <tr>
             <form method="post">
                 {% csrf_token %}
-                <td name="coin_type">{{ user_data.asset_type }}</td>
-                <td id="btc_amount" name="amount">{{ user_data.asset_amount }}</td>
+                <td name="wallet_ID">{{ asset.wallet_ID }}</td>
+                <td name="coin_type">{{ asset.asset_type }}</td>
+                <td id="btc_amount" name="amount">{{ asset.asset_amount }}</td>
                 <td><button id="verify_btn" name="verify">Verify</button></td>
                 <td id="status">
                 {% if result %}
@@ -35,6 +38,7 @@
                 </td>
             <form>
         </tr>
+        {% endfor %}
     </table>
 </body>
 

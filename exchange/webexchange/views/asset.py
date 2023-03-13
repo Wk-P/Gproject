@@ -2,12 +2,22 @@ from ..views import *
 
 # usercenter/asset
 class asset(View):
+    '''
+        user_data = {
+            "user_name"
+            "user_ID"
+            "assets": [{
+                "wallet_ID"
+                "asset_type"
+                "asset_amount"
+            }]
+        }
+    '''
     def get(self, request, **kwargs):
         username = kwargs.get('username')
 
-        user_data = get_user_data(username)
-
         if username_check(username):
+            user_data = get_user_data(username)
             return render(request, 'asset.html', {'user_name': username, 'user_data': user_data})
         else:
             return redirect('404')

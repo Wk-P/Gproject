@@ -189,9 +189,6 @@ def get_user_data(username):
     else:
         return None
 
-
-    return user_data
-
 def get_verification_information(username):
     ret_set = {
         'all_user_data': None,

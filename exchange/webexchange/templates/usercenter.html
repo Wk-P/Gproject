@@ -13,6 +13,7 @@
 		<h1>User Center</h1>
 		<h3>{{ username }}</h3>
 		<ul>
+			<li><a href="{% url 'main' username=username %}">Main</a></li>
 			<li><a href="#wallet-management">Wallet Management</a></li>
 			<li><a href="{% url 'asset' username=username %}">Asset Verification</a></li>
 			<li><a href="#transaction">Transaction</a></li>
@@ -30,6 +31,7 @@
 					</tr>
 				</thead>
 				<tbody>
+					
 					<tr>
 						<td>Deposit</td>
 						<td>2023-03-05 10:00:00</td>
@@ -53,23 +55,19 @@
 			<table>
 				<thead>
 					<tr>
+						<th>Wallet</th>
 						<th>Coin Type</th>
 						<th>Amount</th>
 					</tr>
 				</thead>
 				<tbody>
+					{% for asset in user_data.assets %}
 					<tr>
-						<td>{{ user_data.asset_type }}</td>
-						<td>{{ user_data.asset_amount }}</td>
+						<td>{{ asset.wallet_ID }}</td>
+						<td>{{ asset.asset_type }}</td>
+						<td>{{ asset.asset_amount }}</td>
 					</tr>
-					<tr>
-						<td>ETH</td>
-						<td>10.23456789</td>
-					</tr>
-					<tr>
-						<td>LTC</td>
-						<td>100.00000000</td>
-					</tr>
+					{% endfor %}
 				</tbody>
 			</table>
 		</div>

@@ -8,25 +8,13 @@ from django.urls import reverse
 def test(ctype):
     print(get_all_user_data(ctype))
 
-def get_all_user_data(ctype):
-    users_obj = User.objects.all()
-    user_data_set = []
-    for user_obj in users_obj:
-        # print(user_obj['user_name'])
-        data = {}
-        data['asset_type'] = ctype
-        data['user_name'] = user_obj.user_name
-        data['user_ID'] = user_obj.user_ID
-
-        wallets_data = fetch_wallets_data(user_obj)
-        for wallet_data in wallets_data:
-            data['wallet_ID'] = wallet_data['wallet_ID']
-            asset = fetch_asset_data(wallet_data['wallet'], ctype)
-            data['asset_amount'] = asset['asset_amount']
-
-            user_data_set.append(data)
+def get_all_user_data():
+    usersname = User.objects.all()
+    users_data = []
+    for username in usersname:
+        users_data.append(get_user_data(username))
     
-    return user_data_set
+    return users_data
 
 # Get all wallet data bu user name
 def fetch_wallets_data(user):

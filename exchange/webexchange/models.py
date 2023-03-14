@@ -25,4 +25,4 @@ class Asset(models.Model):
     
     # usuall field
     asset_type = models.CharField(max_length=200, default=None)
-    asset_amount = models.IntegerField(default=0)
+    asset_amount = models.FloatField(default=0)

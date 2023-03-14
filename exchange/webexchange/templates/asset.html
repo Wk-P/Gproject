@@ -14,6 +14,13 @@
     <div>
         <h1>Asset</h1>
         <h3>{{ user_name }}</h3>
+        <div>
+            <nav>
+                <ul>
+                    <li><a href="{% url 'main' username=user_name %}">Main</Main></a></li>
+                </ul>
+            </nav>
+        </div>
     </div>
     <table>
         <tr>
@@ -32,11 +39,11 @@
                 <td id="btc_amount" name="amount">{{ asset.asset_amount }}</td>
                 <td><button id="verify_btn" name="verify">Verify</button></td>
                 <td id="status">
-                {% if result %}
+                    {% if result %}
                     {{ result }}
-                {% endif %}
+                    {% endif %}
                 </td>
-            <form>
+                <form>
         </tr>
         {% endfor %}
     </table>

@@ -5,8 +5,17 @@ class usercenter(View):
     def get(self, request, **kwargs):
         username = kwargs.get('username')
 
+        user_data = get_user_data(username)
+        '''
+            user_data = {
+                'user_name': user_name,
+                'wallet_ID': wallet_ID,
+                'user_ID': user_ID,
+                'asset_amount': asset_amount,
+                'asset_type': asset_type,
+            }
+        '''
         if username_check(username):
-            user_data = get_user_data(username)
             return render(request, 'usercenter.html', context={'username': username, 'user_data': user_data})
         else:
             return redirect('404')

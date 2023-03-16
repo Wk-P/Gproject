@@ -1,20 +1,10 @@
 from django.shortcuts import render, redirect
 from django.views import View
 from webexchange.models import User, Wallets, Asset
-import re,random, time, hashlib
+import re,random, time, hashlib, json
 from django.utils import timezone
 from django.urls import reverse
-
-def test(ctype):
-    print(get_all_user_data(ctype))
-
-def get_all_user_data():
-    usersname = User.objects.all()
-    users_data = []
-    for username in usersname:
-        users_data.append(get_user_data(username))
-    
-    return users_data
+from django.http import JsonResponse
 
 # Get all wallet data bu user name
 def fetch_wallets_data(user):
@@ -189,90 +179,36 @@ def get_user_data(username):
     else:
         return None
 
-
-    return user_data
-
 def get_verification_information(username):
-    ret_set = {
-        'all_user_data': None,
-        'verificating_user_data': None,
-        'except': False
-    }
-
-    all_user_data = []
+    all_users_data = []
+    
     # all_user_data style
     # all user
     #   wallet_ID, user_ID, asset_amount
-    try:
-        all_username = User.objects.all().values_list('user_name', flat=True)
-        for username in all_username:
-            try:
-                user_data = get_user_data(user_name)
-                all_user_data.append(user_data)
-            except:
-                ret_set['all_user_data'] = None
-                ret_set['verificating_user_data'] = None
-                ret_set['except'] = True
-                return ret_set
 
-    except:
-        ret_set['all_user_data'] = None
-        ret_set['verificating_user_data'] = None
-        ret_set['except'] = True
-        return ret_set
-    
+    # get all users data
+    all_users = User.objects.all()
+    verifying_user_data = get_user_data(username)
 
-    # single user
-    #   wallet_ID, user_ID, asset_amount, asset_type, user_name
-    try:
-        user_obj = User.objects.get(user_name=username)
-        user_ID = user_obj.user_ID  
-        user_name = user_obj.user_name
-    except:
-        ret_set['all_user_data'] = None
-        ret_set['verificating_user_data'] = None
-        ret_set['except'] = True
-        return ret_set
 
-    # Not access empty attribute
 
-    wallets_obj = Wallets.objects.filter(user_ID=user_ID)
-    
-    if wallets_obj.exists():
-        wallet_obj = wallets_obj.first()
-        wallet_ID = wallet_obj.wallet_ID
+    if all_users.exists():
+        for user in all_users:
+            user_data = get_user_data(user.user_name)
+            all_users_data.append(user_data)
 
+        # verify
+        '''
+            # 验证函数: 用户名和钱包数据
+            # verify(name, wallet):
+            #   ...
+            #   return data
+        '''
+        information = {'test': 'test_OK'}
+        return information
     else:
-        ret_set['all_user_data'] = None
-        ret_set['verificating_user_data'] = None
-        ret_set['except'] = True
-        return ret_set
+        return None
     
-    assets_obj = Asset.objects.filter(wallet_ID=wallet_ID)
-
-    if assets_obj.exists():
-        asset_obj = assets_obj.first()
-        asset_type = asset_obj.asset_type
-        asset_amount = asset_obj.asset_amount
-    else: 
-        ret_set['all_user_data'] = None
-        ret_set['verificating_user_data'] = None
-        ret_set['except'] = True
-        return ret_set
-        
-    verificated_user_data = {
-        'user_name': user_name,
-        'wallet_ID': wallet_ID,
-        'user_ID': user_obj.user_ID,
-        'asset_amount': asset_amount,
-        'asset_type': asset_type,
-    }
-
-    ret_set['all_user_data'] = all_user_data
-    ret_set['verificating_user_data'] = verificated_user_data
-    ret_set['except'] = False
-    return ret_set
-
-__all__ = ['fetch_asset_data', 'fetch_wallets_data', 'get_user_data', 'time','random', 'get_verification_information', 
+__all__ = ['json', 'JsonResponse', 'fetch_asset_data', 'fetch_wallets_data', 'get_user_data', 'time','random', 'get_verification_information', 
            'username_check', 'render', 'View', 'User', 'Wallets', 'Asset', 're', 'timezone', 'hashlib', 
-           'reverse', 'redirect', 'hash_encrypt', 'login_input_check', 'register_input_check', 'test']
+           'reverse', 'redirect', 'hash_encrypt', 'login_input_check', 'register_input_check']

@@ -1,4 +1,4 @@
-from ..views import *
+from . import *
 
 # login
 class login(View):

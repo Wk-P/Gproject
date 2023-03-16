@@ -1,4 +1,4 @@
-from ..views import *
+from . import *
 
 # usercenter/usercenter
 class usercenter(View):

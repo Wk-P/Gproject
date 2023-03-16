@@ -6,24 +6,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     {% load static %}
     <title>Verifying Result</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="{% static 'verifyresult/verifyresult.js' %}"></script>
 </head>
 <body>
     <h1>Verified Result</h1>
     <div id="user">
         <user>
-            <id>用户ID</id>
-            <name>用户名</name>
+            <id id="user-id">用户ID</id>
+            <name id="user-name">{{ username }}</name>
         </user>
     </div>
     <div>
         <ul>
-            <li>Record ID</li>
-            <li>Asset Coverge</li>
-            <li>Account Code</li>
-            <li>Merkle Tree</li>
-            <li>Merkle Leaf</li>
-            <li>Asset Name</li>
-            <li>Asset Type</li>
+            <li id="time">Time</li>
+            <li id="record-id">Record ID</li>
+            <li id="asset-coverage">Asset Coverge</li>
+            <li id="account-code">Account Code</li>
+            <li id="merkle-tree">Merkle Tree</li>
+            <li id="merkle-leaf">Merkle Leaf</li>
+            <li id="asset-name">Asset Name</li>
+            <li id="asset-type">Asset Type</li>
         </ul>
     </div>
 </body>

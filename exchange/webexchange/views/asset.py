@@ -1,4 +1,4 @@
-from ..views import *
+from . import *
 
 # usercenter/asset
 class asset(View):
@@ -27,25 +27,9 @@ class asset(View):
         #   pass 
             # verification information
             user_data = get_user_data(username)
-            if get_verification_information(username):
+            information = get_verification_information(username)
+            if information != None:
                 result='True'
-                return render(request, 'verifyresult.html', )
-                return render(request, 'asset.html', context={'user_name': username, 'user_data': user_data, 'status': 'Finished', 'result': result})
+                return redirect('/verifyresult/', username=username)
             else:
                 return redirect('404')
-            # get user asset data from database
-            '''
-            # 验证函数: 用户名和钱包数据
-            # verify(name, wallet):
-            #   ...
-            #   return data
-            '''
-
-            
-        # 从验证函数中拿到数据返回前端 
-        # if status == ok:
-            # self.response_data = {
-            #     'status': 'ok',
-            #     'status': '
-            # }
-

@@ -9,10 +9,12 @@ class usercenter(View):
         '''
             user_data = {
                 'user_name': user_name,
-                'wallet_ID': wallet_ID,
                 'user_ID': user_ID,
-                'asset_amount': asset_amount,
-                'asset_type': asset_type,
+                'assets': {[
+                    'wallet_ID': wallet_ID,
+                    'asset_amount': asset_amount,
+                    'asset_type': asset_type,
+                ]}
             }
         '''
         if username_check(username):

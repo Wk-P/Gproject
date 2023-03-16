@@ -29,6 +29,7 @@ class asset(View):
             user_data = get_user_data(username)
             if get_verification_information(username):
                 result='True'
+                return render(request, 'verifyresult.html', )
                 return render(request, 'asset.html', context={'user_name': username, 'user_data': user_data, 'status': 'Finished', 'result': result})
             else:
                 return redirect('404')

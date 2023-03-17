@@ -8,7 +8,7 @@ class asset(View):
         user_data = get_user_data(username)
 
         if username_check(username):
-            return render(request, 'asset.html', {'user_name': username, 'user_data': user_data})
+            return render(request, 'asset.html', {'username': username, 'user_data': user_data})
         else:
             return redirect('404')
         
@@ -30,6 +30,6 @@ class asset(View):
             information = get_verification_information(username)
             if information != None:
                 result='True'
-                return redirect('/verifyresult/', username=username)
+                return redirect(reverse('verifyresult', kwargs={'username': username}))
             else:
                 return redirect('404')

@@ -8,7 +8,6 @@ class verifyresult(View):
     def post(self, request, **kwargs):
         # read result file
         username = kwargs.get('username')
-        print(username)
         # feth verifydata from file
         # user_data = get_user_data(username) 
 

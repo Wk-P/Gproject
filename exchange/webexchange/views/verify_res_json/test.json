@@ -1,0 +1,14 @@
+{
+    "merkle_tree": 
+    {
+        "user_name": "name_test",
+        "user_ID": "ID_test",
+        "merkle_root_hash": "merkle_root_hash_test",
+        "zk_proof": "proof_test",
+        "zk_verification_result": "verification_result_test",
+        "assets": 
+            [
+                
+            ]
+    }
+}

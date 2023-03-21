@@ -19,6 +19,8 @@ from pyfinite import genericmatrix
 # from pyfinite import genericgf
 # from pyfinite import exceptions
 
+import logging
+
 # Get all wallet data bu user name
 def fetch_wallets_data(user):
     wallets_data = []
@@ -217,12 +219,24 @@ def get_verification_information(username):
             #   ...
             #   return data
         '''
-        information = {'test': 'test_OK'}
+        try:
+            combin_data(user_data)
+            information = {'status': 'OK'}
+        except Exception as e:
+            # log exception in Log file
+            write_exception_log(e)
         return information
     else:
         return None
     
+def write_exception_log(__exception__):
+    log_format = "%(levelname)s %(asctime)s - %(message)s"
+    log_file_name = "../log/logs.log"
+    logging.basicConfig(filename=log_file_name, filemode='a', format=log_format, level=logging.ERROR)
+    logger = logging.getLogger()
+    logger.error("\n\t" + str(__exception__))
+
 __all__ = ['json', 'JsonResponse', 'fetch_asset_data', 'fetch_wallets_data', 'get_user_data', 'time','random', 'get_verification_information', 
            'username_check', 'render', 'View', 'User', 'Wallets', 'Asset', 're', 'timezone', 'hashlib', 
            'reverse', 'redirect', 'hash_encrypt', 'login_input_check', 'register_input_check', 'MerkleTree', 'generate_proof', 'verify_proof',
-           'sha256', 'List', 'randint', 'pyfinite', 'genericmatrix', 'genericgf', 'exceptions', 'combin_data']
+           'sha256', 'List', 'randint', 'pyfinite', 'genericmatrix', 'genericgf', 'exceptions', 'combin_data', 'write_exception_log']

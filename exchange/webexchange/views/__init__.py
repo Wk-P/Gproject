@@ -7,10 +7,12 @@ from typing import List
 from django.utils import timezone
 from django.urls import reverse
 from django.http import JsonResponse
+
 from .merkle import MerkleTree
 from .zk_snarks import generate_proof, verify_proof
-from random import randint
+from .verify_algorithm import combin_data
 
+from random import randint
 import pyfinite
 # from pyfinite import *
 from pyfinite import genericmatrix
@@ -223,4 +225,4 @@ def get_verification_information(username):
 __all__ = ['json', 'JsonResponse', 'fetch_asset_data', 'fetch_wallets_data', 'get_user_data', 'time','random', 'get_verification_information', 
            'username_check', 'render', 'View', 'User', 'Wallets', 'Asset', 're', 'timezone', 'hashlib', 
            'reverse', 'redirect', 'hash_encrypt', 'login_input_check', 'register_input_check', 'MerkleTree', 'generate_proof', 'verify_proof',
-           'sha256', 'List', 'randint', 'pyfinite', 'genericmatrix', 'genericgf', 'exceptions']
+           'sha256', 'List', 'randint', 'pyfinite', 'genericmatrix', 'genericgf', 'exceptions', 'combin_data']

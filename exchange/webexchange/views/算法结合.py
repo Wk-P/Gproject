@@ -1,7 +1,7 @@
 # 导入必要的库
-from merkle import MerkleTree
-from zk_snarks import generate_proof, verify_proof
-from ..views import *
+# from merkle import MerkleTree
+# from zk_snarks import generate_proof, verify_proof
+from . import *
 
          # def 
 # 准备输入数据

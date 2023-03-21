@@ -1,7 +1,7 @@
 # 导入必要的库     필요한 라이브러리를 추가
-from hashlib import sha256
-from typing import List
-
+# from hashlib import sha256
+# from typing import List
+from . import *
 
 # 定义默克尔树节点类  Merkle Tree 노드 클래스를 정의한다.
 # MerkleNode 表示 Merkle Tree 中的节点，每个节点包含一个数据块、其哈希值以及左右子节点。

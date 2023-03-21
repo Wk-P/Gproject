@@ -201,7 +201,7 @@ def get_verification_information(username):
     all_users = User.objects.all()
     verifying_user_data = get_user_data(username)
 
-
+    
 
     if all_users.exists():
         for user in all_users:

@@ -3,17 +3,18 @@
 # from zk_snarks import generate_proof, verify_proof
 from . import *
 
-with open('../verify_res_json/output_data.json', 'w') as f:
-         # def 
+output_filename = "../verify_res_json/" + "iii.json"
+with open(output_filename, 'a+') as f:
+        # def 
 # 准备输入数据
     data = [b'block1', b'block2', b'block3', b'block4']
     input_data = {
         'merkle_data': data,
         'zk_data': {
             'secret': 'my_secret_key',
-            'public': 'my_public_key'
+                'public': 'my_public_key'
+            }
         }
-    }
 
     # 调用 Merkle Tree 函数
     tree = MerkleTree(data)

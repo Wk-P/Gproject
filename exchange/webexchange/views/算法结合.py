@@ -3,7 +3,7 @@
 # from zk_snarks import generate_proof, verify_proof
 from . import *
 
-with open('output_data.json', 'w') as f:
+with open('../verify_res_json/output_data.json', 'w') as f:
          # def 
 # 准备输入数据
     data = [b'block1', b'block2', b'block3', b'block4']

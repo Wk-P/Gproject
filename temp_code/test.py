@@ -32,4 +32,3 @@ def kafka_test():
 if __name__ == "__main__":
     # test_log_file_input()
     # test_json_file_read('./exchange/webexchange/views/verify_res_json/test.json')
-    kafka_test()

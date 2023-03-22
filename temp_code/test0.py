@@ -1,6 +1,5 @@
-import logging, json, os
-from kafka import KafkaProducer, KafkaConsumer
-
+import logging, json, os, sys, queue, threading
+from kafka import KafkaProducer
 def test_log_file_input():
     log_format = "%(levelname)s %(asctime)s - %(message)s"
     log_file_name = "logs.log"
@@ -18,17 +17,21 @@ def test_json_file_read(filename):
                 for elem in elems:
                     print(elem, "|", elems[elem])
 
-def kafka_test():
+def kafka_producer():
     # producer
-    prodecuer = KafkaProducer(bootstrap_servers=["localhost:9092"], debug=True)
+    prodecuer = KafkaProducer(bootstrap_servers=["localhost:9092"])
     # consumer
-    consumer = KafkaConsumer('test_topic', bootstrap_servers=['localhost:9092'], debug=True)
+    # consumer = KafkaConsumer('quickstart-events', bootstrap_servers=['localhost:9092'])
 
-    prodecuer.send('test_topic', b'Hello kafka in python')
+    while True:
+        msg = input("Enter : ")
+        # msg = "Happy!\n"
+        future = prodecuer.send('quickstart-events', bytes(msg.encode('utf-8')))
+        result = future.get(timeout = 10)
+        print(f"消息已发送，分区: {result.partition}, 偏移量: {result.offset}")
+            # for message in consumer:
+                # print(message.value)
 
-    for message in consumer:
-        print(message.value)
 
 if __name__ == "__main__":
-    # test_log_file_input()
-    # test_json_file_read('./exchange/webexchange/views/verify_res_json/test.json')
+    kafka_producer()

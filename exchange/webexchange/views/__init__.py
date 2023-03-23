@@ -252,4 +252,4 @@ def get_verification_information(username):
 __all__ = ['json', 'JsonResponse', 'fetch_asset_data', 'fetch_wallets_data', 'get_user_data', 'time','random', 'get_verification_information', 
            'username_check', 'render', 'View', 'User', 'Wallets', 'Asset', 're', 'timezone', 'hashlib', 
            'reverse', 'redirect', 'hash_encrypt', 'login_input_check', 'register_input_check',
-           'sha256', 'List', 'randint', 'write_exception_log']
+           'sha256', 'List', 'randint']

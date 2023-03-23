@@ -12,7 +12,7 @@
             })
         }).then(response => response.json())
         .then(data => {
-            // console.log(data);
+            console.log(data);
 
             $('#time').text("2020-01-01");
             $('#user-id').text(data.user_ID);

@@ -1,0 +1,13 @@
+[
+    {
+        "user_name": "사용자 이름",
+        "user_ID": "사용자 주민등록번호",
+        "merkle_root_hash": "데이터 무결성을 검증하는 데 사용되는 Merkle Tree 루트 해시 값",
+        "zk_proof": "ZK-SNARKs 제로 지식 증명",
+        "zk_verification_result": "ZK-SNARKs 제로 지식 증명 검증 결과",
+        "assets": "사용자 자산 정보 목록. 각 자산 정보는 다음 필드를 포함합니다",
+        "wallet_ID": "자산 소유 지갑의 ID",
+        "asset_type": "자산 유형",
+        "asset_amount": "자산 수량."
+    }
+]

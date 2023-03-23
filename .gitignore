@@ -1,1 +1,3 @@
 *.pyc
+./exchange/webexchange/__pycache__/
+./exchange/webexchange/views/__pycache__/

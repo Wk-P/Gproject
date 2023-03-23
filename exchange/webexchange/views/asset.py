@@ -28,7 +28,7 @@ class asset(View):
             # verification information
             user_data = get_user_data(username)
             information = get_verification_information(username)
-
+            
             if information != None:
                 return redirect(reverse('verifyresult', kwargs={'username': username}))
             else:

@@ -16,6 +16,5 @@ class verifyresult(View):
         with open(result_file_name, 'r') as f:
             data = json.load(f)
             
-        data = {
-        }
+        data = {}
         return JsonResponse(data) #'user_data': user_data})

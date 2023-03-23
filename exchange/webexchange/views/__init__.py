@@ -8,18 +8,25 @@ from django.utils import timezone
 from django.urls import reverse
 from django.http import JsonResponse
 
-from .merkle import MerkleTree
-from .zk_snarks import generate_proof, verify_proof
-from .verify_algorithm import combin_data
+# from .merkle import MerkleTree
+# from temp_code.zk_snarks import generate_proof, verify_proof
+# from .verify_algorithm import combin_data
 
 from random import randint
-import pyfinite
+# import pyfinite
 # from pyfinite import *
-from pyfinite import genericmatrix
+# from pyfinite import genericmatrix
 # from pyfinite import genericgf
 # from pyfinite import exceptions
 
 import logging
+
+class User:
+    def __init__(self, *args, **kwargs):
+        self.username = kwargs.get('username')
+        self.wallets = None
+        self.assets = None
+
 
 # Get all wallet data bu user name
 def fetch_wallets_data(user):
@@ -236,7 +243,12 @@ def write_exception_log(__exception__):
     logger = logging.getLogger()
     logger.error("\n\t" + str(__exception__))
 
+# __all__ = ['json', 'JsonResponse', 'fetch_asset_data', 'fetch_wallets_data', 'get_user_data', 'time','random', 'get_verification_information', 
+#            'username_check', 'render', 'View', 'User', 'Wallets', 'Asset', 're', 'timezone', 'hashlib', 
+#            'reverse', 'redirect', 'hash_encrypt', 'login_input_check', 'register_input_check', 'MerkleTree', 'generate_proof', 'verify_proof',
+#            'sha256', 'List', 'randint', 'pyfinite', 'genericmatrix', 'genericgf', 'exceptions', 'combin_data', 'write_exception_log']
+
 __all__ = ['json', 'JsonResponse', 'fetch_asset_data', 'fetch_wallets_data', 'get_user_data', 'time','random', 'get_verification_information', 
            'username_check', 'render', 'View', 'User', 'Wallets', 'Asset', 're', 'timezone', 'hashlib', 
-           'reverse', 'redirect', 'hash_encrypt', 'login_input_check', 'register_input_check', 'MerkleTree', 'generate_proof', 'verify_proof',
-           'sha256', 'List', 'randint', 'pyfinite', 'genericmatrix', 'genericgf', 'exceptions', 'combin_data', 'write_exception_log']
+           'reverse', 'redirect', 'hash_encrypt', 'login_input_check', 'register_input_check',
+           'sha256', 'List', 'randint', 'write_exception_log']

@@ -21,11 +21,11 @@ from random import randint
 
 import logging
 
-class User:
-    def __init__(self, *args, **kwargs):
-        self.username = kwargs.get('username')
-        self.wallets = None
-        self.assets = None
+# class User:
+#     def __init__(self, *args, **kwargs):
+#         self.username = kwargs.get('username')
+#         self.wallets = None
+#         self.assets = None
 
 
 # Get all wallet data bu user name
@@ -227,21 +227,22 @@ def get_verification_information(username):
             #   return data
         '''
         try:
-            combin_data(user_data)
+            # combin_data(user_data)
             information = {'status': 'OK'}
+            return information
         except Exception as e:
             # log exception in Log file
-            write_exception_log(e)
-        return information
+            # write_exception_log(e)
+            pass
     else:
         return None
     
-def write_exception_log(__exception__):
-    log_format = "%(levelname)s %(asctime)s - %(message)s"
-    log_file_name = "../log/logs.log"
-    logging.basicConfig(filename=log_file_name, filemode='a', format=log_format, level=logging.ERROR)
-    logger = logging.getLogger()
-    logger.error("\n\t" + str(__exception__))
+# def write_exception_log(__exception__):
+#     log_format = "%(levelname)s %(asctime)s - %(message)s"
+#     log_file_name = "../log/logs.log"
+#     logging.basicConfig(filename=log_file_name, filemode='a', format=log_format, level=logging.ERROR)
+#     logger = logging.getLogger()
+#     logger.error("\n\t" + str(__exception__))
 
 # __all__ = ['json', 'JsonResponse', 'fetch_asset_data', 'fetch_wallets_data', 'get_user_data', 'time','random', 'get_verification_information', 
 #            'username_check', 'render', 'View', 'User', 'Wallets', 'Asset', 're', 'timezone', 'hashlib', 

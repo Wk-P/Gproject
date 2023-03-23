@@ -21,12 +21,6 @@ from random import randint
 
 import logging
 
-class User:
-    def __init__(self, *args, **kwargs):
-        self.username = kwargs.get('username')
-        self.wallets = None
-        self.assets = None
-
 
 # Get all wallet data bu user name
 def fetch_wallets_data(user):

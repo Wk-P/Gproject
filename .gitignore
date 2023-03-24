@@ -1,4 +1,5 @@
 *.pyc
 ./exchange/webexchange/__pycache__/
+./exchange/webexchange/migrations/__pycache__/
 ./exchange/webexchange/views/__pycache__/
 ./temp_code/__pycache__/

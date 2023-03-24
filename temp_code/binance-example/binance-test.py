@@ -1,35 +1,18 @@
-from binance.spot import Spot
+from coinmarketcapapi import CoinMarketCapAPI
+import json
+cmc = CoinMarketCapAPI()
 
-# Spot : account(账号)
+rep = cmc.exchange_marketpairs_latest(slug='binance', symbol='BTC, ETC', convert='CNY')
 
-def test1():
-    client = Spot()
 
-    # Get server timestamp
-    print(client.time())
-    # Get klines of BTCUSDT at 1m interval
-    print(client.klines("BTCUSDT", "1m"))
-    # Get last 10 klines of BNBUSDT at 1h interval
-    print(client.klines("BNBUSDT", "1h", limit=10))
+# rep = cmc.cryptocurrency_priceperformancestats_latest(symbol='BTC', convert='CNY')
 
-    # API key/secret are required for user data endpoints
-    client = Spot(api_key='<api_key>', api_secret='<api_secret>')
+for i in rep.data:
+    print(i)
 
-    # Get account and balance information
-    # print(client.account())
+with open("test1.jsonl", 'w') as f:
+    json.dump(rep.data, f, indent=4, ensure_ascii=False)
 
-    # Post a new order
-    params = {
-        'symbol': 'BTCUSDT',
-        'side': 'SELL',
-        'type': 'LIMIT',
-        'timeInForce': 'GTC',
-        'quantity': 0.002,
-        'price': 9500
-    }
-
-    # response = client.new_order(**params)
-    # print(response)
-
-if __name__ == "__main__":
-    test1()
+# print(data['market_pairs'][0], end='\n')
+    
+# market_pairs.quotes.quote['BTC/USD

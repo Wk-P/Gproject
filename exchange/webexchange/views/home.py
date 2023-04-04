@@ -1,4 +1,4 @@
-from common.utils import *
+from webexchange.views.common.utils import *
 
 # main
 class main(View):

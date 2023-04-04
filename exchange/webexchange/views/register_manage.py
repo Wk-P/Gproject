@@ -1,4 +1,4 @@
-from common.utils import *
+from webexchange.views.common.utils import *
 
 name_pattern = r'^[A-Za-z]+.*'
 password_pattern = r'.*\s+.*'

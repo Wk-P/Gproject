@@ -1,4 +1,4 @@
-from common.utils import *
+from webexchange.views.common.utils import *
 
 # usercenter/asset
 class asset(View):

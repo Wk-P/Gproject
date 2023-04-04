@@ -1,8 +1,7 @@
 # from merkle import MerkleTree
 # from zk_snarks import generate_proof, verify_proof
 # import json
-from utils import *
-
+from .utils import *
 
 def combine_data(user_data):
     with open('output_data.json', 'w') as f:

@@ -1,7 +1,7 @@
 # 导入必要的库
 # from merkle import MerkleTree
 # from zk_snarks import generate_proof, verify_proof
-from utils import *
+from .utils import *
 
 def combin_data(user_data):
     with open('output_data.json', 'a') as f:

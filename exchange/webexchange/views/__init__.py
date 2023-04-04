@@ -1,30 +1,21 @@
 from django.shortcuts import render, redirect
 from django.views import View
 from webexchange.models import User, Wallets, Asset
-import re,random, time, hashlib, json, os, logging
+import re,random, time, hashlib, json
 from hashlib import sha256
 from typing import List
 from django.utils import timezone
 from django.urls import reverse
 from django.http import JsonResponse
-
-# from .merkle import MerkleTree
-# from temp_code.zk_snarks import generate_proof, verify_proof
-# from .verify_algorithm import combin_data
-
+from .merkle import MerkleTree
+from .zk_snarks import generate_proof, verify_proof
 from random import randint
-# import pyfinite
-# from pyfinite import *
-# from pyfinite import genericmatrix
-# from pyfinite import genericgf
-# from pyfinite import exceptions
 
-# class User:
-#     def __init__(self, *args, **kwargs):
-#         self.username = kwargs.get('username')
-#         self.wallets = None
-#         self.assets = None
-
+import pyfinite
+from pyfinite import *
+from pyfinite import genericmatrix
+import genericgf
+import exceptions
 
 # Get all wallet data bu user name
 def fetch_wallets_data(user):
@@ -224,30 +215,12 @@ def get_verification_information(username):
             #   ...
             #   return data
         '''
-        try:
-            # combin_data(user_data)
-            information = {'status': 'OK'}
-            return information
-        except Exception as e:
-            # log exception in Log file
-            # write_exception_log(e)
-            pass
+        information = {'test': 'test_OK'}
+        return information
     else:
         return None
     
-# def write_exception_log(__exception__):
-#     log_format = "%(levelname)s %(asctime)s - %(message)s"
-#     log_file_name = "../log/logs.log"
-#     logging.basicConfig(filename=log_file_name, filemode='a', format=log_format, level=logging.ERROR)
-#     logger = logging.getLogger()
-#     logger.error("\n\t" + str(__exception__))
-
-# __all__ = ['json', 'JsonResponse', 'fetch_asset_data', 'fetch_wallets_data', 'get_user_data', 'time','random', 'get_verification_information', 
-#            'username_check', 'render', 'View', 'User', 'Wallets', 'Asset', 're', 'timezone', 'hashlib', 
-#            'reverse', 'redirect', 'hash_encrypt', 'login_input_check', 'register_input_check', 'MerkleTree', 'generate_proof', 'verify_proof',
-#            'sha256', 'List', 'randint', 'pyfinite', 'genericmatrix', 'genericgf', 'exceptions', 'combin_data', 'write_exception_log']
-
 __all__ = ['json', 'JsonResponse', 'fetch_asset_data', 'fetch_wallets_data', 'get_user_data', 'time','random', 'get_verification_information', 
            'username_check', 'render', 'View', 'User', 'Wallets', 'Asset', 're', 'timezone', 'hashlib', 
-           'reverse', 'redirect', 'hash_encrypt', 'login_input_check', 'register_input_check',
-           'sha256', 'List', 'randint', 'os', 'logging']
+           'reverse', 'redirect', 'hash_encrypt', 'login_input_check', 'register_input_check', 'MerkleTree', 'generate_proof', 'verify_proof',
+           'sha256', 'List', 'randint', 'pyfinite', 'genericmatrix', 'genericgf', 'exceptions']

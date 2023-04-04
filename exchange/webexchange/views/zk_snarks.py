@@ -6,7 +6,7 @@
 # from pyfinite import exceptions
     #使用pyfinite库  来定义了一个有限域，该有限域采用了一个随机选择的质数作为模数，
 
-from ..exchange.webexchange.views import *
+from . import *
 '''#曲线和其生成元，这是比特币和以太坊等加密货币使用的曲线，
 定义有限域和椭圆曲线上的加法和乘法操作。这些操作是用于加密和解密数据的基本操作。
 

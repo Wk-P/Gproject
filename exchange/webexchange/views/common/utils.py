@@ -222,5 +222,5 @@ def get_verification_information(username):
 __all__ = ['os', 'json', 'JsonResponse', 'fetch_asset_data', 'fetch_wallets_data', 'get_user_data', 'time','random', 'get_verification_information', 
            'username_check', 'render', 'View', 'User', 'Wallets', 'Asset', 're', 'timezone', 'hashlib', 
            'reverse', 'redirect', 'hash_encrypt', 'login_input_check', 'register_input_check', 'MerkleTree', 'generate_proof', 'verify_proof',
-           'sha256', 'List', 'randint', 'pyfinite', 'genericmatrix'] 
+           'sha256', 'List', 'randint', 'pyfinite', 'genericmatrix']
 # 'GenericGF', 'NotAnElement', 'NotInvertible', 'PolynomialError']

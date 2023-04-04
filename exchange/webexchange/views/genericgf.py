@@ -1,3 +1,5 @@
+from .exceptions import NotAnElement, NotInvertible, PolynomialError
+
 class GenericGF:
     def __init__(self, modulus, size, primitive):
         self.modulus = modulus

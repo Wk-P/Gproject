@@ -7,6 +7,7 @@
     #使用pyfinite库  来定义了一个有限域，该有限域采用了一个随机选择的质数作为模数，
 
 from . import *
+from .genericgf import GenericGF
 '''#曲线和其生成元，这是比特币和以太坊等加密货币使用的曲线，
 定义有限域和椭圆曲线上的加法和乘法操作。这些操作是用于加密和解密数据的基本操作。
 
@@ -20,14 +21,14 @@ pyfinite 라이브러리를 사용하여 유한체를 정의하고 FiniteField �
 
 class FiniteField:
     def __init__(self, prime):
-        self.field = genericgf.GenericGF(2 ** 256, int(prime), 0)
+        self.field = GenericGF(2 ** 256, int(prime), 0)
 
     def __call__(self, value):
         return self.field(int(value))
 
 ''' 随机选择的质数，作为有限域的模数
  #유한체의 모듈로 선택된 임의의 소수를 정의한다'''
-prime = 2 ** 256 - 2 ** 32 - 977
+prime = 2 ** 31
 
 
 '''# 定义有限域元素的类型

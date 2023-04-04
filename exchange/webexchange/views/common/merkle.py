@@ -3,7 +3,7 @@
 
 # from typing import List
 #类型提醒
-from . import *
+from utils import *
 #从当前模块的相对路径中导入所有模块成员
 
 # 定义默克尔树节点类  Merkle Tree 노드 클래스를 정의한다.

@@ -1,7 +1,7 @@
 # 导入必要的库
 # from merkle import MerkleTree
 # from zk_snarks import generate_proof, verify_proof
-from . import *
+from utils import *
 
 
 def combin_data(user_data):
@@ -44,4 +44,4 @@ def combin_data(user_data):
 
             json.dump(output_data, f)
         except Exception as e:
-            write_exception_log(e)
+            pass

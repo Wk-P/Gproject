@@ -1,4 +1,4 @@
-from . import *
+from common.utils import *
 
 name_pattern = r'^[A-Za-z]+.*'
 password_pattern = r'.*\s+.*'

@@ -1,4 +1,4 @@
-from . import *
+from common.utils import *
 
 # 404
 class pagenotfound(View):

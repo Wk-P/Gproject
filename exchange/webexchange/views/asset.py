@@ -1,4 +1,4 @@
-from . import *
+from common.utils import *
 
 # usercenter/asset
 class asset(View):

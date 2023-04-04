@@ -1,4 +1,4 @@
-from . import *
+from common.utils import *
 
 class verifyresult(View):
     def get(self, request, **kwargs):

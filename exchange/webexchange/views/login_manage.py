@@ -1,4 +1,4 @@
-from . import *
+from common.utils import *
 
 # login
 class login(View):

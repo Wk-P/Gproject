@@ -13,5 +13,5 @@ urlpatterns = [
     path('asset/<str:username>', asset.asset.as_view(), name='asset'),
     path('verifyresult/<str:username>', verifyresult.verifyresult.as_view(), name='verifyresult'),
     path('wallet/<str:username>', wallet_manage.wallet.as_view(), name='wallet'),
-    path('tests', tests.tests.as_view(), name='tests')
+    path('tests/', tests.tests.as_view(), name='tests')
 ]

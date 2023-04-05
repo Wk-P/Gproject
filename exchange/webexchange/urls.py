@@ -1,5 +1,5 @@
 from django.urls import path
-from webexchange.views import login_manage, error, home, register_manage, market, asset, usercenter, verifyresult, wallet_manage, tests
+from webexchange.views import login_manage, error, home, register_manage, market, asset, usercenter, verifyresult, wallet_manage
 
 urlpatterns = [
     path('regster/', login_manage.login.as_view(), name='regster'),

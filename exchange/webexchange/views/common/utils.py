@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.views import View
 from webexchange.models import User, Wallets, Asset
-import re, random, time, hashlib, json, os
+import re, random, time, hashlib, json, os, requests
 from hashlib import sha256
 from typing import List
 from django.utils import timezone
@@ -221,9 +221,15 @@ def get_verification_information(username):
     else:
         return None
     
-__all__ = ['os', 'json', 'JsonResponse', 'fetch_asset_data', 'fetch_wallets_data', 'get_user_data', 'time','random', 'get_verification_information', 
-           'username_check', 'render', 'View', 'User', 'Wallets', 'Asset', 're', 'timezone', 'hashlib', 
-           'reverse', 'redirect', 'hash_encrypt', 'login_input_check', 'register_input_check', 'MerkleTree',
-           'sha256', 'List', 'randint', 'pyfinite', 'genericmatrix', 'GenericGF']
-# 'generate_proof', 'verify_proof',
+__all__ = [ 
+    'os', 'json', 're', 'time', 'random', 'hashlib', 'sha256', 'List', 'randint', 'pyfinite', 'requests',       # python3 package
+    'JsonResponse', 'render', 'View', 'User', 'Wallets', 'Asset', 'timezone', 'reverse', 'redirect',            # Django package
+    'fetch_asset_data', 'fetch_wallets_data', 'get_user_data', 'get_verification_information',                  # my package
+    'username_check', 'hash_encrypt', 'login_input_check', 'register_input_check', 'MerkleTree',                # algorithm package
+    'genericmatrix', 'GenericGF']
+
+"""
+    No File or Function
+"""
+# 'generate_proof', 'verify_proof', 
 # 'NotAnElement', 'NotInvertible', 'PolynomialError']

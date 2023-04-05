@@ -5,9 +5,7 @@ window.onload = () => {
 }
 
 window.addEventListener('scroll', () => {
-    if (window.innerHeight >= document.body.offsetHeight) {
-        let newData = 
-    }
+    
 })
 
 function toString(json_data) {

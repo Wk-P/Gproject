@@ -26,7 +26,7 @@ function fetchMarketInformation() {
         console.log(marketdata);
         for (item in marketdata) {
             li = document.createElement('li')
-            li.textContent = toString(marketdata[item]['rank']) + " | " + toString(datai[item]['baseSymbol']) + " | " + toString(datai[item]['priceUsd']);
+            li.textContent = toString(marketdata[item]['rank']) + " | " + toString(marketdata[item]['baseSymbol']) + " | " + toString(marketdata[item]['priceUsd']);
             $("#coin-item").append(li);
         }
     })

@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.views import View
 from webexchange.models import User, Wallets, Asset
-import re, random, time, hashlib, json, os, requests
+import re, random, time, hashlib, json, os, requests, websockets, asyncio
 from hashlib import sha256
 from typing import List
 from django.utils import timezone
@@ -17,6 +17,14 @@ from .exceptions import NotAnElement, NotInvertible, PolynomialError
 
 from .merkle import MerkleTree
 from .zk_snarks import generate_proof, verify_proof
+
+__all__ = [ 
+    'os', 'json', 're', 'time', 'random', 'hashlib', 'sha256', 'List', 'randint', 'pyfinite', 'requests', 'websockets', 'asyncio',      # python3 package
+    'JsonResponse', 'render', 'View', 'User', 'Wallets', 'Asset', 'timezone', 'reverse', 'redirect',            # Django package
+    'fetch_asset_data', 'fetch_wallets_data', 'get_user_data', 'get_verification_information',                  # my package
+    'username_check', 'hash_encrypt', 'login_input_check', 'register_input_check', 
+    'MerkleTree', 'genericmatrix', 'GenericGF', 'generate_proof', 'verify_proof', 'NotAnElement', 'NotInvertible', 'PolynomialError'] # algorithm package
+
 
 # Get all wallet data bu user name
 def fetch_wallets_data(user):
@@ -221,12 +229,7 @@ def get_verification_information(username):
     else:
         return None
     
-__all__ = [ 
-    'os', 'json', 're', 'time', 'random', 'hashlib', 'sha256', 'List', 'randint', 'pyfinite', 'requests',       # python3 package
-    'JsonResponse', 'render', 'View', 'User', 'Wallets', 'Asset', 'timezone', 'reverse', 'redirect',            # Django package
-    'fetch_asset_data', 'fetch_wallets_data', 'get_user_data', 'get_verification_information',                  # my package
-    'username_check', 'hash_encrypt', 'login_input_check', 'register_input_check', 
-    'MerkleTree', 'genericmatrix', 'GenericGF', 'generate_proof', 'verify_proof', 'NotAnElement', 'NotInvertible', 'PolynomialError'] # algorithm package
+
 
 """
     No File or Function

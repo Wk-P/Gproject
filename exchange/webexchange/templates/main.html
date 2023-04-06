@@ -11,18 +11,16 @@
 <body>
     <nav>
         <ul>
-          <li><a href="#">Coins</a></li>
-          <li><a href="#">Exchanges</a></li>
+          <li><a href="{% url 'Coins' %}">Coins</a></li>
+          <li><a href="{% url 'exchange' %}">Exchanges</a></li>
           <li><a href="#">Swap</a></li>
           <li><a href="#">USD</a></li>
-          <li><a href="#">English</a></li>
         </ul>
     </nav>
     <h1>Main Page</h1>
     <h3>{{ username }}</h3>
     <a href="{% url 'usercenter' username=username %}" method="GET"> User Center </a>
-    <a href="{% url 'market' %}"> Market </a>
-    <a href=""> Exchange </a>
+    <a href="{% url 'market' %}"> Exchange </a>
 
 </body>
 </html>

@@ -1,20 +1,19 @@
 let marketdata = {}
 
 window.onload = () => {
-    marketdata = fetchMarketInformation();
+    setInterval(() => {
+        fetchMarketInformation();
+        console.log(marketdata);
+    }, 1000);
 }
-
-window.addEventListener('scroll', () => {
-    
-})
 
 function toString(json_data) {
     return JSON.stringify(json_data);
 }
 
 function fetchMarketInformation() {
-    const csrftoken = getCookie('csrftoken')
-    fetch("", {
+    const csrftoken = getCookie('csrftoken');
+    fetch(`/market/`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -22,12 +21,7 @@ function fetchMarketInformation() {
         }
     }).then(response => response.json())
     .then(data => {
-        marketdata = data['data'];
-        console.log(marketdata);
-        for (item in marketdata) {
-            li = document.createElement('li')
-            li.textContent = toString(marketdata[item]['baseSymbol']) + " | " + toString(marketdata[item]['priceUsd']);
-            $("#coin-item").append(li);
-        }
+        console.log(JSON.stringify(data['prices-data']));
+        $("#coin-item").html(JSON.stringify(data['prices-data']));
     })
 }

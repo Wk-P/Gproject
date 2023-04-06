@@ -2,13 +2,13 @@
 <html>
 
 <head>
-	<meta charset="UTF-8">
-	<title>Market</title>
-	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-	{% load static %}
-	<script src="{% static '/market/market.js' %}"></script>
-	<script src="{% static '/lib/fnlib.js' %}"></script>
-	<link rel="stylesheet" href="{% static '/market/style.css' %}">
+  <meta charset="UTF-8">
+  <title>Market</title>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  {% load static %}
+  <script src="{% static '/market/market.js' %}"></script>
+  <script src="{% static '/lib/fnlib.js' %}"></script>
+  <link rel="stylesheet" href="{% static '/market/style.css' %}">
 </head>
 
 <body>
@@ -21,7 +21,6 @@
         <li><a id="usd" href="#">USD</a></li>
         <!-- <li><a id="english" href="#">English</a></li> -->
       </ul>
-
     </nav>
     <div>
       <div class="market-info">
@@ -51,31 +50,23 @@
         </div>
       </div>
     </div>
-
-    <nav>
-      <ul>
-        <nav>
-          <ul>
-            <li><a href="#">Rank</a></li>
-            <li><a href="#">Name</a></li>
-            <li><a href="#">Price</a></li>
-            <li><a href="#">Market Cap</a></li>
-            <li><a href="#">VWAP(24Hr)</a></li>
-            <li><a href="#">Supply</a></li>
-            <li><a href="#">Volume(24Hr)</a></li>
-            <li><a href="#">Change(24h)</a></li>
-          </ul>
-        </nav>
-        <div id="items">
-          <ul></ul>
-        </div>
   </header>
   <main>
     <!-- 页面内容将在此处插入 -->
-    <h1>Market</h1>
     {% csrf_token %}
     <div>
-      <p id="coin-item"></p>
+      <table id="coin-item">
+        <tr class="thead">
+          <th>Rank</th>
+          <th>Name</th>
+          <th>Price</th>
+          <th>Market Cap</th>
+          <th>VWAP(24Hr)</th>
+          <th>Supply</th>
+          <th>Volume(24Hr)</th>
+          <th>Change(24h)</th>
+        </tr>
+      </table>
     </div>
   </main>
   <footer>

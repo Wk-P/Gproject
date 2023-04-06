@@ -1,4 +1,4 @@
-from . import *
+from webexchange.views.common.utils import *
 
 # usercenter/usercenter
 class usercenter(View):

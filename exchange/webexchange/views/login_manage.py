@@ -1,4 +1,4 @@
-from . import *
+from webexchange.views.common.utils import *
 
 # login
 class login(View):

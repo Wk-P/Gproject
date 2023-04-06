@@ -1,19 +1,17 @@
 window.onload = () => {
-    $("#test").onclick = () => {
-        const csrf_token = getCookie("csrftoken");
-        fetch("api.coincap.io/v2/markets", {
-            method: "GET",
+    $("#test").click(() => {
+        const csrftoken = getCookie("csrftoken");
+        fetch("", {
+            method: "POST",
             headers: {
                 "Content-Type": "application/json",
-                "X-CSRFToken": csrf_token,
+                "X-CSRFToken": csrftoken,
             },
-            body: JSON.stringify({
-                request_type: "json",
-            })
         }).then(response => {
-            response.json()   
+            return response.json();
         }).then(data => {
-            $("#1").val(data)
-        })
-    }
+            console.log(data);
+            $("#in").html(JSON.stringify(data['data']));
+        });
+    })
 }

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>Navigation Example</title>
+  {% load static %}
+  <link rel="stylesheet" href="{% static '/Swap/style.css' %}">
+</head>
+
+<body>
+  <header>
+    <nav>
+      <ul>
+        <a href="{% url 'Swap' %}">  Swap </a>
+       <!--
+        
+        <a href="#"> Name </a> 
+        <a href="#">   Trading Pairs </a>
+        <a href="#"> Volume(24Hr) </a>
+        <a href="#"> Total(%) </a>
+        <a href="#"> status </a>
+        -->
+        
+        <!-- <li><a id="english" href="#">English</a></li> -->
+      </ul>
+
+    </nav>
+    <div>
+      <div class="market-info">
+        <div class="market-info-item">
+          <div class="market-info-title">MARKET CAP</div>
+          <div class="market-info-value" id="market-cap">$1.19T</div>
+        </div>
+        <div class="market-info-item">
+          <div class="market-info-title">EXCHANGE VOL</div>
+          <div class="market-info-value" id="exchange-vol">$35.04B</div>
+        </div>
+        <div class="market-info-item">
+          <div class="market-info-title">ASSETS</div>
+          <div class="market-info-value" id="assets">2,295</div>
+        </div>
+        <div class="market-info-item">
+          <div class="market-info-title">EXCHANGES</div>
+          <div class="market-info-value"id="exchanges">73</div>
+        </div>
+        <div class="market-info-item">
+          <div class="market-info-title">MARKETS</div>
+          <div class="market-info-value" id="markets">12,563</div>
+        </div>
+        <div class="market-info-item">
+          <div class="market-info-title">BTC DOM INDEX</div>
+          <div class="market-info-value" id="btc-dom-index">45.6%</div>
+        </div>
+      </div>
+    </div>
+
+    <head>
+      <meta charset="UTF-8">
+      <title>Navigation Example</title>
+    </head>
+
+    <body>
+      <header>
+        <nav>
+          <ul>
+            <!DOCTYPE html>
+            <html>
+            <nav>
+              <ul>
+                <li><a href="#">Trade</a></li>
+                
+              </ul>
+            </nav>
+            <div id="items">
+              <ul></ul>
+            </div>
+            </html>
+      </header>
+      <main>
+        <!-- 页面内容将在此处插入 -->
+      </main>
+      <footer>
+        <!-- 页脚内容将在此处插入 -->
+      </footer>
+    </body>
+
+</html>

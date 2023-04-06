@@ -13,10 +13,10 @@ import pyfinite
 from pyfinite import genericmatrix
 
 from .genericgf import GenericGF
-# from .exceptions import NotAnElement, NotInvertible, PolynomialError
+from .exceptions import NotAnElement, NotInvertible, PolynomialError
 
 from .merkle import MerkleTree
-# from .zk_snarks import generate_proof, verify_proof
+from .zk_snarks import generate_proof, verify_proof
 
 # Get all wallet data bu user name
 def fetch_wallets_data(user):
@@ -225,11 +225,10 @@ __all__ = [
     'os', 'json', 're', 'time', 'random', 'hashlib', 'sha256', 'List', 'randint', 'pyfinite', 'requests',       # python3 package
     'JsonResponse', 'render', 'View', 'User', 'Wallets', 'Asset', 'timezone', 'reverse', 'redirect',            # Django package
     'fetch_asset_data', 'fetch_wallets_data', 'get_user_data', 'get_verification_information',                  # my package
-    'username_check', 'hash_encrypt', 'login_input_check', 'register_input_check', 'MerkleTree',                # algorithm package
-    'genericmatrix', 'GenericGF']
+    'username_check', 'hash_encrypt', 'login_input_check', 'register_input_check', 
+    'MerkleTree', 'genericmatrix', 'GenericGF', 'generate_proof', 'verify_proof', 'NotAnElement', 'NotInvertible', 'PolynomialError'] # algorithm package
 
 """
     No File or Function
 """
-# 'generate_proof', 'verify_proof', 
 # 'NotAnElement', 'NotInvertible', 'PolynomialError']

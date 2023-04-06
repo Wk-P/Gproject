@@ -18,7 +18,7 @@ from .genericgf import GenericGF
 pyfinite 라이브러리를 사용하여 유한체를 정의하고 FiniteField 클래스를 구현한다
 '''
 
-def generate(k,s,t,z):
+def generate_proof(k,s,t,z):
 
     '''# 计算两个哈希值 h1 和 h2，它们将被用作证明的一部分
     #증명의 일부로 사용될 두 개의 해시 값 h1과 h2를 계산한다'''
@@ -41,7 +41,7 @@ def generate(k,s,t,z):
     并返回一个布尔值，指示断言是否被证明。verify函数检查h1和h2是否与证明中的s和t对应的哈希值匹配，
     如果匹配，则返回True，否则返回False。
     '''
-def verify(proof, z):#最终的证明将包含s和t的值和哈希值的h1和h2，
+def verify_proof(proof, z):#最终的证明将包含s和t的值和哈希值的h1和h2，
     s, t, h1, h2 = proof
 
     '''    # 检查 h1 和 h2 是否与证明中的 s 和 t 对应的哈希值匹配

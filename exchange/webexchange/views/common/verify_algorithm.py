@@ -1,7 +1,7 @@
 # 导入必要的库
 from merkle import MerkleTree
 from zk_snarks import generate, verify
-from . import *
+from .utils import *
 
 
 def combine_data(user_data):

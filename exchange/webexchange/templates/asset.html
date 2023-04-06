@@ -11,11 +11,21 @@
 </head>
 
 <body>
+    <nav class="n1">
+        <ul>
+          <li><a href="#">Coins</a></li>
+          <li><a href="#">Exchanges</a></li>
+          <li><a href="#">Swap</a></li>
+          <li><a href="#">USD</a></li>
+          <li><a href="#">English</a></li>
+        </ul>
+
+    </nav>
     <div>
         <h1>Asset</h1>
         <h3>{{ username }}</h3>
         <div>
-            <nav>
+            <nav class="n2">
                 <ul>
                     <li><a href="{% url 'main' username=username %}">Main</Main></a></li>
                 </ul>

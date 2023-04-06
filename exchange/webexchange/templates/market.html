@@ -3,8 +3,21 @@
 <head>
 	<meta charset="UTF-8">
 	<title>hangqing</title>
+	{% load static %}
+    <link rel="stylesheet" href="{% static '/login/style.css' %}">
 </head>
+
 <body>
+	<nav>
+        <ul>
+          <li><a href="#">Coins</a></li>
+          <li><a href="#">Exchanges</a></li>
+          <li><a href="#">Swap</a></li>
+          <li><a href="#">USD</a></li>
+          <li><a href="#">English</a></li>
+        </ul>
+
+    </nav>
 	<h1>Market</h1>
 	{% load static %}
 	<img src="{% static '/market/market-sample.png' %}" alt="My Image" width=“300” height="200">

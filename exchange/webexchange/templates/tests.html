@@ -9,8 +9,18 @@
     <script src="{% static '/lib/fnlib.js' %}"></script>
     <script src="{% static '/tests/tests.js' %}"></script>
     <title>Test</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static '/nav/style.css' %}">
 </head>
 <body>
+    <nav>
+        <ul>
+          <li><a href="#">Coins</a></li>
+          <li><a href="#">Exchanges</a></li>
+          <li><a href="#">Swap</a></li>
+          <li><a href="#">USD</a></li>
+          <li><a href="#">English</a></li>
+        </ul>
     <div>
         <button id="test">{% csrf_token %}Test</button>
         <div id="1"></div>

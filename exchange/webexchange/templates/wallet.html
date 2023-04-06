@@ -9,8 +9,17 @@
     <script src="{% static 'lib/fnlib.js'%}"></script>
     <script src="{% static '/wallet_manage/wallet_manage.js' %}"></script>
     <script src="https://code.jquery.com/jquery-3.6.4.js" integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="{% static '/wallet_manage/style.css' %}">
 </head>
 <body>
+    <nav>
+        <ul>
+          <li><a href="#">Coins</a></li>
+          <li><a href="#">Exchanges</a></li>
+          <li><a href="#">Swap</a></li>
+          <li><a href="#">USD</a></li>
+          <li><a href="#">English</a></li>
+        </ul>
     <h1>Wallet Manager</h1>
     <h4 id="user-name">{{ username }}</h4>
     <button id="testbtn">{% csrf_token %}Do</button>

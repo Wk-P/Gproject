@@ -2,11 +2,28 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>hangqing</title>
-</head>
-<body>
-	<h1>Market</h1>
+	<title>Market</title>
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	{% load static %}
-	<img src="{% static '/market/market-sample.png' %}" alt="My Image" width=“300” height="200">
+	<script src="{% static '/market/market.js' %}"></script>
+	<script src="{% static '/lib/fnlib.js' %}"></script>
+</head>
+
+<body>
+	<nav>
+        <ul>
+          <li><a href="#">Coins</a></li>
+          <li><a href="#">Exchanges</a></li>
+          <li><a href="#">Swap</a></li>
+          <li><a href="#">USD</a></li>
+          <li><a href="#">English</a></li>
+        </ul>
+
+    </nav>
+	<h1>Market</h1>
+	<div>
+		{% csrf_token %}
+		<ul id="coin-item"></ul>
+	</div>
 </body>
 </html>

@@ -9,8 +9,18 @@
     <script src="{% static 'lib/fnlib.js'%}"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="{% static 'verifyresult/verifyresult.js' %}"></script>
+    <link rel="stylesheet" href="{% static '/nav/style.css' %}">
+
 </head>
 <body>
+    <nav>
+        <ul>
+          <li><a href="#">Coins</a></li>
+          <li><a href="#">Exchanges</a></li>
+          <li><a href="#">Swap</a></li>
+          <li><a href="#">USD</a></li>
+          <li><a href="#">English</a></li>
+        </ul>
     <h1>Verified Result</h1>
     {% csrf_token %}
     <div id="user">

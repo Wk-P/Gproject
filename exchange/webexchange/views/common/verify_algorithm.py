@@ -44,4 +44,4 @@ def combine_data(user_data):
 
             json.dump(output_data, f)
         except Exception as e:
-            write_exception_log(e)
+            pass

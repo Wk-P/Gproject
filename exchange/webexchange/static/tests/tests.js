@@ -11,7 +11,7 @@ window.onload = () => {
             return response.json();
         }).then(data => {
             console.log(data);
-            $("#in").val(data);
+            $("#in").html(JSON.stringify(data['data']));
         });
     })
 }

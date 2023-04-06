@@ -1,10 +1,10 @@
 # 导入必要的库
-# from merkle import MerkleTree
-# from zk_snarks import generate_proof, verify_proof
+from merkle import MerkleTree
+from zk_snarks import generate, verify
 from . import *
 
 
-def combin_data(user_data):
+def combine_data(user_data):
     with open('output_data.json', 'a') as f:
         try:
             # 准备输入数据
@@ -22,8 +22,8 @@ def combin_data(user_data):
             merkle_root_hash = tree.get_root_hash().hex()
 
             # 调用 ZK-SNARKs 函数
-            proof, signal = generate_proof(input_data['zk_data']['secret'], input_data['zk_data']['public'])
-            verification_result = verify_proof(proof, signal, input_data['zk_data']['public'])
+            proof, signal = generate(input_data['zk_data']['secret'], input_data['zk_data']['public'])
+            verification_result = verify(proof, signal, input_data['zk_data']['public'])
 
             # 存储输出数据
             output_data = {

@@ -1,12 +1,11 @@
-# from hashlib import sha256
-# from random import randint
+from hashlib import sha256
+from random import randint
 # from pyfinite import *
 # from pyfinite import genericmatrix
 # from pyfinite import genericgf
 # from pyfinite import exceptions
     #使用pyfinite库  来定义了一个有限域，该有限域采用了一个随机选择的质数作为模数，
 
-from . import *
 from .genericgf import GenericGF
 '''#曲线和其生成元，这是比特币和以太坊等加密货币使用的曲线，
 定义有限域和椭圆曲线上的加法和乘法操作。这些操作是用于加密和解密数据的基本操作。
@@ -70,15 +69,17 @@ t = F(z/s)
 #우리는 또한 증명을 계산하는 데 사용될 임의의 키 k를 정의해야한다'''
 k = F(randint(1, prime-1))    #random K 생성한다
 
-'''# 计算两个哈希值 h1 和 h2，它们将被用作证明的一部分
-#증명의 일부로 사용될 두 개의 해시 값 h1과 h2를 계산한다'''
-h1 = int(sha256(str(k*s).encode()).hexdigest(), 16)
-h2 = int(sha256(str(k*t).encode()).hexdigest(), 16)
+def generate(k,s,t,z):
+
+    '''# 计算两个哈希值 h1 和 h2，它们将被用作证明的一部分
+    #증명의 일부로 사용될 두 개의 해시 값 h1과 h2를 계산한다'''
+    h1 = int(sha256(str(k*s).encode()).hexdigest(), 16)
+    h2 = int(sha256(str(k*t).encode()).hexdigest(), 16)
 
 
-'''# 最终证明将包含 s 和 t 的值以及哈希值 h1 和 h2
-#최종 증명에는 s와 t의 값 및 해시 값 h1과 h2가 포함된다'''
-proof = (s, t, h1, h2)
+    '''# 最终证明将包含 s 和 t 的值以及哈希值 h1 和 h2
+    #최종 증명에는 s와 t의 값 및 해시 값 h1과 h2가 포함된다'''
+    proof = (s, t, h1, h2)
 
 
 '''# 定义一个函数，它将接受证明和断言作为输入，并返回一个布尔值，指示断言是否被证明

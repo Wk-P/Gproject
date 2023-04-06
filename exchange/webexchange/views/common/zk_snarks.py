@@ -63,6 +63,8 @@ class FiniteField:
 
     def __call__(self, value):
         return self.field(int(value))
+    
+    
 if __name__ == "__main__":
     ''' 随机选择的质数，作为有限域的模数
     #유한체의 모듈로 선택된 임의의 소수를 정의한다'''

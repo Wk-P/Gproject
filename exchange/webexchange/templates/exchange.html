@@ -3,16 +3,13 @@
 
 <head>
   <meta charset="UTF-8">
-<<<<<<< HEAD
   <title>Coins</title>
-=======
-  <title>exchange</title>
->>>>>>> bdd2d33d62cf29cf8e476d04d2c3f3f04707230a
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   {% load static %}
   <script src="{% static '/exchange/exchange.js' %}"></script>
   <script src="{% static '/lib/fnlib.js' %}"></script>
   <link rel="stylesheet" href="{% static '/exchange/style.css' %}">
+  <title>exchage</title>
 </head>
 
 <body>
@@ -22,10 +19,6 @@
         <li><a id="coin" href="{% url 'coins' %}">Coins</a></li>
         <li><a id="exchanges" href="{% url 'exchange' %}">Exchanges</a></li>
         <li><a id="swap" href="#">Swap</a></li>
-<<<<<<< HEAD
-=======
-        <li><a id="usd" href="#">USD</a></li>
->>>>>>> bdd2d33d62cf29cf8e476d04d2c3f3f04707230a
         <li> <label for="exchange-dropdown">USD</label>
           <select id="exchange-dropdown">
             <option value="">Select an exchange</option>
@@ -42,18 +35,6 @@
             <option value="kraken">한국어</option>
           </select>
         </li>
-<<<<<<< HEAD
-=======
-       <!--
-        
-        <a href="#"> Name </a> 
-        <a href="#">   Trading Pairs </a>
-        <a href="#"> Volume(24Hr) </a>
-        <a href="#"> Total(%) </a>
-        <a href="#"> status </a>
-        -->
-        
->>>>>>> bdd2d33d62cf29cf8e476d04d2c3f3f04707230a
         <!-- <li><a id="english" href="#">English</a></li> -->
       </ul>
     </nav>

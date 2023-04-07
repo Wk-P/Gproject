@@ -1,38 +1,5 @@
-/*
-
-fetch('https://coincap.io/exchanges')
-  .then(response => response.json())
-  .then(data => {
-    // 在这里处理返回的数据
-    console.log(data);
-  })
-  .catch(error => {
-    // 在这里处理请求失败的情况
-    console.error(error);
-  });
-
-
-
-  fetch("", {
-    method: "POST",
-    headers: {
-        "Content-Type": "application/json",
-        "X-CSRFToken": csrftoken,
-    }
-}).then(response => response.json())
-.then(data => {
-    marketdata = data['data'];
-    console.log(marketdata);
-    for (item in marketdata) {
-        li = document.createElement('li')
-        li.textContent = toString(marketdata[item]['baseSymbol']) + " | " + toString(marketdata[item]['priceUsd']);
-        $("#coin-item").append(li);
-    }
-})
-*/
-
 window.onload = () => {
-    const td_id = ['Rank', 'Name', 'Trading Pairs', 'Volume(24Hr)', 'Total', 'Status'];
+    const td_id = ['rank', 'name', 'price', 'market-cap', 'vmap', 'supply', 'volume', 'change'];
 
     fetchMarketInformation().then(data => {
         const intervalId = setInterval(() => {
@@ -46,12 +13,14 @@ window.onload = () => {
                     for (const id of td_id) {
                         let td = document.createElement('td');
                         td.id = id;
-                        if (id === 'Rank') td.innerHTML = item['Rank'];
-                        else if (id === 'Name') td.innerHTML = item['Name'];
-                        else if (id === 'Trading Pairs') td.innerHTML = item['Trading Pairs'];
-                        else if (id === 'Volume(24Hr)') td.innerHTML = item['Volume(24Hr)'];
-                        else if (id === 'Total') td.innerHTML = item['Total'];
-                        else if (id === 'Status') td.innerHTML = item['Status'];
+                        if (id === 'rank') td.innerHTML = item['rank'];
+                        else if (id === 'name') td.innerHTML = item['name'];
+                        else if (id === 'price') td.innerHTML = item['priceUsd'];
+                        else if (id === 'vmap') td.innerHTML = item['vwap24Hr'];
+                        else if (id === 'supply') td.innerHTML = item['supply'];
+                        else if (id === 'market-cap') td.innerHTML = item['marketCapUsd'];
+                        else if (id === 'volume') td.innerHTML = item['volumeUsd24Hr'];
+                        else if (id === 'change') td.innerHTML = item['changePercent24Hr'];
                         tr.appendChild(td);
                     }
                     $('#coin-item').append(tr);

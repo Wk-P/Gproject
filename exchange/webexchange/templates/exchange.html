@@ -3,8 +3,11 @@
 
 <head>
   <meta charset="UTF-8">
-  <title>Navigation Example</title>
+  <title>exchange</title>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   {% load static %}
+  <script src="{% static '/exchange/exchange.js' %}"></script>
+  <script src="{% static '/lib/fnlib.js' %}"></script>
   <link rel="stylesheet" href="{% static '/exchange/style.css' %}">
 </head>
 
@@ -12,23 +15,26 @@
   <header>
     <nav>
       <ul>
-        <li><a href="{% url 'exchange' %}">  exchange </a></li>
+        <li><a id="coin" href="{% url 'coins' %}">Coins</a></li>
+        <li><a id="exchanges" href="{% url 'exchange' %}">Exchanges</a></li>
+        <li><a id="swap" href="#">Swap</a></li>
+        <li><a id="usd" href="#">USD</a></li>
         <li> <label for="exchange-dropdown">USD</label>
-            <select id="exchange-dropdown">
-              <option value="">Select an exchange</option>
-              <option value="binance">USD</option>
-              <option value="coinbase">JPY</option>
-              <option value="kraken">KRW</option>
-            </select>
-                     </li>
-                     <li> <label for="exchange-dropdown">English</label>
-                        <select id="exchange-dropdown">
-                          <option value="">Select an exchange</option>
-                          <option value="binance">English</option>
-                          <option value="coinbase">简体中文</option>
-                          <option value="kraken">한국어</option>
-                        </select>
-                                 </li>
+          <select id="exchange-dropdown">
+            <option value="">Select an exchange</option>
+            <option value="binance">USD</option>
+            <option value="coinbase">JPY</option>
+            <option value="kraken">KRW</option>
+          </select>
+        </li>
+        <li> <label for="exchange-dropdown">English</label>
+          <select id="exchange-dropdown">
+            <option value="">Select an exchange</option>
+            <option value="binance">English</option>
+            <option value="coinbase">简体中文</option>
+            <option value="kraken">한국어</option>
+          </select>
+        </li>
        <!--
         
         <a href="#"> Name </a> 

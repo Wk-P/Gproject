@@ -62,3 +62,50 @@ nav a {
 .wallet tr:nth-child(even) {
 	background-color: #f2f2f2;
 }
+
+/* 清除默认的浏览器样式 */
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+  }
+  
+  /* 导航样式 */
+  #top-nav {
+	background-color: #fff;
+	color: #333;
+	height: 50px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+  }
+  
+  #top-nav ul {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	height: 100%;
+  }
+  
+  #top-nav li {
+	height: 100%;
+	margin: 0 10px;
+  }
+  
+  #top-nav a {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 100%;
+	padding: 0 20px;
+	text-decoration: none;
+	color: #333;
+	font-weight: bold;
+  }
+  
+  #top-nav a:hover {
+	background-color: #666;
+  }

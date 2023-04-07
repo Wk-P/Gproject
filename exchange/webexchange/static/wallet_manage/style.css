@@ -5,6 +5,10 @@
     box-sizing: border-box;
   }
   
+  body {
+    background-color: #ff9;
+  }
+
   /* 导航样式 */
   nav {
     background-color: #333;
@@ -38,5 +42,4 @@
   
   nav a:hover {
     background-color: #666;
-  }
-  
+  }  

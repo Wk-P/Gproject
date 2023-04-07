@@ -1,5 +1,5 @@
 from webexchange.views.common.utils import *
 
-class Swap(View):
+class swap(View):
     def get(self, request, **kwargs):
-        return render(request, 'Swap.html')
+        return render(request, 'swap.html')

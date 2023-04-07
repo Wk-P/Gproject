@@ -45,18 +45,18 @@ def fetch_trades_data():
         loop.run_until_complete(loop.shutdown_asyncgens())
         loop.close()
 
-def fetch_exchange_information():
-    exchange_list = []
+def fetch_coins_information():
+    coin_list = []
     url = 'https://api.coincap.io/v2/assets'
-    exchange_data = toJson(requests.request("GET", url).content)['data']
+    coin_data = toJson(requests.request("GET", url).content)['data']
     for i in range(20):
-        exchange_list.append(exchange_data[i]['id'])
+        coin_list.append(coin_data[i]['id'])
 
-    prices_data = fetch_prices_data(exchange_list)
+    prices_data = fetch_prices_data(coin_list)
     trades_data = fetch_trades_data()
 
     response_data = {}
-    response_data['assets_data'] = exchange_data
+    response_data['assets_data'] = coin_data
     response_data['prices-data'] = prices_data
     response_data['trades-data'] = trades_data
 
@@ -68,7 +68,7 @@ class exchange(View):
 
     def post(self, request):
         try:
-            response_data = fetch_exchange_information()
+            response_data = fetch_coins_information()
             return JsonResponse(response_data)
         except Exception as e:
             return JsonResponse({'error': str(e)})

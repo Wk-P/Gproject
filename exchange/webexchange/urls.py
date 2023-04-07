@@ -1,5 +1,5 @@
 from django.urls import path
-from webexchange.views import login_manage, error, home, register_manage, asset, usercenter, verifyresult, wallet_manage, tests,nav,exchange,coins,Swap
+from webexchange.views import login_manage, error, home, register_manage, asset, usercenter, verifyresult, wallet_manage, tests,nav,exchange,coins,swap
 
 urlpatterns = [
     path('regster/', login_manage.login.as_view(), name='regster'),
@@ -17,6 +17,6 @@ urlpatterns = [
     path('nav/', nav.nav.as_view(), name='nav'),
     path('exchange/', exchange.exchange.as_view(), name='exchange'),
     path('coins/', coins.coins.as_view(), name='coins'),
-    path('Swap/', Swap.Swap.as_view(), name='Swap')
+    path('swap/', swap.swap.as_view(), name='swap')
     
 ]

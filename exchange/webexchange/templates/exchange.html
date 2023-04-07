@@ -3,13 +3,12 @@
 
 <head>
   <meta charset="UTF-8">
-  <title>Coins</title>
+  <title>Exchange</title>
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   {% load static %}
   <script src="{% static '/exchange/exchange.js' %}"></script>
   <script src="{% static '/lib/fnlib.js' %}"></script>
   <link rel="stylesheet" href="{% static '/exchange/style.css' %}">
-  <title>exchage</title>
 </head>
 
 <body>
@@ -27,7 +26,8 @@
             <option value="kraken">KRW</option>
           </select>
         </li>
-        <li> <label for="exchange-dropdown">English</label>
+        <li>
+          <label for="exchange-dropdown">English</label>
           <select id="exchange-dropdown">
             <option value="">Select an exchange</option>
             <option value="binance">English</option>

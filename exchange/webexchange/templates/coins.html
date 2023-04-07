@@ -23,6 +23,25 @@
         -->
         
         <!-- <li><a id="english" href="#">English</a></li> -->
+
+
+        <a href="{% url 'exchange' %}">  exchange </a></li>
+        <li> <label for="exchange-dropdown">USD</label>
+            <select id="exchange-dropdown">
+              <option value="">Select an exchange</option>
+              <option value="binance">USD</option>
+              <option value="coinbase">JPY</option>
+              <option value="kraken">KRW</option>
+            </select>
+                     </li>
+                     <li> <label for="exchange-dropdown">English</label>
+                        <select id="exchange-dropdown">
+                          <option value="">Select an exchange</option>
+                          <option value="binance">English</option>
+                          <option value="coinbase">简体中文</option>
+                          <option value="kraken">한국어</option>
+                        </select>
+                                 </li>
       </ul>
 
     </nav>

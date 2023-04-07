@@ -3,8 +3,11 @@
 
 <head>
   <meta charset="UTF-8">
-  <title>Navigation Example</title>
+  <title>Coins</title>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   {% load static %}
+  <script src="{% static '/coins/coins.js' %}"></script>
+  <script src="{% static '/lib/fnlib.js' %}"></script>
   <link rel="stylesheet" href="{% static '/coins/style.css' %}">
 </head>
 
@@ -12,38 +15,28 @@
   <header>
     <nav>
       <ul>
-        <a href="{% url 'coins' %}">  coins </a>
-       <!--
-        
-        <a href="#"> Name </a> 
-        <a href="#">   Trading Pairs </a>
-        <a href="#"> Volume(24Hr) </a>
-        <a href="#"> Total(%) </a>
-        <a href="#"> status </a>
-        -->
-        
-        <!-- <li><a id="english" href="#">English</a></li> -->
-
-
-        <a href="{% url 'exchange' %}">  exchange </a></li>
+        <li><a id="coin" href="{% url 'coins' %}">Coins</a></li>
+        <li><a id="exchanges" href="{% url 'exchange' %}">Exchanges</a></li>
+        <li><a id="swap" href="#">Swap</a></li>
+        <li><a id="usd" href="#">USD</a></li>
         <li> <label for="exchange-dropdown">USD</label>
-            <select id="exchange-dropdown">
-              <option value="">Select an exchange</option>
-              <option value="binance">USD</option>
-              <option value="coinbase">JPY</option>
-              <option value="kraken">KRW</option>
-            </select>
-                     </li>
-                     <li> <label for="exchange-dropdown">English</label>
-                        <select id="exchange-dropdown">
-                          <option value="">Select an exchange</option>
-                          <option value="binance">English</option>
-                          <option value="coinbase">简体中文</option>
-                          <option value="kraken">한국어</option>
-                        </select>
-                                 </li>
+          <select id="exchange-dropdown">
+            <option value="">Select an exchange</option>
+            <option value="binance">USD</option>
+            <option value="coinbase">JPY</option>
+            <option value="kraken">KRW</option>
+          </select>
+        </li>
+        <li> <label for="exchange-dropdown">English</label>
+          <select id="exchange-dropdown">
+            <option value="">Select an exchange</option>
+            <option value="binance">English</option>
+            <option value="coinbase">简体中文</option>
+            <option value="kraken">한국어</option>
+          </select>
+        </li>
+        <!-- <li><a id="english" href="#">English</a></li> -->
       </ul>
-
     </nav>
     <div>
       <div class="market-info">
@@ -61,7 +54,7 @@
         </div>
         <div class="market-info-item">
           <div class="market-info-title">EXCHANGES</div>
-          <div class="market-info-value"id="exchanges">73</div>
+          <div class="market-info-value" id="exchanges">73</div>
         </div>
         <div class="market-info-item">
           <div class="market-info-title">MARKETS</div>
@@ -73,43 +66,24 @@
         </div>
       </div>
     </div>
-
-    <head>
-      <meta charset="UTF-8">
-      <title>Navigation Example</title>
-    </head>
-
-    <body>
-      <header>
-        <nav>
-          <ul>
-            <!DOCTYPE html>
-            <html>
-            <nav>
-              <ul>
-                <li><a href="#">Rank</a></li>
-                <li><a href="#">Name</a></li>
-                <li><a href="#">Price</a></li>
-                
-                <li><a href="#">Market Cap</a></li>
-                <li><a href="#">VMAP(24Hr)</a></li>
-                <li><a href="#">Supply</a></li>
-                <li><a href="#">Volume(24Hr)</a></li>
-                <li><a href="#">Change(24Hr)</a></li>
-                
-              </ul>
-            </nav>
-            <div id="items">
-              <ul></ul>
-            </div>
-            </html>
-      </header>
-      <main>
-        <!-- 页面内容将在此处插入 -->
-      </main>
-      <footer>
-        <!-- 页脚内容将在此处插入 -->
-      </footer>
-    </body>
+  </header>
+  <main>
+    {% csrf_token %}
+    <div>
+      <table id="coin-item">
+        <tr class="thead">
+          <th>Rank</th>
+          <th>Name</th>
+          <th>Price</th>
+          <th>Market Cap</th>
+          <th>VWAP(24Hr)</th>
+          <th>Supply</th>
+          <th>Volume(24Hr)</th>
+          <th>Change(24h)</th>
+        </tr>
+      </table>
+    </div>
+  </main>
+</body>
 
 </html>

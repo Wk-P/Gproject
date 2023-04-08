@@ -1,0 +1,14 @@
+[uwsgi]
+project = /home/Gproject/exchange
+base = /home/Gproject/exchange
+
+chdir = %(base)/%(project)
+home = %(base)/venv
+module = %(project).wsgi:application
+
+master = true
+processes = 5
+
+socket = %(base)/%(project)/socket.sock
+chmod-socket = 666
+vacuum = true

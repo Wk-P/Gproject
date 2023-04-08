@@ -1,16 +1,16 @@
-"""
-ASGI config for exchange project.
-
-It exposes the ASGI callable as a module-level variable named ``application``.
-
-For more information on this file, see
-https://docs.djangoproject.com/en/4.1/howto/deployment/asgi/
-"""
-
 import os
+import sys
+from django.core.wsgi import get_wsgi_application
+from django.contrib.staticfiles.handlers import StaticFilesHandler
+from django.conf import settings
+import uwsgi
 
-from django.core.asgi import get_asgi_application
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'Gproject.settings')
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'exchange.settings')
+application = StaticFilesHandler(get_wsgi_application())
 
-application = get_asgi_application()
+uwsgi.set_python_optimize()
+uwsgi.add_file_monitor(
+    pth=os.path.abspath(__file__),
+    callback=lambda *args, **kwargs: sys.exit(0)
+)

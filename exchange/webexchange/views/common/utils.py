@@ -18,6 +18,8 @@ from .exceptions import NotAnElement, NotInvertible, PolynomialError
 from .merkle import MerkleTree
 from .zk_snarks import generate_proof, verify_proof
 
+from .verify_algorithm import combine_data
+
 __all__ = [ 
     'os', 'json', 're', 'time', 'random', 'hashlib', 'sha256', 'List', 'randint', 'pyfinite', 'requests', 'websockets', 'asyncio',      # python3 package
     'JsonResponse', 'render', 'View', 'User', 'Wallets', 'Asset', 'timezone', 'reverse', 'redirect',            # Django package
@@ -224,7 +226,7 @@ def get_verification_information(username):
             #   ...
             #   return data
         '''
-        information = {'test': 'test_OK'}
+        information = combine_data(user_data)
         return information
     else:
         return None

@@ -226,7 +226,7 @@ def get_verification_information(username):
             #   ...
             #   return data
         '''
-        information = combine_data
+        information = combine_data(user_data)
         return information
     else:
         return None

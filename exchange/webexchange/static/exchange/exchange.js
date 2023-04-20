@@ -1,6 +1,8 @@
 window.onload = () => {
     const td_id = ['rank', 'name', 'price', 'market-cap', 'vmap', 'supply', 'volume', 'change'];
-
+    $("#zhongwen").cilck(() => {
+        $("#shizhi").val("市值");
+    })
     fetchMarketInformation().then(data => {
         const intervalId = setInterval(() => {
             if (data['assets_data'].length) {

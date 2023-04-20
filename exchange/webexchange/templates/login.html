@@ -9,7 +9,15 @@
     <link rel="stylesheet" href="{% static '/login/style.css' %}">
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 </head>
+
 <body>
+    <template id="my-module">
+        <div class="module">
+          <h2><slot name="title"></slot></h2>
+          <p><slot name="content"></slot></p>
+        </div>
+      </template>
+      
     <nav>
         <ul>
           <li><a href="#">Coins</a></li>
@@ -20,8 +28,15 @@
         </ul>
 
     </nav>
-    <h1>Login</h1>
-    <form method="post">
+    <div class="shangbutitle" class="titleshangbu">
+        <h1 id="title" class='title'>
+            <div class ="title1">选择币安平台/购买/交易和持有350多种加密货币</div>
+            </h1>
+    <div class="tupian" class="tupiancss">
+        <img src="{% static '/login/img1.png' %}"
+       alt="lightImageUrl"class="tupian">
+    </div></div>
+    <form method="post"> 
         {% csrf_token %}
         User <input type="text" name="username">
         <br>

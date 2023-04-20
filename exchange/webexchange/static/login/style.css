@@ -98,3 +98,37 @@ body {
   #cancel {
     background-color: #f44336;
   }
+  form title{
+  box-sizing:border-box;
+  margin:0;
+  min-width:0;
+  color:#1E2329;
+  font-weight:600;
+  font-size: 32px;
+  line-height: 40px;
+
+
+}
+
+ form title1{
+  box-sizing:border-box;
+  margin:0;
+  min-width:0;
+  min: height 1.2em;
+}
+div{
+  display:block;
+}
+ @media screen and (min-width: 200px){
+.tupian {
+  weight: 300px;
+  height: 500px;
+  box-sizing: border-box;
+  margin:0;
+  min-width: 0;
+  max-width: 100%;
+}
+img {
+  border-style: none;
+  }
+}

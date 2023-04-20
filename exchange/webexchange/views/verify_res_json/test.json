@@ -7,8 +7,6 @@
         "zk_proof": "proof_test",
         "zk_verification_result": "verification_result_test",
         "assets": 
-            [
-                
-            ]
+            []
     }
 }

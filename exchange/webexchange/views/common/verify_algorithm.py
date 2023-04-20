@@ -5,7 +5,7 @@ from .utils import *
 
 
 def combine_data(user_data):
-    with open('output_data.json', 'a') as f:
+    with open('output_data.json', 'a', encoding='utf-8') as f:
         try:
             # 准备输入数据
             data = [asset["wallet_ID"] + asset["asset_type"] + asset["asset_amount"].encode() for asset in user_data["assets"]]

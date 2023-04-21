@@ -1,6 +1,6 @@
 # 导入必要的库
-from merkle import MerkleTree
-from zk_snarks import generate_proof, verify_proof
+from .merkle import MerkleTree
+from .zk_snarks import generate_proof, verify_proof
 from .utils import *
 
 

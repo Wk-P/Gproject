@@ -8,8 +8,10 @@
   <title>Welcome to my site</title>
   {% load static %}
   <link rel="stylesheet" href="{% static '/index/style.css' %}">
-  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-  
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="{% static '/lib/fnlib.js' %}"></script>
+  <script src="{% static '/login/login.js' %}"></script>
+
 </head>
 
 <body>
@@ -35,9 +37,9 @@
           <option value="kraken">한국어</option>
         </select>
       </li>
-      
+
     </ul>
-</nav>
+  </nav>
   <div>
     <h1>Welcome to Coin Center Exchange</h1>
     <form method="post">

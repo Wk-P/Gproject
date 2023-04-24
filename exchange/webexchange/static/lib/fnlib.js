@@ -1,3 +1,4 @@
+
 function getCookie(name) {
     let cookieValue = null;
     if (document.cookie && document.cookie !== '') {
@@ -11,4 +12,17 @@ function getCookie(name) {
         }
     }
     return cookieValue;
-}
+};
+
+function jumpTo(curr_page, dest_page, data, csrftoken, method) {
+    fetch(curr_page, {
+        method: method,
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': csrftoken,
+        },
+        body: JSON.stringify(data),
+    }).then(response => {
+        window.location.href = dest_page;
+    });
+};

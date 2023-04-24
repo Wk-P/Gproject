@@ -40,7 +40,7 @@ def combine_data(user_data):
                     'asset_type':asset['asset_type'],
                     'asset_amount':asset['asset_amount']
                 }
-                output_data['aaset'].append(output_asset)
+                output_data['asset'].append(output_asset)
 
             json.dump(output_data, f)
         except Exception as e:

@@ -3,7 +3,6 @@ from .merkle import MerkleTree
 from .zk_snarks import generate_proof, verify_proof
 from .utils import *
 
-
 def combine_data(user_data):
     with open('output_data.json', 'a', encoding='utf-8') as f:
         try:

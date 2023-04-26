@@ -20,7 +20,7 @@ table {
     background-color: #f5f5f5;
   }
   
-  #verify_btn {
+  .verify_btn {
     background-color: #008CBA;
     border: none;
     color: white;

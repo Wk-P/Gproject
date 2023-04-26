@@ -14,6 +14,7 @@
 </head>
 
 <body>
+    {% csrf_token %}
     <nav class="n1">
         <ul>
             <li><a id="coin" href="{% url 'coins' %}">Coins</a></li>
@@ -54,7 +55,7 @@
             </nav>
         </div>
     </div>
-    <table id="wallet_list">
+    <table id="asset_list">
         <tr id="thead-row">
             <th>Wallet</th>
             <th>Chain</th>
@@ -62,14 +63,6 @@
             <th>Amount</th>
             <th>Vertify</th>
             <th>Status</th>
-        </tr>
-        <tr id="tdata-row">
-            <td id="wallet_ID"></td>
-            <td id="chain"></td>
-            <td id="coin_type"></td>
-            <td id="amount"></td>
-            <td><button id="verify_btn" name="verify">{% csrf_token %}Verify</button></td>
-            <td id="status"></td>
         </tr>
     </table>
 </body>

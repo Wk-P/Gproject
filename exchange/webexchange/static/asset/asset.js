@@ -43,7 +43,7 @@ window.onload = () => {
             console.log(data);
             console.log(data.asset_data);
             if (data.alert == 'success') {
-                td
+                // asset data is completed
             } else if (data.alert == 'incomplete') {
                 // asset data is None
                 

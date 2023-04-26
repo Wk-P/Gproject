@@ -18,6 +18,7 @@ class wallet(View):
             wallet_ID = data['wallet_ID']
             if add_wallet(user, wallet_ID) is not None:
                 response['register'] = 'success'
+                response['wallet_id'] = wallet_ID
             else:
                 response['register'] = 'failed'
         elif data['register'] == 'no':

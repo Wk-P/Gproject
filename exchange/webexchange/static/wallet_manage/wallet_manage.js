@@ -14,10 +14,10 @@ window.onload = () => {
     
     data.register = 'no'
     params.body = JSON.stringify(data);
+    let wallet_list = document.getElementById('wallet-table');
     fetch(`/wallet/${username}/`, params)
     .then(response => response.json())
     .then(data => {
-        let wallet_list = document.getElementById('wallet-table');
         if (data.wallets_data == undefined) {
             // no wallets
             let tr = document.createElement('tr');
@@ -50,7 +50,13 @@ window.onload = () => {
         .then(data => {
             // add wallet data success
             if (data.register == 'success') {
-                alert(`Register wallet ${data.wallet_ID} success!`);
+                alert(`Register wallet ${data.wallet_id} success!`);
+                tr = document.createElement('tr');
+                td = document.createElement('td');
+                td.innerHTML = data.wallet_id;
+                tr.appendChild(td);
+                wallet_list.appendChild(tr);
+                $("#wallet-id").val("");
             }
             else {
                 alert("Register Failed!");

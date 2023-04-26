@@ -28,7 +28,9 @@ window.onload = () => {
                     // no operator
                 } else {
                     // register success jump to main page
-                    window.location.href = `/wallet/${data['username']}`;
+                    // console.log(data)
+                    // console.log(data.username)
+                    window.location.href = `/wallet/${data.username}`;
                 }
             })
             .catch(error => console.log(error));

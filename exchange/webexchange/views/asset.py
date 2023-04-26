@@ -31,7 +31,6 @@ class asset(View):
                 if asset_data is not None:
                     res_data.append(asset_data)
             # res_data == [None]
-            
             response['wallet_id'] = wallets_id
             if len(res_data) > 0:
                 # valid data

@@ -38,9 +38,10 @@ class register(View):
                 # register
                 add_user(username, userpassword)
                 response['alert'] = 'success'
+                response['username'] = username
             else:
                 response['alert'] = 'User already exists!'
-            
+                
             return JsonResponse(response)
         
         elif data.get('click') == "cancel":

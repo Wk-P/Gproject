@@ -269,6 +269,7 @@ def add_wallet(user, wallet_ID=None):
     if database_match(wallet_ID=wallet_ID) is None:
         wallet = Wallets(user=user, wallet_ID=wallet_ID)
         wallet.save()
+        return 1
     else:
         return None
 

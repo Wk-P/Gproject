@@ -20,16 +20,24 @@ class asset(View):
         if data['click'] == "no":
             user = get_user(user_name=data['username'])
             wallets = get_wallets(user)
-            
+            wallets_id = []
             if wallets is None:
                 response['alert'] = "No Wallet Data"
                 return JsonResponse(response)
             
             for wallet in wallets:
-                asset_data = fetch_assets_data(user, wallet)
-                res_data.append(asset_data)
+                wallets_id.append(wallet.wallet_ID)
+                asset_data = fetch_assets_data(data['username'], wallet)
+                if asset_data is not None:
+                    res_data.append(asset_data)
+            # res_data == [None]
             
-            response['asset_data'] = res_data
-            return JsonResponse(response)
-        else:
-            return JsonResponse(response)
+            response['wallet_id'] = wallets_id
+            if len(res_data) > 0:
+                # valid data
+                response['alert'] = 'success'
+                response['asset_data'] = res_data
+            else:
+                response['alert'] = 'incomplete'
+                response['asset_data'] = None
+        return JsonResponse(response)

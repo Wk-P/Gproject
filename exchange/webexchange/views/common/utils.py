@@ -287,7 +287,7 @@ def fetch_wallets_data(user):
         for wallet_obj in wallets_obj:
             res_data.append(
                 {
-                    "user_ID": user.user_ID,
+                    "user_ID": wallet_obj.user.user_ID,
                     "wallet_ID": wallet_obj.wallet_ID
                 }
             )
@@ -337,10 +337,12 @@ def fetch_assets_data(username, wallet):
         @Get Assets Objects JSON data\n
         @Return: Assets Objects JSON List | None
         @@Return Type: \n
+        [{
             "wallet_ID": wallet,
             "chain": asset_obj.chain,
             "asset_type": asset_obj.asset_type,
             "asset_amount": asset_obj.asset_amount,
+        }]
     """
     user = get_user(user_name=username)
     assets_obj = get_assets(user, wallet)
@@ -349,7 +351,7 @@ def fetch_assets_data(username, wallet):
         for asset_obj in assets_obj:
             res_data.append(
                 {
-                    "wallet_ID": wallet.wallet_ID,
+                    "wallet_ID": asset_obj.wallet.wallet_ID,
                     "chain": asset_obj.chain,
                     "asset_type": asset_obj.asset_type,
                     "asset_amount": asset_obj.asset_amount,

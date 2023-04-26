@@ -59,7 +59,7 @@ def fetch_coins_information():
     response_data['assets_data'] = coin_data
     response_data['prices-data'] = prices_data
     response_data['trades-data'] = trades_data
-
+    
     return response_data
 
 class coins(View):

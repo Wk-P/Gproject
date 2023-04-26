@@ -7,29 +7,29 @@ class asset(View):
 
         user_data = get_user_data(username)
 
-        if username_check(username):
+        if database_match(user_name=username) is not None:
             return render(request, 'asset.html', {'username': username, 'user_data': user_data})
         else:
             return redirect('404')
         
     def post(self, request, **kwargs):
         
-        # users request amount verification and send a request data package with wallet amount from users' local (or from server)
-        # 从服务器端直接验证
-        # wallet data from users
-
-        username = kwargs.get('username')
-        
-        if 'verify' in request.POST:
-        # 从服务器端数据库中找出用户服务器的数据
-        # get details wallet data from database
-        # take_wallet():
-        #   pass 
-            # verification information
-            user_data = get_user_data(username)
-            information = get_verification_information(username)
+        response = {'alert': None}
+        res_data = []
+        data = json.loads(request.body.decode('utf-8'))
+        if data['click'] == "no":
+            user = get_user(user_name=data['username'])
+            wallets = get_wallets(user)
             
-            if information != None:
-                return redirect(reverse('verifyresult', kwargs={'username': username}))
-            else:
-                return redirect('404')
+            if wallets is None:
+                response['alert'] = "No Wallet Data"
+                return JsonResponse(response)
+            
+            for wallet in wallets:
+                asset_data = fetch_assets_data(user, wallet)
+                res_data.append(asset_data)
+            
+            response['asset_data'] = res_data
+            return JsonResponse(response)
+        else:
+            return JsonResponse(response)

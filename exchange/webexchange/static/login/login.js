@@ -3,7 +3,7 @@ window.onload = () => {
     $("#submit").click((event) => {
         event.preventDefault();        // prevent to jump a new page
         const data = {
-            'click': 'submit',
+            click: 'submit',
             'username': $('#username').val(),
             'userpassword': $('#userpassword').val(),
         };

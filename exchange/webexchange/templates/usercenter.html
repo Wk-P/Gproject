@@ -45,7 +45,7 @@
 		<h1>User Center</h1>
 		<h3>{{ username }}</h3>
 		<ul>
-			<li><a href="#wallet-management">Wallet Management</a></li>
+			<li><a href="{% url 'wallet' username=username %}">Wallet Management</a></li>
 			<li><a href="{% url 'asset' username=username %}">Asset Verification</a></li>
 			<li><a href="#transaction">Transaction</a></li>
 		</ul>

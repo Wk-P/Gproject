@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="{% static '/wallet_manage/style.css' %}">
 </head>
 <body>
+	{% csrf_token %}
     <header>
 		<nav id="top-nav">
 			<ul>
@@ -37,14 +38,27 @@
 				</li>
 				<li><a id="index" href="{% url 'main' username=username %}" method="GET">Home</a></li>
 				<li id="user-info">
-					<div>User Name : {{ username }} </div>
+					<div>User Name :</div>
+					<div id="user-name">{{ username }}</div>
 					<a href="{% url 'usercenter' username=username %}" method="GET"> User Center </a>
 				</li>
 				<!-- <li><a id="english" href="#">English</a></li> -->
 			</ul>
 		</nav>
 	</header>
-    <button id="testbtn">{% csrf_token %}Do</button>
-    <div id="test"></div>
+	<main>
+		<table id="wallet-table">
+			<tr>
+				<th>Wallet ID</th>
+			</tr>
+			<tr>
+				<td id="walletid-input"><input id="wallet-id"></td>
+				<td id="add-wallet">
+					<button id="add-button">Wallet Register</button>
+				</td>
+			</tr>
+			<table id="wallet-list"></table>
+		</table>
+	</main>
 </body>
 </html>

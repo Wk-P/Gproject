@@ -27,7 +27,7 @@ class login(View):
                 return JsonResponse(response)
             
             # checking pass 
-            db_data = database_match({'user_name': username})
+            db_data = database_match(user_name=username)
             if db_data is None:
                 response['alert'] = 'Data Matching Failed!'
             else:

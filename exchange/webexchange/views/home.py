@@ -4,7 +4,7 @@ from webexchange.views.common.utils import *
 class main(View):
     def get(self, request, **kwargs):
         username = kwargs.get('username')
-        if database_match({"user_name": username}) is not None:
+        if database_match(user_name=username) is not None:
             return render(request, 'main.html', context={'username': username})
         else:
             return redirect('404')

@@ -17,7 +17,7 @@ class usercenter(View):
                 ]}
             }
         '''
-        if username_check(username):
+        if database_match(user_name=username) is not None:
             return render(request, 'usercenter.html', context={'username': username, 'user_data': user_data})
         else:
             return redirect('404')

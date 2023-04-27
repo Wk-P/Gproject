@@ -25,7 +25,7 @@ window.onload = () => {
                 } else if (data['alert'] == null) {
                     // no operator
                 } else {
-                    window.location.href = `/main/${data['username']}/`;
+                    window.location.href = `/coins/`;
                 }
             })
             .catch(error => console.log(error));

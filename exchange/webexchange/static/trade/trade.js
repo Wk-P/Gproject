@@ -17,14 +17,12 @@ window.onload = () => {
     const height = $("#chart").height() * 0.9;
     const margin = { top: 10, right: 30, bottom: 30, left: 60 };
 
-    // 创建SVG元素
-    // 创建 SVG 元素
-
+  
     // 创建SVG元素
     const svg = d3.select('#chart')
         .append('svg')
-        .attr('width', width, 800)
-        .attr('height', height, 800);
+        .attr('width', width,)
+        .attr('height', height,);
 
 
 
@@ -36,8 +34,12 @@ window.onload = () => {
     //     .then(data => console.log(`当前 ${symbol} 价格为 ${data.price}`))
     //     .catch(error => console.error(error));
 
+
+    
     // 订阅 WebSocket 实时推送的 K 线数据
     const ws = new WebSocket('wss://stream.binance.com:9443/ws/btcusdt@kline_1s');
+
+
 
 
     ws.onmessage = event => {
@@ -48,8 +50,8 @@ window.onload = () => {
         console.log('close price：', data.k.c);
         console.log('time:', timetrans(data.k.T));
         const trade_data = [
-            { time: data.k.T, open: data.k.o, high: data.k.h, low: data.k.l, close: data.k.c },
-            { time: data.k.T, open: data.k.o, high: data.k.h, low: data.k.l, close: data.k.c },
+            { time: timetrans(data.k.T), open: data.k.o, high: data.k.h, low: data.k.l, close: data.k.c },
+            { time: timetrans(data.k.T), open: data.k.o, high: data.k.h, low: data.k.l, close: data.k.c },
             // { time: '2021-01-03', open: 10500, high: 11000, low: 10000, close: 10200 },
         
 
@@ -78,6 +80,7 @@ window.onload = () => {
             svg.select('.x-axis')
                 .attr('transform', `translate(0, ${height - margin.bottom})`)
                 .call(xAxis);
+
 
 
             svg.select('.y-axis')
@@ -121,7 +124,30 @@ window.onload = () => {
                         return yScale(Math.min(d.open, d.close)) - yScale(Math.max(d.open, d.close));
                     }
                 });
-            
+
+                // 更新K线图的位置和大小
+                candles.merge(newCandles)
+                .transition()
+                .duration(1000)
+                .attr('transform', d => `translate(${xScale(new Date(d.time)) - xScale.bandwidth() / 20}, 0)`);
+              
+              candles.merge(newCandles)
+                .select('.high-low')
+                .transition()
+                .duration(1000)
+                .attr('y1', d => yScale(d.high))
+                .attr('y2', d => yScale(d.low))
+                .attr('stroke', d => d.open < d.close ? color : color_two);
+              
+              candles.merge(newCandles)
+                .select('.open-close')
+                .transition()
+                .duration(1000)
+                .attr('y', d => yScale(Math.max(d.open, d.close)))
+                .attr('height', d => d.open === d.close ? 1 : Math.abs(yScale(d.open) - yScale(d.close)))
+                .attr('fill', d => d.open < d.close ? color : color_two);
+                
+
             }
         updateChart(trade_data)
         // console.log(updateChart);

@@ -12,6 +12,7 @@ from webexchange.views import (
     exchange,
     coins,
     swap,
+    trade,
 )
 
 urlpatterns = [
@@ -34,4 +35,5 @@ urlpatterns = [
     path("exchange/", exchange.exchange.as_view(), name="exchange"),
     path("coins/", coins.coins.as_view(), name="coins"),
     path("swap/", swap.swap.as_view(), name="swap"),
+    path("trade/", trade.trade.as_view(), name="trade"),
 ]

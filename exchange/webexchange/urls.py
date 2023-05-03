@@ -7,11 +7,13 @@ from webexchange.views import (
     asset,
     usercenter,
     verifyresult,
-    wallet_manage,
+    transaction,
     nav,
     exchange,
     coins,
     swap,
+    proof,
+    wallet,
     trade,
 )
 
@@ -30,10 +32,12 @@ urlpatterns = [
         verifyresult.verifyresult.as_view(),
         name="verifyresult",
     ),
-    path("wallet/<str:username>", wallet_manage.wallet.as_view(), name="wallet"),
+    path("transaction/<str:username>", transaction.transaction.as_view(), name="transaction"),
     path("nav/", nav.nav.as_view(), name="nav"),
     path("exchange/", exchange.exchange.as_view(), name="exchange"),
     path("coins/", coins.coins.as_view(), name="coins"),
     path("swap/", swap.swap.as_view(), name="swap"),
+    path("proof/", proof.proof.as_view(), name="proof"),
+    path("wallet/<str:username>", wallet.wallet.as_view(), name="wallet"),
     path("trade/", trade.trade.as_view(), name="trade"),
 ]

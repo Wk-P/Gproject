@@ -20,5 +20,6 @@ class usercenter(View):
             return render(request, 'usercenter.html', context={'username': username, 'user_data': user_data})
         else:
             return redirect('404')
-    def post(self, request):
-        return render(request, 'usercenter.html')
+        
+    def post(self, request, **kwargs):
+        pass

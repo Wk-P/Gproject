@@ -39,7 +39,7 @@
 				</li>
 				<li><a id="index" href="{% url 'main' username=username %}" method="GET">Home</a></li>
 				<li id="user-info">
-					<div>User Name : {{ username }} </div>
+					<div id="username">{{ username }} </div>
 					<a href="{% url 'usercenter' username=username %}" method="GET"> User Center </a>
 				</li>
 				<!-- <li><a id="english" href="#">English</a></li> -->
@@ -51,103 +51,13 @@
 			<nav id="inner-nav">
 				<h1>User Center</h1>
 				<ul>
-					<li><a href="{% url 'wallet' username=username %}">Wallet Management</a></li>
-					<li><a href="{% url 'asset' username=username %}">Asset Verification</a></li>
-					<li><a href="#transaction">Transaction</a></li>
+					<li><a href="{% url 'transaction' username=username %}">Transaction</a></li>
+					<li><a href="{% url 'asset' username=username %}">Verification</a></li>
+					<li><a href="{% url 'wallet' username=username %}">Wallet Manage</a></li>
+					<li><a href="#">Transaction History</a></li>
+					<li><a href="{% url 'proof' %}">Proof of Reserves</a></li>
 				</ul>
 			</nav>
-		</div>
-		<div id="up">
-			<div>
-				<coin-name>
-					<name>BTC</name>
-					<div>Ratio</div>
-				</coin-name>
-				<ratio>120.42%</ratio>
-				<div>Customer Net Balances</div>
-				<customer-balances>101298173912</customer-balances>
-				<div>Binance Net Balances</div>
-				<exchange-balances>129310328139</exchange-balances>
-			</div>
-			<div>
-				<coin-name>
-					<name>BTC</name>
-					<div>Ratio</div>
-				</coin-name>
-				<ratio>120.42%</ratio>
-				<div>Customer Net Balances</div>
-				<customer-balances></customer-balances>
-				<div>Binance Net Balances</div>
-				<exchange-balances></exchange-balances>
-			</div>
-			<div>
-				<coin-name>
-					<name>BTC</name>
-					<div>Ratio</div>
-				</coin-name>
-				<ratio>120.42%</ratio>
-				<div>Customer Net Balances</div>
-				<customer-balances></customer-balances>
-				<div>Binance Net Balances</div>
-				<exchange-balances></exchange-balances>
-			</div>
-			<div>
-				<coin-name>
-					<name>BTC</name>
-					<div>Ratio</div>
-				</coin-name>
-				<ratio>120.42%</ratio>
-				<div>Customer Net Balances</div>
-				<customer-balances></customer-balances>
-				<div>Binance Net Balances</div>
-				<exchange-balances></exchange-balances>
-			</div>
-		</div>
-		<div id="down">
-			<div>
-				<coin-name>
-					<name>BTC</name>
-					<div>Ratio</div>
-				</coin-name>
-				<ratio>120.42%</ratio>
-				<div>Customer Net Balances</div>
-				<customer-balances></customer-balances>
-				<div>Binance Net Balances</div>
-				<exchange-balances></exchange-balances>
-			</div>
-			<div>
-				<coin-name>
-					<name>BTC</name>
-					<div>Ratio</div>
-				</coin-name>
-				<ratio>120.42%</ratio>
-				<div>Customer Net Balances</div>
-				<customer-balances></customer-balances>
-				<div>Binance Net Balances</div>
-				<exchange-balances></exchange-balances>
-			</div>
-			<div>
-				<coin-name>
-					<name>BTC</name>
-					<div>Ratio</div>
-				</coin-name>
-				<ratio>120.42%</ratio>
-				<div>Customer Net Balances</div>
-				<customer-balances></customer-balances>
-				<div>Binance Net Balances</div>
-				<exchange-balances></exchange-balances>
-			</div>
-			<div>
-				<coin-name>
-					<name>BTC</name>
-					<div>Ratio</div>
-				</coin-name>
-				<ratio>120.42%</ratio>
-				<div>Customer Net Balances</div>
-				<customer-balances></customer-balances>
-				<div>Binance Net Balances</div>
-				<exchange-balances></exchange-balances>
-			</div>
 		</div>
 		<div class="container">
 			<div class="transaction-history">

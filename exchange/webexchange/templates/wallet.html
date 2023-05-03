@@ -1,78 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wallet Manage</title>
-    {% load static %}
-    <script src="{% static '/lib/fnlib.js'%}"></script>
-    <script src="{% static '/wallet/wallet.js' %}"></script>
-    <script src="https://code.jquery.com/jquery-3.6.4.js"
-        integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E=" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="{% static '/wallet/style.css' %}">
+    <title>Wallet Center</title>
 </head>
-
 <body>
-    {% csrf_token %}
-    <div>
-        <nav>
-            <ul>
-                <li><a id="coin" href="{% url 'coins' %}">Coins</a></li>
-                <li><a id="exchanges" href="{% url 'exchange' %}">Exchanges</a></li>
-                <li><a id="swap" href="#">Swap</a></li>
-                <li id="">
-                    <!-- <label for="exchange-dropdown">USD</label> -->
-                    <select id="currency">
-                        <!-- <option value="">Select an exchange</option> -->
-                        <option value="binance">USD</option>
-                        <option value="coinbase">JPY</option>
-                        <option value="kraken">KRW</option>
-                    </select>
-                </li>
-                <li>
-                    <!-- <label for="exchange-dropdown">English</label> -->
-                    <select id="language">
-                        <!-- <option value="">Select an exchange</option> -->
-                        <option value="English">English</option>
-                        <option value="Chinese">简体中文</option>
-                        <option value="Korean">한국어</option>
-                    </select>
-                </li>
-                <li><a id="index" href="{% url 'index' %}" method="GET">Home</a></li>
-            </ul>
-        </nav>
-    </div>
-    <wallet-block>
-        <div class="wallet-heading">WALLET</div>
-        <div class="wallet-content">
-            <wallet>
-                <wallet-title>Wallet Address</wallet-title>
-                <wallet-adderss>
-                    <input id="wallet-address" type="text">
-                </wallet-adderss>
-            </wallet>
-            <coin>
-                <coin-type-title>Coin Type</coin-type-title>
-                <coin-type>
-                    <select>
-                        <option>BTC</option>
-                        <option>ETH</option>
-                    </select>
-                </coin-type>
-                <coin-amount>
-                    <amount-tile>Coin Amount</amount-title>
-                        <input id="coin-amount" type="text">
-                </coin-amount>
-            </coin>
-            <div id="buttons">
-                <button id="confirm">Confirm</button>
-                <button id="cancel">Cancel</button>
-            </div>
-        </div>
-        <div></div>
-    </wallet-block>
+    
 </body>
-
 </html>

@@ -1,16 +1,7 @@
 window.onload = () => {
     const csrftoken = getCookie('csrftoken');
-    const page_body_display = {
-        zh: {
-            "wallet-title": "钱包地址",
-        },
-        en: {
-            "wallet-title": "wallet-address",
-        },
-        kr: {
-            "wallet-title": "지갑 주소",
-        }
-    }
+    
+    // anv language change
     $('#language').on('change', (event) => {
         if (event.target.value === 'Chinese') {
             $('#coin').text(page_display_data.zh.nav.coin);
@@ -33,7 +24,29 @@ window.onload = () => {
         }
     });
 
-    $('.wallet-heading').click(() => {
-        $('.wallet-content').toggleClass('show');
-    });
+    // get balances
+    const username = $("#username").text();
+    const data = {
+        symbols: {
+            btc: "BTC",
+            eth: "ETH",
+        }
+    }
+
+    fetch(`/proof/`, {
+        method: "POST",
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': csrftoken,
+        },
+        body: JSON.stringify(data) 
+    }).then(response => response.json())
+    .then((data) => {
+        if (data.alert == "NO DATA") {
+            console.log(data.alert);
+        } else {
+            $("#customer-balances").text(data.alert);
+            $("#exchange-balances").text(data.balances * parseFloat(Math.random()*(1.34-1.03) + 1.03));
+        }
+    }).catch(error => console.log(error))
 }

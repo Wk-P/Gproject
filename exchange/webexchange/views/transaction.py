@@ -1,6 +1,6 @@
 from webexchange.views.common.utils import *
 
-class wallet(View):
+class transaction(View):
     def get(self, request, **kwargs):
         return render(request, 'wallet.html')
         

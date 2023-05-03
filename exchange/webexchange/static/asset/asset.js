@@ -13,9 +13,20 @@ function generate_table_contents(table_id, tr_size, td_id_arr, td_contents) {
 }
 
 window.onload = () => {
+
+    // generate hash exchange wallet hashcode
+    const username = $("#user-name").text();
+    let hashString = 0;
+    for (let character of username) {
+        let charCode = character.charCodeAt(0);
+        hashString = hashString << 5 - hashString + charCode;
+        hashString |= hashString;
+    }
+    
+    $("wallet-address").text(hashString);
+
     let btn_count = 1;
 
-    const username = $("#user-name").html();
     const csrftoken = getCookie('csrftoken');
     const td_id_array = [
         `chain-${username}`, 
@@ -61,4 +72,5 @@ window.onload = () => {
             td = document.createElement('td')
         })
         .catch(error => {console.log(error)});
+    
 }

@@ -1,12 +1,11 @@
 <!DOCTYPE html>
 <html>
-
+{% load static %}
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Welcome to my site</title>
-  {% load static %}
   <link rel="stylesheet" href="{% static '/index/style.css' %}">
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="{% static '/lib/fnlib.js' %}"></script>
@@ -20,38 +19,43 @@
       <li><a id="coin" href="{% url 'coins' %}">Coins</a></li>
       <li><a id="exchanges" href="{% url 'exchange' %}">Exchanges</a></li>
       <li><a id="swap" href="#">Swap</a></li>
-      <li> <label for="exchange-dropdown">USD</label>
+      <li>
+        <!-- <label for="exchange-dropdown">USD</label> -->
         <select id="exchange-dropdown">
-          <option value="">Select an exchange</option>
+          <!-- <option value="">Select an exchange</option> -->
           <option value="binance">USD</option>
           <option value="coinbase">JPY</option>
           <option value="kraken">KRW</option>
         </select>
       </li>
       <li>
-        <label for="exchange-dropdown">English</label>
+        <!-- <label for="exchange-dropdown">English</label> -->
         <select id="exchange-dropdown">
-          <option value="">Select an exchange</option>
+          <!-- <option value="">Select an exchange</option> -->
           <option value="binance">English</option>
           <option value="coinbase">简体中文</option>
           <option value="kraken">한국어</option>
         </select>
       </li>
-
     </ul>
   </nav>
-  <div>
-    <h1>Welcome to Coin Center Exchange</h1>
-    <form method="post">
-      {% csrf_token %}
-      <div id="user">
-        <div>
-          <button id="login" name="login">Login</button>
-          <button id="sign" name="sign">Sign up</button>
-        </div>
+  <main>
+    <div>
+      <h1>Welcome to Coin Center Exchange</h1>
+      <div id="img-block">
+        <img src="{% static '/index/img1.png' %}">
       </div>
-    </form>
-  </div>
+      <form method="post">
+        {% csrf_token %}
+        <div id="user">
+          <div>
+            <button id="login" name="login">Login</button>
+            <button id="sign" name="sign">Sign up</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </main>
 </body>
 
 </html>

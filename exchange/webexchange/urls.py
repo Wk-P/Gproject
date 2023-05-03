@@ -29,7 +29,7 @@ urlpatterns = [
         verifyresult.verifyresult.as_view(),
         name="verifyresult",
     ),
-    path("wallet/<str:username>/", wallet_manage.wallet.as_view(), name="wallet"),
+    path("wallet/<str:username>", wallet_manage.wallet.as_view(), name="wallet"),
     path("nav/", nav.nav.as_view(), name="nav"),
     path("exchange/", exchange.exchange.as_view(), name="exchange"),
     path("coins/", coins.coins.as_view(), name="coins"),

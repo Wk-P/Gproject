@@ -4,14 +4,13 @@ from webexchange.views.common.utils import *
 class usercenter(View):
     def get(self, request, **kwargs):
         username = kwargs.get('username')
-
-        user_data = get_user_data(username)
+        user = get_user(user_name=username)
+        user_data = get_user_data(user)
         '''
             user_data = {
                 'user_name': user_name,
                 'user_ID': user_ID,
                 'assets': {[
-                    'wallet_ID': wallet_ID,
                     'asset_amount': asset_amount,
                     'asset_type': asset_type,
                 ]}

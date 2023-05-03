@@ -20,7 +20,7 @@ h1 {
 
 #user div {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
 }
 
@@ -60,8 +60,9 @@ h1 {
 
 /* 导航样式 */
 nav {
-  background-color: #333;
-  color: #fff;
+  font-weight: bold;
+  background-color: #fff;
+  color: #000;
   height: 50px;
 }
 
@@ -70,7 +71,7 @@ nav ul {
   margin: 0;
   padding: 0;
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: center;
   height: 100%;
 }
@@ -86,9 +87,43 @@ nav a {
   height: 100%;
   padding: 0 20px;
   text-decoration: none;
-  color: #fff;
+  color: #333;
+  transition: 0.3s all;
 }
 
 nav a:hover {
-  background-color: #666;
+  color: #fff;
+  background-color: #333;
+}
+
+select {
+  font-size: 16px;
+  font-weight: bold;
+  height: 100%;
+  border-style: none;
+  outline: none;
+  transition: 0.06s ease-in-out;
+}
+
+select:hover {
+  cursor: pointer;
+  color: #fff;
+  background-color: #333;
+}
+
+select:focus-visible {
+  cursor: pointer;
+  color: #fff;
+  background-color: #333;
+}
+
+img {
+  height: 100%;
+}
+
+#img-block{
+  height: 500px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
 }

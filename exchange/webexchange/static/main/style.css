@@ -48,3 +48,16 @@ nav a {
 nav a:hover {
   background-color: #666;
 }
+
+select {
+	font-size: 16px;
+	font-weight: bold;
+	height: 100%;
+	border-style: none;
+	outline: none;
+	transition: 0.06s ease-in-out;
+}
+
+select:hover {
+	cursor: pointer;
+}

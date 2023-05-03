@@ -1,0 +1,189 @@
+/* 清除默认的浏览器样式 */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  width: 100%;
+}
+/* 导航样式 */
+nav {
+  background-color: #fff;
+  color: #333;
+  height: 50px;
+}
+
+nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  height: 100%;
+}
+
+nav li {
+  font-weight: bold;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  height: 100%;
+  width: 100%;
+}
+
+nav a {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  padding: 0 20px;
+  text-decoration: none;
+  color: #333;
+}
+
+nav a:hover {
+  color: #fff;
+  background-color: #333;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+select {
+  text-align: center;
+  font-size: 16px;
+  font-weight: bold;
+  height: 100%;
+  border-style: none;
+  outline: none;
+  transition: 0.06s ease-in-out;
+  padding-right: 10px;
+}
+
+option {
+  text-align: center;
+  font-size: 16px;
+  font-weight: bold;
+  height: 100%;
+  border-style: none;
+  outline: none;
+  transition: 0.06s ease-in-out;
+  padding-right: 10px;
+}
+
+select:hover {
+  cursor: pointer;
+  color: #fff;
+  background-color: #333;
+}
+
+select:focus-visible {
+  cursor: pointer;
+  color: #fff;
+  background-color: #333;
+}
+
+coin-type select {
+  text-align: center;
+  font-size: 16px;
+  font-weight: bold;
+  height: 100%;
+  border-style: none;
+  outline: none;
+  transition: 0.06s ease-in-out;
+  padding-right: 10px;
+}
+
+coin-type select:hover {
+  cursor: pointer;
+  color: #fff;
+  background-color: #999;
+}
+
+coin-type select:focus-visible {
+  cursor: pointer;
+  color: #fff;
+  background-color: #999;
+}
+
+coin-type option {
+  text-align: left;
+}
+
+.wallet-heading {
+  background-color: #f1f1f1;
+  color: #000;
+  font-weight: bold;
+  text-align: center;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.wallet-content {
+  display: none;
+  background-color: #fff;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.wallet-content.show {
+  display: block;
+}
+
+.wallet-content wallet,
+.wallet-content coin {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  gap: 10px;
+}
+
+.wallet-content wallet {
+  border-bottom: 1px solid #ddd;
+}
+
+.wallet-content coin {
+  border-bottom: 1px solid #ddd;
+}
+
+.wallet-content wallet-title,
+.wallet-content coin-type-title,
+.wallet-content amount-title {
+  font-weight: bold;
+  color: #333;
+}
+
+.wallet-content wallet-adderss,
+.wallet-content coin-type,
+.wallet-content coin-amount {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.wallet-content coin-type select,
+.wallet-content coin-amount input {
+  width: 100%;
+  height: 30px;
+  padding: 5px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+.wallet-content #buttons {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+  margin-top: 10px;
+}
+
+
+
+

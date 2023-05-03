@@ -18,12 +18,9 @@ window.onload = () => {
     const username = $("#user-name").html();
     const csrftoken = getCookie('csrftoken');
     const td_id_array = [
-        `wallet_ID-${username}`,
         `chain-${username}`, 
-        `coin_type-${username}`, 
+        `cointype-${username}`, 
         `amount-${username}`, 
-        `veriy_btn-${username}`, 
-        `status-${username}`
     ]
     let data = {
         username: username,
@@ -39,37 +36,23 @@ window.onload = () => {
     data.click = 'no';
     params.body = JSON.stringify(data);
 
-    table_id = "asset_list"
+    tbody = $("#asset-tbody");
+    table = $("table");
 
     fetch(`/asset/${username}/`, params)
         .then(response => response.json())
         .then(data => {
-            console.log(data);
-            console.log(data.asset_data);
+            // console.log(data);
+            // console.log(data.asset_data);
             if (data.alert == 'success') {
                 // asset data is completed
-
-            } else if (data.alert == 'incomplete') {
-                // asset data is None
-                let table = document.getElementById(table_id);
-                for (wallet_id of data.wallets_id) {
-                    let tr = document.createElement('tr');
-                    for (index in td_id_array) {
-                        let td = document.createElement('td');
-                        td.id = td_id_array[index]
-                        if (td.id == `wallet_ID-${username}`) td.innerHTML = wallet_id;
-                        if (td.id == `veriy_btn-${username}`) {
-                            let btn = document.createElement('button');
-                            btn.id = td.id + btn_count.toString();
-                            btn.class = "verify_btn";
-                            btn_count = btn_count + 1;
-                            btn.innerHTML = 'Verify';
-                            td.appendChild(btn);
-                        }
-                        else td.innerHTML = 'none';
-                        tr.appendChild(td);
-                    }
-                    table.appendChild(tr);
+                if (data.asset_data != null) {
+                    tr = document.createElement('tr');
+                } else {
+                    let div = document.createElement('div')
+                    div.innerHTML = "No Asset Data";
+                    div.id = 'no-asset-data';
+                    table.after(div);
                 }
             }
             else {

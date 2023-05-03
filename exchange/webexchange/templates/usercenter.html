@@ -5,6 +5,10 @@
 	<meta charset="UTF-8">
 	<title>User Center</title>
 	{% load static %}
+	<script src="https://code.jquery.com/jquery-3.6.4.js"
+		integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E=" crossorigin="anonymous"></script>
+	<script src="{% static '/lib/fnlib.js' %}"></script>
+	<script src="{% static '/usercenter/usercenter.js' %}"></script>
 	<link rel="stylesheet" href="{% static '/usercenter/style.css' %}">
 </head>
 
@@ -15,21 +19,22 @@
 				<li><a id="coin" href="{% url 'coins' %}">Coins</a></li>
 				<li><a id="exchanges" href="{% url 'exchange' %}">Exchanges</a></li>
 				<li><a id="swap" href="#">Swap</a></li>
-				<li> <label for="exchange-dropdown">USD</label>
+				<li>
+					<!-- <label for="exchange-dropdown">USD</label> -->
 					<select id="exchange-dropdown">
-						<option value="">Select an exchange</option>
+						<!-- <option value="">Select an exchange</option> -->
 						<option value="binance">USD</option>
 						<option value="coinbase">JPY</option>
 						<option value="kraken">KRW</option>
 					</select>
 				</li>
 				<li>
-					<label for="exchange-dropdown">English</label>
-					<select id="exchange-dropdown">
-						<option value="">Select an exchange</option>
-						<option value="binance">English</option>
-						<option value="coinbase">简体中文</option>
-						<option value="kraken">한국어</option>
+					<!-- <label for="exchange-dropdown">English</label> -->
+					<select id="language">
+						<!-- <option value="">Select an exchange</option> -->
+						<option value="English">English</option>
+						<option value="Chinese">简体中文</option>
+						<option value="Korean">한국어</option>
 					</select>
 				</li>
 				<li><a id="index" href="{% url 'main' username=username %}" method="GET">Home</a></li>
@@ -41,71 +46,141 @@
 			</ul>
 		</nav>
 	</header>
-	<nav>
-		<h1>User Center</h1>
-		<h3>{{ username }}</h3>
-		<ul>
-			<li><a href="{% url 'wallet' username=username %}">Wallet Management</a></li>
-			<li><a href="{% url 'asset' username=username %}">Asset Verification</a></li>
-			<li><a href="#transaction">Transaction</a></li>
-		</ul>
-	</nav>
-	<div class="container">
-		<div class="transaction-history">
-			<h2>Transaction History</h2>
-			<table>
-				<thead>
-					<tr>
-						<th>Action</th>
-						<th>Time Stamp</th>
-						<th>Coin Wallet</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr>
-						<td>Deposit</td>
-						<td>2023-03-05 10:00:00</td>
-						<td>BTC</td>
-					</tr>
-					<tr>
-						<td>Withdrawal</td>
-						<td>2023-03-04 15:30:00</td>
-						<td>ETC</td>
-					</tr>
-					<tr>
-						<td>Transfer</td>
-						<td>2023-03-03 20:45:00</td>
-						<td>Luna</td>
-					</tr>
-				</tbody>
-			</table>
+	<main>
+		<div>
+			<nav id="inner-nav">
+				<h1>User Center</h1>
+				<ul>
+					<li><a href="{% url 'wallet' username=username %}">Wallet Management</a></li>
+					<li><a href="{% url 'asset' username=username %}">Asset Verification</a></li>
+					<li><a href="#transaction">Transaction</a></li>
+				</ul>
+			</nav>
 		</div>
-		<div class="wallet">
-			<h2>Wallet</h2>
-			<table>
-				<thead>
-					<tr>
-						<th>Coin Type</th>
-						<th>Amount</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr>
-						<td>{{ user_data.asset_type }}</td>
-						<td>{{ user_data.asset_amount }}</td>
-					</tr>
-					<tr>
-						<td>ETH</td>
-						<td>10.23456789</td>
-					</tr>
-					<tr>
-						<td>LTC</td>
-						<td>100.00000000</td>
-					</tr>
-				</tbody>
-			</table>
+		<div id="up">
+			<div>
+				<coin-name>
+					<name>BTC</name>
+					<div>Ratio</div>
+				</coin-name>
+				<ratio>120.42%</ratio>
+				<div>Customer Net Balances</div>
+				<customer-balances>101298173912</customer-balances>
+				<div>Binance Net Balances</div>
+				<exchange-balances>129310328139</exchange-balances>
+			</div>
+			<div>
+				<coin-name>
+					<name>BTC</name>
+					<div>Ratio</div>
+				</coin-name>
+				<ratio>120.42%</ratio>
+				<div>Customer Net Balances</div>
+				<customer-balances></customer-balances>
+				<div>Binance Net Balances</div>
+				<exchange-balances></exchange-balances>
+			</div>
+			<div>
+				<coin-name>
+					<name>BTC</name>
+					<div>Ratio</div>
+				</coin-name>
+				<ratio>120.42%</ratio>
+				<div>Customer Net Balances</div>
+				<customer-balances></customer-balances>
+				<div>Binance Net Balances</div>
+				<exchange-balances></exchange-balances>
+			</div>
+			<div>
+				<coin-name>
+					<name>BTC</name>
+					<div>Ratio</div>
+				</coin-name>
+				<ratio>120.42%</ratio>
+				<div>Customer Net Balances</div>
+				<customer-balances></customer-balances>
+				<div>Binance Net Balances</div>
+				<exchange-balances></exchange-balances>
+			</div>
 		</div>
-	</div>
+		<div id="down">
+			<div>
+				<coin-name>
+					<name>BTC</name>
+					<div>Ratio</div>
+				</coin-name>
+				<ratio>120.42%</ratio>
+				<div>Customer Net Balances</div>
+				<customer-balances></customer-balances>
+				<div>Binance Net Balances</div>
+				<exchange-balances></exchange-balances>
+			</div>
+			<div>
+				<coin-name>
+					<name>BTC</name>
+					<div>Ratio</div>
+				</coin-name>
+				<ratio>120.42%</ratio>
+				<div>Customer Net Balances</div>
+				<customer-balances></customer-balances>
+				<div>Binance Net Balances</div>
+				<exchange-balances></exchange-balances>
+			</div>
+			<div>
+				<coin-name>
+					<name>BTC</name>
+					<div>Ratio</div>
+				</coin-name>
+				<ratio>120.42%</ratio>
+				<div>Customer Net Balances</div>
+				<customer-balances></customer-balances>
+				<div>Binance Net Balances</div>
+				<exchange-balances></exchange-balances>
+			</div>
+			<div>
+				<coin-name>
+					<name>BTC</name>
+					<div>Ratio</div>
+				</coin-name>
+				<ratio>120.42%</ratio>
+				<div>Customer Net Balances</div>
+				<customer-balances></customer-balances>
+				<div>Binance Net Balances</div>
+				<exchange-balances></exchange-balances>
+			</div>
+		</div>
+		<div class="container">
+			<div class="transaction-history">
+				<h2>Transaction History</h2>
+				<table>
+					<thead>
+						<tr>
+							<th>Action</th>
+							<th>Time Stamp</th>
+							<th>Coin Wallet</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>Deposit</td>
+							<td>2023-03-05 10:00:00</td>
+							<td>BTC</td>
+						</tr>
+						<tr>
+							<td>Withdrawal</td>
+							<td>2023-03-04 15:30:00</td>
+							<td>ETC</td>
+						</tr>
+						<tr>
+							<td>Transfer</td>
+							<td>2023-03-03 20:45:00</td>
+							<td>Luna</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</main>
 </body>
 
 </html>

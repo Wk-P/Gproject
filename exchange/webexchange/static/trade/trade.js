@@ -42,10 +42,10 @@ window.onload = () => {
 
     ws.onmessage = event => {
         const data = JSON.parse(event.data);
-        console.log('hightest price：', data.k.h);
-        console.log('lowest price：', data.k.l);
-        console.log('open price：', data.k.o);
-        console.log('close price：', data.k.c);
+        console.log('hightest price: ', data.k.h);
+        console.log('lowest price: ', data.k.l);
+        console.log('open price: ', data.k.o);
+        console.log('close price: ', data.k.c);
         console.log('time:', timetrans(data.k.T));
         const trade_data = [
             { time: data.k.T, open: data.k.o, high: data.k.h, low: data.k.l, close: data.k.c },

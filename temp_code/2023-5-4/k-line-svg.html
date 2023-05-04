@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>SVG蜡烛图</title>
+    <style>
+        rect {
+            stroke-width: 1;
+        }
+
+        line {
+            stroke-width: 1;
+        }
+
+        .green {
+            fill: green;
+            stroke: green;
+        }
+
+        .red {
+            fill: red;
+            stroke: red;
+        }
+    </style>
+</head>
+
+<body>
+    <svg id="chart" width="500" height="400"></svg>
+    <script>
+        // 获取 SVG 元素
+        var svg = document.getElementById('chart');
+        // 数据
+        const data = [
+            { time: '2021-01-01', open: 10550, high: 11000, low: 10000, close: 10202 },
+            { time: '2021-01-02', open: 10200, high: 10900, low: 9800, close: 10500 },
+            { time: '2021-01-03', open: 10500, high: 11000, low: 10000, close: 10200 },
+            { time: '2021-01-04', open: 10200, high: 10900, low: 9800, close: 10500 },
+            { time: '2021-01-05', open: 10500, high: 11000, low: 10000, close: 10200 },
+            { time: '2021-01-06', open: 10200, high: 10900, low: 9800, close: 10500 }
+        ];
+
+        // 计算蜡烛图的高度和宽度
+        var height = svg.getAttribute('height');
+        var width = svg.getAttribute('width');
+        svg.setAttribute('viewBox', '0 0 ' + width + ' ' + height);
+
+        var axisHeight = 20; // 轴线的高度
+        var axisWidth = 20; // 轴线的宽度
+        var candleHeight = height * 0.7 - axisHeight;
+        // rect width
+        var candleWidth = (width - axisWidth) / data.length * 0.8 / 5;
+        var candleMargin = (width - axisWidth) / data.length * 0.05;
+
+        // 计算价格的最大值和最小值
+        var prices = data.map(d => {return [d.open, d.high, d.low, d.close]});
+        var minPrice = Math.min.apply(null, prices.flat());
+        var maxPrice = Math.max.apply(null, prices.flat());
+
+        // 绘制坐标轴
+        var axisX = '<line x1="20" y1="' + (height - 10) + '" x2="' + (width - 20) + '" y2="' + (height - 10) + '" stroke="black" />';
+        var axisY = '<line x1="20" y1="10" x2="20" y2="' + (candleHeight + 10) + '" stroke="black" />';
+        var labelMax = '<text x="5" y="20">' + maxPrice + '</text>';
+        var labelMin = '<text x="5" y="' + (candleHeight + 5) + '">' + minPrice + '</text>';
+        svg.innerHTML = axisX + axisY + labelMax + labelMin;
+
+        // 绘制蜡烛图
+        var svgContent = '';
+        data.forEach(function (d, i) {
+            var x = (candleWidth + candleMargin) * i + candleMargin + 20;
+            var yOpen = (maxPrice - d.open) / (maxPrice - minPrice) * candleHeight + 10;
+            var yHigh = (maxPrice - d.high) / (maxPrice - minPrice) * candleHeight + 10;
+            var yLow = (maxPrice - d.low) / (maxPrice - minPrice) * candleHeight + 10;
+            var yClose = (maxPrice - d.close) / (maxPrice - minPrice) * candleHeight + 10;
+            var candleClass = d.close > d.open ? 'green' : 'red';
+            var rect = '<rect x="' + x + '" y="' + Math.min(yOpen, yClose) + '" width="' + candleWidth + '" height="' + Math.abs(yClose - yOpen) + '" class="' + candleClass + '" />';
+            var line = '<line x1="' + (x + candleWidth / 2) + '" y1="' + yHigh + '" x2="' + (x + candleWidth / 2) + '" y2="' + yLow + '" class="' + candleClass + '" />';
+            svgContent += rect + line;
+        });
+
+        // 绘制坐标轴
+        var xAxis = '<line x1="20" y1="' + (candleHeight + 10) + '" x2="' + (candleWidth + candleMargin) * data.length + candleMargin + 20 + '" y2="' + (candleHeight + 10) + '" stroke="black" />';
+        var yAxis = '<line x1="20" y1="10" x2="20" y2="' + (candleHeight + 10) + '" stroke="black" style="display:none" />';
+        svgContent += xAxis + yAxis;
+        svg.innerHTML = svgContent;
+    </script>
+</body>
+
+</html>

@@ -1,6 +1,7 @@
+from django.core.management.commands.runserver import Command as RunserverCommand
+from django.core.management.base import BaseCommand
 import threading
 import time
-
 
 class Order:
     def __init__(self, order_type, order_id, stock_name, price, quantity):
@@ -69,27 +70,37 @@ class OrderConsumer(threading.Thread):
         while self.order_manager.match_orders() is not None:
             time.sleep(0.1)
 
+class Command(RunserverCommand):
+    help = 'Starts the development server with a task.'
 
-if __name__ == '__main__':
-    order_manager = OrderManager()
+    def inner_run(self, *args, **options):
+        .start() # 启动任务
+        super().inner_run(*args, **options)
 
-    producer1 = OrderProducer(order_manager, 'buy', 'ABC', 10, 100)
-    producer2 = OrderProducer(order_manager, 'buy', 'ABC', 11, 200)
-    producer3 = OrderProducer(order_manager, 'sell', 'ABC', 12, 150)
-    producer4 = OrderProducer(order_manager, 'sell', 'ABC', 9, 50)
 
-    consumer = OrderConsumer(order_manager)
+class Commad(BaseCommand):
+    help = "Price Matching Task"
 
-    producer1.start()
-    producer2.start()
-    producer3.start()
-    producer4.start()
+    def handle(self, *args, **option):
+        order_manager = OrderManager()
+        while True:
+            producer1 = OrderProducer(order_manager, 'buy', 'ABC', 10, 100)
+            producer2 = OrderProducer(order_manager, 'buy', 'ABC', 11, 200)
+            producer3 = OrderProducer(order_manager, 'sell', 'ABC', 12, 150)
+            producer4 = OrderProducer(order_manager, 'sell', 'ABC', 9, 50)
 
-    consumer.start()
+            consumer = OrderConsumer(order_manager)
 
-    producer1.join()
-    producer2.join()
-    producer3.join()
-    producer4.join()
+            producer1.start()
+            producer2.start()
+            producer3.start()
+            producer4.start()
 
-    consumer.join()
+            consumer.start()
+
+            producer1.join()
+            producer2.join()
+            producer3.join()
+            producer4.join()
+
+            consumer.join()

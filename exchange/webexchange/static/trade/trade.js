@@ -192,10 +192,10 @@ function timetrans(date) {
     var Y = date.getFullYear() + '';
     var M = (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1) + '';
     var D = (date.getDate() < 10 ? '0' + (date.getDate()) : date.getDate()) + '';
-    var h = (date.getHours() < 10 ? '0' + date.getHours() : date.getHours()) + ':';
-    var m = (date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes()) + ':';
-    var s = (date.getSeconds() < 10 ? '0' + date.getSeconds() : date.getSeconds());
-    return h + m + s;
+    var h = (date.getHours() < 10 ? '0' + date.getHours() : date.getHours()) + '';
+    var m = (date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes()) + '';
+    var s = (date.getSeconds() < 10 ? '0' + date.getSeconds() : date.getSeconds())  ;
+    return Y + M + D + h + m + s;
 }
 
 
@@ -266,18 +266,21 @@ function drawCandlestick(svg, width, height, trade_data, gx, yScale, margin) {
     const lowPrices = d3.map(trade_data, v => v[3])
     const pricePending = Math.round(d3.max(highPrices) / 100)
 
-    const dates = d3.map(trade_data, v => v[0])
-console.log(dates,parseInt(dates[0]))
-    const xScale = d3.scaleTime()
+    var dates = d3.map(trade_data, v => v[0])
+
+
+    // const parseTime = d3.timeParse('%s');
+    // dates = dates.map(d => parseTime(d));
+
+    console.log(dates, parseInt(dates[0]))
+    const xScale = d3.scaleLinear()
         .domain([parseInt(dates[0]), parseInt(dates[dates.length - 1])])
         .range([0, width - margin.left - margin.right])
 
-
-
     const axis = d3.axisBottom(xScale)
-    .tickFormat(v => {
-        return dates[v]
-    })
+        .ticks(10)
+        .tickValues(dates)
+        .tickFormat(d3.format("d"))
     gx.call(axis);
 
 
@@ -446,16 +449,7 @@ function drawFocusLayout(svg, trade_data, width, height, xScale, yScale, margin,
 
 
 function formatText(v) {
-    return `${v[0].replace(/(\d{4})(\d{2})(\d{2})/, '$1-$2-$3')}
-    开盘: ${v[1]} |
-    收盘: ${v[4]} |
-    最高: ${v[2]} |
-    最低: ${v[3]}`
-}
-
-
-function formatText(v) {
-    return `${v[0].replace(/(\d{4})(\d{2})(\d{2})/, '$1-$2-$3')}
+    return `${v[0]}
     开盘: ${v[1]} |
     收盘: ${v[4]} |
     最高: ${v[2]} |
@@ -573,11 +567,11 @@ window.onload = () => {
 
     ws.onmessage = event => {
         const data = JSON.parse(event.data);
-        console.log('hightest price: ', data.k.h);
-        console.log('lowest price: ', data.k.l);
-        console.log('open price: ', data.k.o);
-        console.log('close price: ', data.k.c);
-        console.log('time:', timetrans(data.k.T));
+        // console.log('hightest price: ', data.k.h);
+        // console.log('lowest price: ', data.k.l);
+        // console.log('open price: ', data.k.o);
+        // console.log('close price: ', data.k.c);
+        // console.log('time:', timetrans(data.k.T));
         console.log(trade_data.length)
 
 
@@ -592,7 +586,9 @@ window.onload = () => {
         // 使用setTimeout函数延迟数据处理
         setTimeout(() => {
             if (trade_data.length < max_size) {
+                console.log(timetrans(data.k.T))
                 trade_data.push([timetrans(data.k.T), parseFloat(data.k.o), parseFloat(data.k.h), parseFloat(data.k.l), parseFloat(data.k.c)])
+                // trade_data.push([timedata.k.T, parseFloat(data.k.o), parseFloat(data.k.h), parseFloat(data.k.l), parseFloat(data.k.c)])
             }
 
             text.text(formatText(trade_data[trade_data.length - 1]))

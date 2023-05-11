@@ -11,6 +11,7 @@ import os
 import requests
 import websockets
 import asyncio
+import threading
 
 from hashlib import sha256
 from typing import List
@@ -22,8 +23,6 @@ from random import randint
 import pyfinite
 from pyfinite import genericmatrix
 
-from .exchange_center import Order, OrderManager
-
 from .appexceptions import InputException, DataException, AppException
 
 from .genericgf import GenericGF
@@ -33,6 +32,7 @@ from .merkle import MerkleTree
 from .zk_snarks import generate_proof, verify_proof
 
 from .verify_algorithm import combine_data
+from .exchange_center import Order, OrderConsumer, OrderManager, OrderProducer
 
 __all__ = [
     # python3 package
@@ -49,6 +49,7 @@ __all__ = [
     "requests",
     "websockets",
     "asyncio",
+    "threading",
     # Django package
     "JsonResponse",
     "render",
@@ -80,6 +81,8 @@ __all__ = [
     # ORDER class
     'Order',
     'OrderManager',
+    'OrderConsumer',
+    'OrderProducer',
     # others
     "get_verification_information",
     # exceptions class

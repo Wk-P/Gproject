@@ -195,7 +195,7 @@ function timetrans(date) {
     var h = (date.getHours() < 10 ? '0' + date.getHours() : date.getHours()) + ':';
     var m = (date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes()) + ':';
     var s = (date.getSeconds() < 10 ? '0' + date.getSeconds() : date.getSeconds());
-    return Y + M + D;
+    return h + m + s;
 }
 
 
@@ -205,7 +205,7 @@ function drawAxisX(svg, width, height, margin) {
     // const dates = d3.map(trade_data, v => v[0])
 
     const scale = d3.scaleLinear()
-        .domain([0, 1])
+        .domain([0, 10])
         .range([0, width - margin.left - margin.right])
 
     const axis = d3.axisBottom(scale)
@@ -214,11 +214,11 @@ function drawAxisX(svg, width, height, margin) {
     // return dates[v]
     // })
 
-    svg.append('g')
+    var g = svg.append('g')
         .attr('transform', 'translate(' + margin.left + ',' + (height - margin.bottom) + ')')
         .call(axis)
 
-    return scale
+    return g;
 }
 
 // 绘制竖标轴
@@ -252,16 +252,23 @@ function drawAxisY(svg, width, height, margin) {
 
 
 
-function drawCandlestick(svg, height, trade_data, xScale, yScale, margin) {
+function drawCandlestick(svg, width, height, trade_data, gx, yScale, margin) {
     console.log(trade_data)
     const highPrices = d3.map(trade_data, v => v[2])
     const lowPrices = d3.map(trade_data, v => v[3])
     const pricePending = Math.round(d3.max(highPrices) / 100)
 
     const dates = d3.map(trade_data, v => v[0])
-    xScale.tickFormat(v => {
-        return dates[v]
-    })
+    const xScale = d3.scaleTime()
+        .domain(dates[0], dates[dates.length - 1])
+        .range([0, width - margin.left - margin.right])
+    var axis = d3.axisBottom(xScale)
+        .ticks(10)
+        .tickValues(dates)
+
+    gx.call(axis)
+   
+   
     yScale.domain([d3.min(lowPrices) - pricePending, d3.max(highPrices) + pricePending])
 
 
@@ -352,7 +359,7 @@ function drawFocusLayout(svg, trade_data, width, height, xScale, yScale, margin)
         d3.select('#focusLineX').attr('display', 'none')
         d3.select('#focusLineY').attr('display', 'none')
 
-        text.text(formatText(trade_ata[trade_data.length - 1]))
+        text.text(formatText(trade_data[trade_data.length - 1]))
     }
 
     const formatText = (v) => {
@@ -427,7 +434,90 @@ function drawFocusLayout(svg, trade_data, width, height, xScale, yScale, margin)
 
 
 
+
+
 window.onload = () => {
+    const username = $("#username").text();
+    const csrftoken = getCookie('csrftoken');
+    let data = {
+        username: username,
+        reqtype: ['match'],
+    }
+    let params = {
+        method: "POST",
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': csrftoken,
+        },
+    }
+
+    params.body = JSON.stringify(data);
+
+    fetch(`/trade/${username}`, params)
+        .then(response => { response.json() })
+        .then(data => {
+            console.log(data);
+        })
+
+    $("#buy-btn").click(() => {
+        var order = {
+            type: 'buy',
+            timestamp: new Date().getTime(),
+            stockname: $("#stock-name input").val(),
+            quantity: parseInt($("#quantity input").val()),
+            price: parseFloat($("#price input").val()),
+        }
+        data.order = order
+        data.reqtype.push('trade');
+
+        if (order.stockname == undefined || order.quantity == undefined || order.price == undefined) {
+            alert("Enter stock name or amount!");
+        }
+
+        if (order.quantity <= 0 || order.price <= 0) {
+            alert("Enter correct price or quantity!")
+        }
+
+        params.body = JSON.stringify(data);
+        fetch(`/trade/${username}`, params)
+            .then(response => response.json())
+            .then(data => {
+                console.log("DATA:", data);
+                alert(data.alert);
+            })
+            .catch(error => console.log(error))
+    });
+
+
+    $("#sell-btn").click(() => {
+        var order = {
+            type: 'buy',
+            timestamp: new Date().getTime(),
+            stockname: $("#stock-name input").val(),
+            quantity: parseInt($("#quantity input").val()),
+            price: parseFloat($("#price input").val()),
+        }
+        data.order = order
+        data.reqtype.push('trade');
+
+        if (order.stockname == undefined || order.quantity == undefined || order.price == undefined) {
+            alert("Enter stock name or amount!");
+        }
+
+        if (order.quantity <= 0 || order.price <= 0) {
+            alert("Enter correct price or quantity!")
+        }
+
+        params.body = JSON.stringify(data)
+        fetch(`/trade/${username}`, params)
+            .then(response => response.json())
+            .then(data => {
+                console.log("DATA:", data);;
+                alert(data.alert);
+            })
+            .catch(error => console.log(error))
+    });
+
     const max_size = 10;
     var g_arr = new Array();
     var trade_data = new Array();
@@ -440,7 +530,7 @@ window.onload = () => {
         .attr('height', height)
         .attr('viewBox', [0, 0, width, height])
 
-    var xScale = drawAxisX(svg, width, height, margin)
+    var gx = drawAxisX(svg, width, height, margin)
     var yScale = drawAxisY(svg, width, height, margin)
 
     // drawTitle='k线图';
@@ -448,6 +538,7 @@ window.onload = () => {
 
 
     // 订阅 WebSocket 实时推送的 K 线数据
+
     const ws = new WebSocket('wss://stream.binance.com:9443/ws/btcusdt@kline_1s');
 
     ws.onmessage = event => {
@@ -468,14 +559,12 @@ window.onload = () => {
             // 计算蜡烛图实线宽度
             const getCandlestickWidth = dataLength => (width - margin.left - margin.right) / dataLength - 3
 
-            drawCandlestick(svg, height, trade_data, xScale, yScale, margin)
+            drawCandlestick(svg, width, height, trade_data, gx, yScale, margin)
+            
             drawFocusLayout(svg, trade_data, width, height, xScale, yScale, margin)
             // drawTitle(data.name)
         }, 1000) // 延迟500毫秒进行数据处理
     }
-
-
-
 
 
 }

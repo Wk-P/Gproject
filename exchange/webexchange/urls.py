@@ -39,5 +39,5 @@ urlpatterns = [
     path("swap/", swap.swap.as_view(), name="swap"),
     path("proof/", proof.proof.as_view(), name="proof"),
     path("wallet/<str:username>", wallet.wallet.as_view(), name="wallet"),
-    path("trade/", trade.trade.as_view(), name="trade"),
+    path("trade/<str:username>", trade.trade.as_view(), name="trade"),
 ]

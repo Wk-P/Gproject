@@ -194,7 +194,7 @@ function timetrans(date) {
     var D = (date.getDate() < 10 ? '0' + (date.getDate()) : date.getDate()) + '';
     var h = (date.getHours() < 10 ? '0' + date.getHours() : date.getHours()) + '';
     var m = (date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes()) + '';
-    var s = (date.getSeconds() < 10 ? '0' + date.getSeconds() : date.getSeconds())  ;
+    var s = (date.getSeconds() < 10 ? '0' + date.getSeconds() : date.getSeconds());
     return Y + M + D + h + m + s;
 }
 
@@ -273,13 +273,23 @@ function drawCandlestick(svg, width, height, trade_data, gx, yScale, margin) {
     // dates = dates.map(d => parseTime(d));
 
     console.log(dates, parseInt(dates[0]))
+
+    let datesObjects = []
+    for (let i = 0;i < 10;i++) {
+        if (i < length) {
+            datesObjects[i] = dates[i]
+        }
+        else {
+            datesObjects[i] = dates[0] + i;
+        }
+    }
+    
     const xScale = d3.scaleLinear()
-        .domain([parseInt(dates[0]), parseInt(dates[dates.length - 1])])
+        .domain([parseInt(datesObjects[0]), parseInt(datesObjects[datesObjects.length - 1])])
         .range([0, width - margin.left - margin.right])
 
     const axis = d3.axisBottom(xScale)
-        .ticks(10)
-        .tickValues(dates)
+        .tickValues(datesObjects)
         .tickFormat(d3.format("d"))
     gx.call(axis);
 

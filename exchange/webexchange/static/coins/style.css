@@ -14,9 +14,6 @@ nav {
   background-color: #fff;
   color: #333;
   height: 50px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
 
 nav ul {

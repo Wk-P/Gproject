@@ -35,23 +35,26 @@
         </ul>
 
     </nav>
+    <h1 id="title" class='title'>
+        <div class="title1">选择我们平台/购买/交易和持有350多种加密货币</div>
+    </h1>
     <div class="shangbutitle" class="titleshangbu">
-        <h1 id="title" class='title'>
-            <div class="title1">选择币安平台/购买/交易和持有350多种加密货币</div>
-        </h1>
         <div class="tupian" class="tupiancss">
             <img src="{% static '/login/img1.png' %}" alt="lightImageUrl" class="tupian">
         </div>
+        <div class="bingpai">
         <form method="post">
             {% csrf_token %}
             User <input type="text" id="username" name="username">
             <br>
             Password <input type="password" id="userpassword" name="userpassword" autocomplete="off">
             <br>
+    <div class="anniu">
             <button id="submit" name="submit">Submit</button>
             <button id="register" name="register">Register</button>
             <button id="cancel" name="cancel">Cancel</button>
-        </form>
+    </div>
+        </form></div>
 </body>
 
 </html>

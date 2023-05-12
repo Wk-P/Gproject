@@ -39,7 +39,9 @@
             <li><a id="index" href="{% url 'main' username=username %}" method="GET">Home</a></li>
             <li id="user-info">
                 <div>User Name : {{ username }} </div>
+                <div class="user">
                 <a href="{% url 'usercenter' username=username %}" method="GET"> User Center </a>
+            </div>
             </li>
         </ul>
     </nav>

@@ -46,8 +46,8 @@ strong {
   
   /* 导航样式 */
   nav {
-    background-color: #333;
-    color: #fff;
+    background-color: #fff;
+    color: #333;
     height: 50px;
   }
   
@@ -59,6 +59,7 @@ strong {
     justify-content: space-between;
     align-items: center;
     height: 100%;
+    color:#333;
   }
   
   nav li {

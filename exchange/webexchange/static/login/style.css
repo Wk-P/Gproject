@@ -20,6 +20,7 @@ nav ul {
   justify-content: space-between;
   align-items: center;
   height: 100%;
+  color:#333;
 }
 
 nav li {
@@ -131,4 +132,14 @@ div{
 img {
   border-style: none;
   }
+}
+.shangbutitle{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+.anniu{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
 }

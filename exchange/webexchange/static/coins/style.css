@@ -5,6 +5,10 @@
   box-sizing: border-box;
 }
 
+main div {
+  overflow: scroll;
+}
+
 /* 导航样式 */
 nav {
   background-color: #fff;
@@ -17,15 +21,18 @@ nav ul {
   margin: 0;
   padding: 0;
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: center;
   height: 100%;
-  color:#333;
+  width: 100%;
 }
 
 nav li {
+  font-weight: bold;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
   height: 100%;
-  margin: 0 10px;
 }
 
 nav a {
@@ -37,13 +44,16 @@ nav a {
   text-decoration: none;
   color: #333;
   font-weight: bold;
+  transition: 0.3s all;
 }
 
 nav a:hover {
-  background-color: #666;
+  color: #fff;
+  background-color: #333;
 }
 
 .market-info {
+  width: 100%;
   background-color: #4d4dff;
   color: #fff;
   padding: 20px;
@@ -84,7 +94,7 @@ table tr {
 
 table tr td {
   padding: 10px;
-  text-align: center;
+  text-align: center; 
 }
 
 .fade-in {
@@ -100,4 +110,17 @@ table tr td {
 .thead {
   background-color: #f0f0f0;
   color: #333;
+}
+
+select {
+  font-size: 16px;
+  font-weight: bold;
+  height: 100%;
+  border-style: none;
+  outline:none;
+  transition: 0.06s ease-in-out;
+}
+
+select:hover {
+  cursor: pointer;
 }

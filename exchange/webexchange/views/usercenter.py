@@ -4,14 +4,13 @@ from webexchange.views.common.utils import *
 class usercenter(View):
     def get(self, request, **kwargs):
         username = kwargs.get('username')
-
-        user_data = get_user_data(username)
+        user = get_user(user_name=username)
+        user_data = get_user_data(user)
         '''
             user_data = {
                 'user_name': user_name,
                 'user_ID': user_ID,
                 'assets': {[
-                    'wallet_ID': wallet_ID,
                     'asset_amount': asset_amount,
                     'asset_type': asset_type,
                 ]}
@@ -21,5 +20,6 @@ class usercenter(View):
             return render(request, 'usercenter.html', context={'username': username, 'user_data': user_data})
         else:
             return redirect('404')
-    def post(self, request):
-        return render(request, 'usercenter.html')
+        
+    def post(self, request, **kwargs):
+        pass

@@ -19,18 +19,19 @@
             <li><a id="coin" href="{% url 'coins' %}">Coins</a></li>
             <li><a id="exchanges" href="{% url 'exchange' %}">Exchanges</a></li>
             <li><a id="swap" href="#">Swap</a></li>
-            <li> <label for="exchange-dropdown">USD</label>
+            <li> 
+                <!-- <label for="exchange-dropdown">USD</label> -->
                 <select id="exchange-dropdown">
-                    <option value="">Select an exchange</option>
+                    <!-- <option value="">Select an exchange</option> -->
                     <option value="binance">USD</option>
                     <option value="coinbase">JPY</option>
                     <option value="kraken">KRW</option>
                 </select>
             </li>
             <li>
-                <label for="exchange-dropdown">English</label>
+                <!-- <label for="exchange-dropdown">English</label> -->
                 <select id="exchange-dropdown">
-                    <option value="">Select an exchange</option>
+                    <!-- <option value="">Select an exchange</option> -->
                     <option value="binance">English</option>
                     <option value="coinbase">简体中文</option>
                     <option value="kraken">한국어</option>
@@ -38,8 +39,7 @@
             </li>
             <li><a id="index" href="{% url 'main' username=username %}" method="GET">Home</a></li>
             <li id="user-info">
-                <div>User Name : {{ username }} </div>
-                <div class="user">
+                <div>User Name : <span>{{ username }}</span></div>
                 <a href="{% url 'usercenter' username=username %}" method="GET"> User Center </a>
             </div>
             </li>

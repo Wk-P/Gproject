@@ -1,24 +1,145 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+    {% load static %}
+
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Trade</title>
+    <script src="{% static '/lib/fnlib.js' %}"></script>
+    <script src="{% static '/trade/trade.js' %}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/6.7.0/d3.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://d3js.org/d3.v6.min.js"></script>
+    <!-- <script src="https://socket.io/socket.io.js"></script> -->
+
+    <link rel="stylesheet" href="{% static '/trade/trade.css' %}">
+
 </head>
+
 <body>
-    <nav>
-        <ul>
-          <li><a href="#">Coins</a></li>
-          <li><a href="#">Exchanges</a></li>
-          <li><a href="#">Swap</a></li>
-          <li><a href="#">USD</a></li>
-          <li><a href="#">English</a></li>
-        </ul>
-    <h1>Transaction</h1>
-    <div>
-        <h1>Trade</h1>
-        preparing...
+    {% csrf_token %}
+    <header>
+        <div>
+            <div id="username">{{ username }}</div>
+            <div id="stock-name">
+                <div>NAME</div><input type="text">
+            </div>
+            <div id="quantity">
+                <div>QUANTITY</div><input type="text">
+            </div>
+            <div id="price">
+                <div>PRICE</div><input type="text">
+            </div>
+            <button id="buy-btn">BUY</button>
+            <button id="sell-btn">SELL</button>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="#">BTC/USDT</a></li>
+                <li><a href="#">24h涨跌</a></li>
+                <li><a href="#">24h最高价</a></li>
+                <li><a href="#">24h最低价</a></li>
+                <li><a href="#">24h成交量(BTC)</a></li>
+                <li><a href="#">24h成交量(USDT)</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div id="backgroud">
+        <div id="left">
+
+            <div id="sell">
+                <div id="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>price(USDT)</th>
+                                <th>Amount(USDT)</th>
+                                <th>Total</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>10000.00</td>
+                                <td>10.00</td>
+                                <td>100000.00</td>
+                            </tr>
+                            <tr>
+                                <td>9000.00</td>
+                                <td>20.00</td>
+                                <td>180000.00</td>
+                            </tr>
+                            <tr>
+                                <td>8000.00</td>
+                                <td>30.00</td>
+                                <td>240000.00</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+
+
+
+            <div id="buy"></div>
+        </div>
+        <div id="mid">
+            <div id="chart">
+                <div id="time-button">
+                    <button class="active">1s</button>
+                    <button>15m</button>
+                    <button>1H</button>
+                    <button>4H</button>
+                    <button>1D</button>
+                    <button>1W</button>
+                </div>
+                <svg></svg>
+
+            </div>
+
+            <div id="operator">
+                <div id="time-buttons">
+                    <button class="active">Limit</button>
+                    <button>Market</button>
+                    <button>Stop-limit</button>
+
+                </div>
+            </div>
+        </div>
+        <div id="right">
+            <div id="market-cap">
+                <input type="text" placeholder="Search...">
+                <button type="submit">Search</button>
+                <div id="time-buttons">
+                    <button class="active">USDT</button>
+                    <button>BTC</button>
+                    <button>ETH</button>
+                    <button>BNB</button>
+                    <button>DOGE</button>
+
+                </div>
+            </div>
+
+            <div id="trade-details">
+                <div id="time-buttonss" class="trade-buttonss">
+                    <button class="active">Market</button>
+                    <button>My Trades</button>
+                </div>
+                <div id="trade-buttons" class="trade-buttons">
+                    <button>Price</button>
+                    <button>Amount</button>
+                    <button>Time</button>
+                </div>
+            </div>
+
+
+
+
+
+        </div>
     </div>
 </body>
-</html>

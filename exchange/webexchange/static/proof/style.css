@@ -1,0 +1,99 @@
+/* 清除默认的浏览器样式 */
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+body {
+	margin: 0;
+	padding: 0;
+	font-family: Arial, sans-serif;
+	font-size: 16px;
+}
+
+#inner-nav {
+	background-color: #222;
+	color: #fff;
+	padding: 20px;
+}
+
+#inner-nav h1 {
+	margin: 0;
+	font-size: 28px;
+}
+
+#inner-nav ul {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+}
+
+#inner-nav li {
+	display: inline-block;
+	margin-right: 20px;
+}
+
+#inner-nav a {
+	color: #fff;
+	text-decoration: none;
+}
+
+main {
+	display: flex;
+	width: 100%;
+	flex-direction: column;
+	justify-content: space-around;
+}
+
+#up, #down{
+	display: flex;
+	width: 100%;
+	flex-direction: row;
+	justify-content: space-around;
+}
+
+#up > div, #down > div {
+	font-family: Arial;
+	margin-top: 44px;
+}
+
+coin-name {
+	align-items: center;
+	width: 25%;
+	display: flex;
+}
+
+coin-name name {
+	font-size: 25px;
+	font-weight: bolder;
+}
+
+coin-name div {
+	margin-left: 10px;
+	font-size: 20px;
+	color: #777;
+}
+
+ratio {
+	font-weight: bold;
+	font-size: 35px;
+}
+
+#up div > div, #down div > div {
+	display: block;
+	font-weight: normal;
+	font-size: 19px;
+	margin-top: 10px;
+}
+
+customer-balances, exchange-balances {
+	display: block;
+	width: 100%;
+	font-size: 32px;
+	padding-bottom: 10px;
+}
+
+customer-balances {
+	border-bottom: 2px solid #17f;	
+}

@@ -7,8 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     {% load static %}
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="{% static '/asset/asset.js' %}"></script>
     <script src="{% static '/lib/fnlib.js' %}"></script>
+    <script src="{% static '/asset/asset.js' %}"></script>
     <link rel="stylesheet" href="{% static '/asset/style.css' %}">
     <title>Asset</title>
 </head>
@@ -20,18 +20,19 @@
             <li><a id="coin" href="{% url 'coins' %}">Coins</a></li>
             <li><a id="exchanges" href="{% url 'exchange' %}">Exchanges</a></li>
             <li><a id="swap" href="#">Swap</a></li>
-            <li> <label for="exchange-dropdown">USD</label>
+            <li>
+                <!-- <label for="exchange-dropdown">USD</label> -->
                 <select id="exchange-dropdown">
-                    <option value="">Select an exchange</option>
+                    <!-- <option value="">Select an exchange</option> -->
                     <option value="binance">USD</option>
                     <option value="coinbase">JPY</option>
                     <option value="kraken">KRW</option>
                 </select>
             </li>
             <li>
-                <label for="exchange-dropdown">English</label>
+                <!-- <label for="exchange-dropdown">English</label> -->
                 <select id="exchange-dropdown">
-                    <option value="">Select an exchange</option>
+                    <!-- <option value="">Select an exchange</option> -->
                     <option value="binance">English</option>
                     <option value="coinbase">简体中文</option>
                     <option value="kraken">한국어</option>
@@ -39,31 +40,59 @@
             </li>
             <li><a id="index" href="{% url 'main' username=username %}" method="GET">Home</a></li>
             <li id="user-info">
-                <div>User Name : {{ username }} </div>
+                <div>User Name : <span id="user-name">{{ username }}</span></div>
                 <a href="{% url 'usercenter' username=username %}" method="GET"> User Center </a>
             </li>
         </ul>
     </nav>
-    <div>
-        <h1>Asset</h1>
-        <h3 id="user-name">{{ username }}</h3>
-        <div>
-            <nav class="n2">
-                <ul>
-                    <li><a href="{% url 'main' username=username %}">Main</Main></a></li>
-                </ul>
-            </nav>
-        </div>
-    </div>
-    <table id="asset_list">
-        <tr id="thead-row">
-            <th>Wallet</th>
-            <th>Chain</th>
-            <th>Coin Type</th>
-            <th>Amount</th>
-            <th>Vertify</th>
-            <th>Status</th>
-        </tr>
+    <main>
+        <send-in>
+            <div>
+                <title1>Wallet Address</title1>
+                <wallet-address>
+                    <!-- random hash-->
+                </wallet-address>
+            </div>
+            <div>
+                <title2>Chain</title2>
+                <chain>
+                    <select>
+                        <option id="BTC">BTC</option>
+                        <option id="ETH">ETH</option>
+                        <option id="BNB">BNB</option>
+                    </select>
+                </chain>
+            </div>
+            <div>
+                <title3>Symbol</title3>
+                <select>
+                    <option id="BTC">BTC</option>
+                    <option id="ETH">ETH</option>
+                    <option id="BNB">BNB</option>
+                    <option id="DOGE">DOGE</option>
+                    <option id="DOGE">TRX</option>
+                    <option id="DOGE">SHIB</option>
+                </select>
+            </div>
+            <div>
+                <title4>Amount</title4>
+                <amount><input id="amount"></amount>
+            </div>
+        </send-in>
+        <send-out>
+
+        </send-out>
+    </main>
+    <table>
+        <thead>
+            <tr id="thead-row">
+                <th>Chain</th>
+                <th>Coin Type</th>
+                <th>Amount</th>
+            </tr>
+        </thead>
+        <tbody id="asset-tbody">
+        </tbody>
     </table>
 </body>
 

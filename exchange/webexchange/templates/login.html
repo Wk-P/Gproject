@@ -14,40 +14,49 @@
 </head>
 
 <body>
-    <template id="my-module">
-        <div class="module">
-            <h2>
-                <slot name="title"></slot>
-            </h2>
-            <p>
-                <slot name="content"></slot>
-            </p>
-        </div>
-    </template>
-
     <nav>
         <ul>
-            <li><a href="#">Coins</a></li>
-            <li><a href="#">Exchanges</a></li>
-            <li><a href="#">Swap</a></li>
-            <li><a href="#">USD</a></li>
-            <li><a href="#">English</a></li>
+            <li><a id="coin" href="{% url 'coins' %}">Coins</a></li>
+            <li><a id="exchanges" href="{% url 'exchange' %}">Exchanges</a></li>
+            <li><a id="swap" href="#">Swap</a></li>
+            <li id="">
+                <!-- <label for="exchange-dropdown">USD</label> -->
+                <select id="currency">
+                    <!-- <option value="">Select an exchange</option> -->
+                    <option value="binance">USD</option>
+                    <option value="coinbase">JPY</option>
+                    <option value="kraken">KRW</option>
+                </select>
+            </li>
+            <li>
+                <!-- <label for="exchange-dropdown">English</label> -->
+                <select id="language">
+                    <!-- <option value="">Select an exchange</option> -->
+                    <option value="English">English</option>
+                    <option value="Chinese">简体中文</option>
+                    <option value="Korean">한국어</option>
+                </select>
+            </li>
+            <li><a id="index" href="{% url 'index' %}" method="GET">Home</a></li>
         </ul>
-
     </nav>
     <h1 id="title" class='title'>
         <div class="title1">选择我们平台/购买/交易和持有350多种加密货币</div>
     </h1>
     <div class="shangbutitle" class="titleshangbu">
-        <div class="tupian" class="tupiancss">
-            <img src="{% static '/login/img1.png' %}" alt="lightImageUrl" class="tupian">
-        </div>
-        <div class="bingpai">
+        <h1 id="title" class='title'>
+            <div class="title1">选择币安平台/购买/交易和持有350多种加密货币</div>
+        </h1>
+        <!-- <div class="tupian" class="tupiancss"> -->
+            <!-- <img src="{% static '/login/img1.png' %}" alt="lightImageUrl" class="tupian"> -->
+        <!-- </div> -->
         <form method="post">
             {% csrf_token %}
-            User <input type="text" id="username" name="username">
+            <div id="user-title">User</div>
+            <input type="text" id="username" name="username">
             <br>
-            Password <input type="password" id="userpassword" name="userpassword" autocomplete="off">
+            <div id="password-title">Password</div>
+            <input type="password" id="userpassword" name="userpassword" autocomplete="off">
             <br>
     <div class="anniu">
             <button id="submit" name="submit">Submit</button>

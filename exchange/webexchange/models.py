@@ -14,18 +14,29 @@ class User(models.Model):
 # Wallets data related with User by user_ID
 class Wallets(models.Model):
     # hash field
-    user = models.ForeignKey(User, on_delete=models.CASCADE, default=None)
-    wallet_ID = models.CharField(max_length=200, default=None)
+    user_ID = models.CharField(max_length=255, default=None)
+    exchange_wallet_ID = models.CharField(max_length=200, default=None)
 
     # usuall field
     wallet_create_date = models.DateTimeField(auto_now_add=True)
 
 class Asset(models.Model):
     # identifier
-    wallet = models.ForeignKey(Wallets, on_delete=models.CASCADE, default=None)
     user = models.ForeignKey(User, on_delete=models.CASCADE, default=None)
     chain = models.CharField(max_length=200, default=None)
 
     # usuall field
     asset_type = models.CharField(max_length=200, default=None)
     asset_amount = models.FloatField(default=0)
+
+class User_Wallets(models.Model):
+    user_ID = models.CharField(max_length=255)
+    wallet_ID = models.CharField(max_length=255)
+    chain = models.CharField(max_length=255)
+
+class User_Asset(models.Model):
+    wallet_ID = models.CharField(max_length=255)
+    user_ID = models.CharField(max_length=255)
+    asset_type = models.CharField(max_length=255)
+    chain = models.CharField(max_length=255)
+    asset_amount = models.CharField(max_length=255)

@@ -47,6 +47,28 @@ nav a:hover {
   background-color: #333;
 }
 
+select {
+  text-align: center;
+  font-size: 16px;
+  font-weight: bold;
+  height: 100%;
+  border-style: none;
+  outline: none;
+  transition: 0.06s ease-in-out;
+}
+
+select:hover {
+  cursor: pointer;
+  color: #fff;
+  background-color: #333;
+}
+
+select:focus-visible {
+  cursor: pointer;
+  color: #fff;
+  background-color: #333;
+}
+
 body {
   font-family: Arial, sans-serif;
   margin: 0;
@@ -137,25 +159,4 @@ form button:hover {
   img {
     border-style: none;
   }
-}
-
-select {
-  font-size: 16px;
-  font-weight: bold;
-  height: 100%;
-  border-style: none;
-  outline: none;
-  transition: 0.06s ease-in-out;
-}
-
-select:hover {
-  cursor: pointer;
-  color: #fff;
-  background-color: #333;
-}
-
-select:focus-visible {
-  cursor: pointer;
-  color: #fff;
-  background-color: #333;
 }

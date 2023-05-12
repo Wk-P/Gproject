@@ -1,0 +1,60 @@
+/* 清除默认的浏览器样式 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    background-color: rgb(248, 238, 183);
+  }
+
+  /* 清除默认的浏览器样式 */
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+  }
+  nav {
+	background-color: #fff;
+	color: #333;
+	height: 50px;
+  }
+  
+  nav ul {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	color:#333;
+	height: 100%;
+  }
+  nav li {
+	height: 100%;
+  }
+  
+  nav a {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 100%;
+	padding: 0 20px;
+	text-decoration: none;
+	color: #333;
+  }
+  use 
+  {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 100%;
+	padding: 0 20px;
+	text-decoration: none;
+	color: #333;
+  }
+  nav a:hover {
+	background-color: #666;
+  }
+  

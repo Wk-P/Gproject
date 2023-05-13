@@ -16,6 +16,7 @@ from webexchange.views import (
     wallet,
     walletlogin,
     trade,
+    trade_websocket,
 )
 
 urlpatterns = [
@@ -42,4 +43,5 @@ urlpatterns = [
     path("walletlogin/", walletlogin.walletlogin.as_view(), name="walletlogin"),
     path("trade/<str:username>/", trade.trade.as_view(), name="trade"),
     path("wallet/<str:username>/", wallet.wallet.as_view(), name="wallet"),
+    path("trade_websocket/", trade_websocket.trade_websocket.as_view(), name="trade_websocket"),
 ]

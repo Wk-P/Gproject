@@ -17,6 +17,7 @@ from webexchange.views import (
     walletlogin,
     trade,
     trade_websocket,
+    coins_websocket,
 )
 
 urlpatterns = [
@@ -34,7 +35,7 @@ urlpatterns = [
         verifyresult.verifyresult.as_view(),
         name="verifyresult",
     ),
-    path("transaction/<str:username>", transaction.transaction.as_view(), name="transaction"),
+    path("transaction/<str:username>/", transaction.transaction.as_view(), name="transaction"),
     path("nav/", nav.nav.as_view(), name="nav"),
     path("exchange/", exchange.exchange.as_view(), name="exchange"),
     path("coins/", coins.coins.as_view(), name="coins"),
@@ -44,4 +45,5 @@ urlpatterns = [
     path("trade/<str:username>/", trade.trade.as_view(), name="trade"),
     path("wallet/<str:username>/", wallet.wallet.as_view(), name="wallet"),
     path("trade_websocket/", trade_websocket.trade_websocket.as_view(), name="trade_websocket"),
+    path("coins_websocket/", coins_websocket.coins_websocket.as_view(), name="coins_websocket"),
 ]

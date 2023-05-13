@@ -14,6 +14,7 @@ from webexchange.views import (
     swap,
     proof,
     wallet,
+    walletlogin,
     trade,
 )
 
@@ -38,6 +39,7 @@ urlpatterns = [
     path("coins/", coins.coins.as_view(), name="coins"),
     path("swap/", swap.swap.as_view(), name="swap"),
     path("proof/", proof.proof.as_view(), name="proof"),
-    path("wallet/<str:username>", wallet.wallet.as_view(), name="wallet"),
-    path("trade/<str:username>", trade.trade.as_view(), name="trade"),
+    path("walletlogin/", walletlogin.walletlogin.as_view(), name="walletlogin"),
+    path("trade/<str:username>/", trade.trade.as_view(), name="trade"),
+    path("wallet/<str:username>/", wallet.wallet.as_view(), name="wallet"),
 ]

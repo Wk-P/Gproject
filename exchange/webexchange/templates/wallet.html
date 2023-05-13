@@ -1,12 +1,38 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
+
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wallet Center</title>
+  <meta charset="UTF-8">
+  <title>Coins</title>
+  {% load static %}
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="{% static '/wallet/wallet.js' %}"></script>
+  <script src="{% static '/lib/fnlib.js' %}"></script>
+  <link rel="stylesheet" href="{% static '/wallet/style.css' %}">
 </head>
+
+{% csrf_token %}
 <body>
-    
+  <header>
+    <nav>
+      <ul>
+        <li>User id=3487893</li>
+        <li>User name:user1</li>
+        <!-- <li><a id="english" href="#">English</a></li> -->
+      </ul>
+    </nav>
+  </header>
+  <main>
+    <div>
+      <table id="in">
+        <tr class="thead">
+          <th>Symbol</th>
+          <th>Amount</th>
+          <th>Chain</th>
+        </tr>
+      </table>
+    </div>
+  </main>
 </body>
+
 </html>

@@ -20,6 +20,7 @@ nav ul {
   justify-content: space-around;
   align-items: center;
   height: 100%;
+  color:#333;
 }
 
 nav li {
@@ -42,6 +43,28 @@ nav a {
 }
 
 nav a:hover {
+  color: #fff;
+  background-color: #333;
+}
+
+select {
+  text-align: center;
+  font-size: 16px;
+  font-weight: bold;
+  height: 100%;
+  border-style: none;
+  outline: none;
+  transition: 0.06s ease-in-out;
+}
+
+select:hover {
+  cursor: pointer;
+  color: #fff;
+  background-color: #333;
+}
+
+select:focus-visible {
+  cursor: pointer;
   color: #fff;
   background-color: #333;
 }
@@ -136,25 +159,4 @@ form button:hover {
   img {
     border-style: none;
   }
-}
-
-select {
-  font-size: 16px;
-  font-weight: bold;
-  height: 100%;
-  border-style: none;
-  outline: none;
-  transition: 0.06s ease-in-out;
-}
-
-select:hover {
-  cursor: pointer;
-  color: #fff;
-  background-color: #333;
-}
-
-select:focus-visible {
-  cursor: pointer;
-  color: #fff;
-  background-color: #333;
 }

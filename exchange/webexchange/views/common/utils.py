@@ -61,6 +61,7 @@ __all__ = [
     "reverse",
     "redirect",
     # my function
+    "toJson",
     "hash_encrypt",
     "is_empty_input",
     "is_wrong_format_input",
@@ -100,6 +101,8 @@ __all__ = [
     "PolynomialError",
 ]
 
+def toJson(string):
+    return json.loads(string)
 
 # string to hash code encrypting
 def hash_encrypt(string):

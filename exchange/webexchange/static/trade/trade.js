@@ -3,7 +3,7 @@
 const margin = { top: 10, right: 30, bottom: 30, left: 60 };
 
 // 绘制标题
-function drawTitle( svg, margin) {
+function drawTitle(svg, margin) {
     svg.append('text')
         .text('k')
         .attr('x', margin.left)
@@ -34,7 +34,7 @@ function drawAxisX(svg, width, height, margin) {
 
     var scale = d3.scaleLinear()
         // .domain([1, 10]) //x轴的取值范围
-        .range([0, width - margin.left - margin.right])
+        .range([margin.left, width - margin.left - margin.right])
 
     var axis = d3.axisBottom(scale)
         .ticks(10) //x轴上面取值范围分为几分
@@ -57,122 +57,148 @@ function drawAxisY(svg, width, height, margin) {
     //  const lowPrices = d3.map(trade_data, v => v[3])
 
     //var yExtent=[0,100]; //设置y轴取值范围
-    var scaleY=d3.scaleLinear()
-    .range([0,height-margin.top-margin.bottom]) //生成比例尺
-    const axisY = d3.axisLeft(scaleY).ticks(100); //生成轴线
+    var scaleY = d3.scaleLinear()
+    const axisY = d3.axisLeft(scaleY); //生成轴线
     var gY = svg.append('g')
+        // .attr('display', 'none')
         .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')')
         .call(axisY)
     return gY
 }
 
 function drawCandlestick(svg, width, height, trade_data, gx, gY, margin) {
-    console.log(trade_data)
     const highPrices = d3.map(trade_data, v => v[2])
     const lowPrices = d3.map(trade_data, v => v[3])
-    const pricePending = Math.round(d3.max(highPrices) / 100)
+
+    if (trade_data.length < 10) return;
 
     var dates = d3.map(trade_data, v => v[0])
-
-    // const parseTime = d3.timeParse('%s');
-    // dates = dates.map(d => parseTime(d));
-    console.log(dates)
-
-    let datesObjects = []
-    for (let i = 0; i < 10; i++) {
-        if (i < length) {
-            datesObjects[i] = dates[i]
-        }
-        else {
-            datesObjects[i] = parseInt(dates[0]) + i;
-        }
-    }
-
+    // 定义新的x轴比例尺
     const xScale = d3.scaleLinear()
-        .domain([parseInt(datesObjects[0]), parseInt(datesObjects[datesObjects.length - 1])])
-        .range([0, width - margin.left - margin.right])
+        .domain([dates[0], dates[dates.length - 1]])
+        .range([margin.left, width - margin.left - margin.right])
 
+    // 更新x轴比例尺属性
     const xaxis = d3.axisBottom(xScale)
-        .tickValues(datesObjects)
+        .tickValues(dates)
         .tickFormat(d3.format("d"))
+
     gx.call(xaxis);
 
 
-    // 定义新的x轴比例尺
-
-    // 更新x轴比例尺属性
-
     const yScale = d3.scaleLinear()
-    .domain([d3.max(highPrices) + pricePending, d3.min(lowPrices) - pricePending])
-    .range([height - margin.bottom,margin.top ])
+        .domain([d3.min(lowPrices) - 0.1, d3.max(highPrices) + 0.1])
+        .range([height - margin.bottom, margin.top])
 
     const yaxis = d3.axisLeft(yScale)
-        .ticks(20)
+        .ticks(10)
         .tickFormat(d3.format(".2f"))
     gY.call(yaxis);
 
 
-   // gY.domain([d3.max(highPrices) + pricePending, d3.min(lowPrices) - pricePending])
+    // gY.domain([d3.max(highPrices) + pricePending, d3.min(lowPrices) - pricePending])
     // 处理蜡烛图边框颜色
     const handleStrokeColor = (v, i) => {
-        if (v[1] > v[2]) {
+        if (v[1] > v[4]) {
             return 'green'
         }
         return 'red'
     }
 
     // 计算蜡烛图实线宽度
-    // const candlestickWidth = getCandlestickWidth(data.length)
-    const candlestickWidth = 10
-    const g = svg.append('g')
-        .attr('transform', 'translate(' + margin.left + ', ' + margin.top + ')')
+    const candlestickWidth = getCandlestickWidth(width, margin, trade_data.length)
+    // Create the main <g> elements for each data point
 
-    const candlestick = svg.selectAll('g')
+    svg.selectAll('.candlestick').remove()
+    const g = svg.selectAll('.candlestick')
         .data(trade_data)
         .enter()
         .append('g')
+        .classed('candlestick', true)
+        .attr('transform', (d) => `translate(${xScale(parseInt(d[0]))}, ${yScale(parseInt(d[3]))})`);
 
-        candlestick.append('line')
-        .attr('x1', (v, i) => {
-            return xScale(i) + (1 - candlestickWidth) / 2
-        })
-        .attr('y1', (v, i) => {
-            return height - yScale(v[3]) - margin.top - margin.bottom
-        })
-        .attr('x2', (v, i) => {
-            return xScale(i) + candlestickWidth / 2
-        })
-        .attr('y2', (v, i) => {
-            return height - yScale(v[4]) - margin.top - margin.bottom
-        })
+    // Append the candlestick elements to the main <g> elements
+    g.append('line')
+        .classed('candlestick-line', true)
+        .attr('x1', (d) => candlestickWidth / 2)
+        .attr('y1', (d) => height - yScale(d[2]) - margin.top)
+        .attr('x2', (d) => candlestickWidth / 2)
+        .attr('y2', (d) => height - margin.bottom)
         .attr('stroke', handleStrokeColor)
-        .attr('stroke-width', 1)
-        
-        // 绘制蜡烛图实线
-        candlestick.append('rect')
+        .attr('stroke-width', 1);
+
+    g.append('rect')
+        .classed('candlestick-rect', true)
         .attr('width', candlestickWidth)
-        .attr('height', (v, i) => {
-            return Math.abs(yScale(v[1]) - yScale(v[2]))
-        })
-        .attr('x', (v, i) => {
-            return xScale(i)
-        })
-        .attr('y', (v, i) => {
-            return height - yScale(d3.max([v[1], v[2]])) - margin.top - margin.bottom
-        })
+        .attr('height', (d) => Math.abs(yScale(d[1]) - yScale(d[4])))
+        .attr('x', 0)
+        .attr('y', (d) => height - yScale(d3.max([d[1], d[4]])) - margin.top - margin.bottom)
         .attr('rx', 1)
         .attr('stroke', handleStrokeColor)
-        .attr('fill', (v, i) => {
-            if (v[1] > v[2]) {
-                return 'green'
-            }
-            
-            return 'red'
-        })
-        console.log('text')
-    }
-    
-    function drawFocusLayout(svg, trade_data, width, height, xScale, yScale, margin, text, formatText) {
+        .attr('fill', (d) => (d[1] > d[2]) ? 'green' : 'red');
+
+    // Create the trades <g> element for each data point
+    const trades = svg.append('g')
+        .classed('trades', true)
+        .attr('transform', `translate(${margin.left}, ${margin.top})`)
+        .selectAll('.trade')
+        .data(trade_data)
+        .enter()
+        .append('g')
+        .classed('trade', true)
+        .attr('transform', (d) => `translate(${xScale(parseInt(d[0]))}, 0)`);
+
+    // Add any additional elements to the trades <g> element as needed
+    // ...
+
+    // const g = svg.append('g')
+    //     .attr('transform', 'translate(' + margin.left + ', ' + margin.top + ')')
+
+    // const candlestick = g.selectAll('g')
+    //     .data(trade_data)
+    //     .enter()
+    //     .append('g')
+    //     .attr('class', 'candlestick');
+
+    // candlestick.append('line')
+    //     .attr('x1', (v, i) => {
+    //         return xScale(i) + (1 - candlestickWidth) / 2
+    //     })
+    //     .attr('y1', (v, i) => {
+    //         return height - yScale(v[2]) - margin.top - margin.bottom
+    //     })
+    //     .attr('x2', (v, i) => {
+    //         return xScale(i) + candlestickWidth / 2
+    //     })
+    //     .attr('y2', (v, i) => {
+    //         return height - yScale(v[3]) - margin.top - margin.bottom
+    //     })
+    //     .attr('stroke', handleStrokeColor)
+    //     .attr('stroke-width', 1)
+    // // 绘制蜡烛图实线
+    // candlestick.append('rect')
+    //     .attr('width', candlestickWidth)
+    //     .attr('height', (v, i) => {
+    //         return Math.abs(yScale(v[1]) - yScale(v[4]))
+    //     })
+    //     .attr('x', (v, i) => {
+    //         return xScale(i)
+    //     })
+    //     .attr('y', (v, i) => {
+    //         return height - yScale(d3.max([v[1], v[4]])) - margin.top - margin.bottom
+    //     })
+    //     .attr('rx', 1)
+    //     .attr('stroke', handleStrokeColor)
+    //     .attr('fill', (v, i) => {
+    //         if (v[1] > v[2]) {
+    //             return 'green'
+    //         }
+    //         return 'red'
+    //     })
+
+}
+
+function drawFocusLayout(svg, trade_data, width, height, xScale, yScale, margin, text, formatText) {
     // 计算蜡烛图实线宽度
     const candlestickWidth = 10
 
@@ -207,7 +233,6 @@ function drawCandlestick(svg, width, height, trade_data, gx, gY, margin) {
         d3.select('#focusLineX').attr('display', 'none')
         d3.select('#focusLineY').attr('display', 'none')
         // console.log(trade_data.length - 1)
-        console.log("123", trade_data)
 
         // 删除旧标题
 
@@ -253,8 +278,10 @@ function drawCandlestick(svg, width, height, trade_data, gx, gY, margin) {
         .on('mouseout', handleMouseOut)
 }
 
-
-
+// 计算蜡烛图实线宽度
+function getCandlestickWidth(width, margin, dataLength) {
+    return (width - margin.left - margin.right) / dataLength - 3
+}
 
 function formatText(v) {
     return `${v[0]}
@@ -304,7 +331,6 @@ window.onload = () => {
         fetch(`/trade/${username}/`, params)
             .then(response => response.json())
             .then(data => {
-                console.log("DATA:", data);
                 alert(data.alert);
             })
             .catch(error => console.log(error))
@@ -334,7 +360,6 @@ window.onload = () => {
         fetch(`/trade/${username}/`, params)
             .then(response => response.json())
             .then(data => {
-                console.log("DATA:", data);;
                 alert(data.alert);
             })
             .catch(error => console.log(error))
@@ -346,8 +371,8 @@ window.onload = () => {
     const width = $("#chart").width() * 0.9;
     const height = $("#chart").height() * 0.9;
     const margin = { top: 10, right: 30, bottom: 30, left: 60 };
-        
-    const yExtent=[0,100]; //设置y轴取值范围
+
+    const yExtent = [0, 100]; //设置y轴取值范围
 
     const svg = d3.select('svg')
         .attr('width', width)
@@ -360,9 +385,8 @@ window.onload = () => {
     // drawTitle='k线图';
     var text = svg.append('text');
 
-    console.log(trade_data.length)
-    drawTitle(svg,margin)
-    
+    drawTitle(svg, margin)
+
 
     text.selectAll('*').remove();
     text.attr('x', width - margin.right)
@@ -379,23 +403,20 @@ window.onload = () => {
             fetch(`/trade_websocket/`, params)
                 .then(response => response.json())
                 .then(data => {
-                    console.log(data.price_data);
-                    if (trade_data.length > max_size) {
+                    if (trade_data.length >= max_size) {
                         trade_data.shift()
                     }
-                    trade_data.push([timetrans(data.price_data.k.T), 
-                        parseFloat(data.price_data.k.o), 
-                        parseFloat(data.price_data.k.h), 
-                        parseFloat(data.price_data.k.l), 
-                        parseFloat(data.price_data.k.c)])
+                    trade_data.push([timetrans(data.price_data.k.T),
+                    parseFloat(data.price_data.k.o),
+                    parseFloat(data.price_data.k.h),
+                    parseFloat(data.price_data.k.l),
+                    parseFloat(data.price_data.k.c)])
 
                     text.text(formatText(trade_data[trade_data.length - 1]))
-                    // 计算蜡烛图实线宽度
-                    const getCandlestickWidth = dataLength => (width - margin.left - margin.right) / dataLength - 3
 
-                    drawCandlestick(svg, width, height, trade_data, gx,gY, margin)
+                    drawCandlestick(svg, width, height, trade_data, gx, gY, margin)
 
-                 //   drawFocusLayout(svg, trade_data, width, height, xScale, yScale, margin, text, formatText)
+                    //   drawFocusLayout(svg, trade_data, width, height, xScale, yScale, margin, text, formatText)
                 }) // 延迟500毫秒进行数据处理
         }, 1000)
     }

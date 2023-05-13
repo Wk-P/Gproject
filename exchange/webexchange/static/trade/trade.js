@@ -16,7 +16,7 @@ function drawTitle( svg, margin) {
 
 
 function timetrans(date) {
-    var date = new Date(date);//如果date为13位不需要乘1000
+    var date = new Date(date); //如果date为13位不需要乘1000
     var Y = date.getFullYear() + '';
     var M = (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1) + '';
     var D = (date.getDate() < 10 ? '0' + (date.getDate()) : date.getDate()) + '';
@@ -47,8 +47,6 @@ function drawAxisX(svg, width, height, margin) {
         .call(axis)
 
 
-
-
     return g
 }
 
@@ -61,57 +59,12 @@ function drawAxisY(svg, width, height, margin) {
     //var yExtent=[0,100]; //设置y轴取值范围
     var scaleY=d3.scaleLinear()
     .range([0,height-margin.top-margin.bottom]) //生成比例尺
-
-
-
     const axisY = d3.axisLeft(scaleY).ticks(100); //生成轴线
-
-
-
-
     var gY = svg.append('g')
         .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')')
         .call(axisY)
-
-
-
-
     return gY
-
-
 }
-
-
-
-
-    // //调整比例尺的定义域
-    // //const pricePending = Math.round(d3.max(highPrices) / 100)
-
-    // // 绘制竖坐标
-    // const scale = d3.scaleLinear()
-    //     //  .domain([d3.min(lowPrices) - pricePending, d3.max(highPrices) + pricePending])
-    //     .range([height - margin.top - margin.bottom, 0])
-
-
-    // //创建y轴刻度线生成器
-    // const axis = d3.axisLeft(scale).ticks(10)
-
-    // var g = svg.append('g')
-    // g.attr('transform', 'translate(' + (margin.left - 5) + ', ' + margin.top + ')')
-    //     .call(axis)
-    //     //.call(g => g.select('.domain').remove())
-    //     .call(g => {
-    //         g.selectAll('.tick line')
-    //             .clone()
-    //             .attr('stroke-opacity', 0.1)
-    //             .attr('stroke-dasharray', 5)
-    //             .attr('x2', width - margin.left - margin.right)
-    //     })
-
-    // return axis
-// }
-
-
 
 function drawCandlestick(svg, width, height, trade_data, gx, gY, margin) {
     console.log(trade_data)
@@ -121,11 +74,9 @@ function drawCandlestick(svg, width, height, trade_data, gx, gY, margin) {
 
     var dates = d3.map(trade_data, v => v[0])
 
-
     // const parseTime = d3.timeParse('%s');
     // dates = dates.map(d => parseTime(d));
-
-    console.log(dates, parseInt(dates[0]))
+    console.log(dates)
 
     let datesObjects = []
     for (let i = 0; i < 10; i++) {
@@ -133,7 +84,7 @@ function drawCandlestick(svg, width, height, trade_data, gx, gY, margin) {
             datesObjects[i] = dates[i]
         }
         else {
-            datesObjects[i] = dates[0] + i;
+            datesObjects[i] = parseInt(dates[0]) + i;
         }
     }
 
@@ -162,14 +113,11 @@ function drawCandlestick(svg, width, height, trade_data, gx, gY, margin) {
 
 
    // gY.domain([d3.max(highPrices) + pricePending, d3.min(lowPrices) - pricePending])
-
-
     // 处理蜡烛图边框颜色
     const handleStrokeColor = (v, i) => {
         if (v[1] > v[2]) {
             return 'green'
         }
-
         return 'red'
     }
 
@@ -186,8 +134,7 @@ function drawCandlestick(svg, width, height, trade_data, gx, gY, margin) {
 
         candlestick.append('line')
         .attr('x1', (v, i) => {
-            console.log(xScale(i) + candlestickWidth / 2)
-            return xScale(i) + candlestickWidth / 2
+            return xScale(i) + (1 - candlestickWidth) / 2
         })
         .attr('y1', (v, i) => {
             return height - yScale(v[3]) - margin.top - margin.bottom
@@ -399,12 +346,8 @@ window.onload = () => {
     const width = $("#chart").width() * 0.9;
     const height = $("#chart").height() * 0.9;
     const margin = { top: 10, right: 30, bottom: 30, left: 60 };
-
-
         
     const yExtent=[0,100]; //设置y轴取值范围
-
-
 
     const svg = d3.select('svg')
         .attr('width', width)
@@ -417,19 +360,6 @@ window.onload = () => {
     // drawTitle='k线图';
     var text = svg.append('text');
 
-
-
-    // 订阅 WebSocket 实时推送的 K 线数据
-
-    // const ws = new WebSocket('wss://stream.binance.com:9443/ws/btcusdt@kline_1s');
-
-    // ws.onmessage = event => {
-    // const data = JSON.parse(event.data);
-    // console.log('hightest price: ', data.k.h);
-    // console.log('lowest price: ', data.k.l);
-    // console.log('open price: ', data.k.o);
-    // console.log('close price: ', data.k.c);
-    // console.log('time:', timetrans(data.k.T));
     console.log(trade_data.length)
     drawTitle(svg,margin)
     
@@ -450,20 +380,20 @@ window.onload = () => {
                 .then(response => response.json())
                 .then(data => {
                     console.log(data.price_data);
-                    if (trade_data.length < max_size) {
-                        console.log(timetrans(data.price_data.k.T))
-                        trade_data.push([timetrans(data.price_data.k.T), parseFloat(data.price_data.k.o), parseFloat(data.price_data.k.h), parseFloat(data.price_data.k.l), parseFloat(data.price_data.k.c)])
-                        // trade_data.push([timedata.k.T, parseFloat(data.k.o), parseFloat(data.k.h), parseFloat(data.k.l), parseFloat(data.k.c)])
+                    if (trade_data.length > max_size) {
+                        trade_data.shift()
                     }
+                    trade_data.push([timetrans(data.price_data.k.T), 
+                        parseFloat(data.price_data.k.o), 
+                        parseFloat(data.price_data.k.h), 
+                        parseFloat(data.price_data.k.l), 
+                        parseFloat(data.price_data.k.c)])
 
                     text.text(formatText(trade_data[trade_data.length - 1]))
                     // 计算蜡烛图实线宽度
                     const getCandlestickWidth = dataLength => (width - margin.left - margin.right) / dataLength - 3
 
                     drawCandlestick(svg, width, height, trade_data, gx,gY, margin)
-
-
-
 
                  //   drawFocusLayout(svg, trade_data, width, height, xScale, yScale, margin, text, formatText)
                 }) // 延迟500毫秒进行数据处理

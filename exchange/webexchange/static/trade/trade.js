@@ -275,7 +275,7 @@ function drawCandlestick(svg, width, height, trade_data, gx, yScale, margin) {
     console.log(dates, parseInt(dates[0]))
 
     let datesObjects = []
-    for (let i = 0;i < 10;i++) {
+    for (let i = 0; i < 10; i++) {
         if (i < length) {
             datesObjects[i] = dates[i]
         }
@@ -283,7 +283,7 @@ function drawCandlestick(svg, width, height, trade_data, gx, yScale, margin) {
             datesObjects[i] = dates[0] + i;
         }
     }
-    
+
     const xScale = d3.scaleLinear()
         .domain([parseInt(datesObjects[0]), parseInt(datesObjects[datesObjects.length - 1])])
         .range([0, width - margin.left - margin.right])
@@ -466,7 +466,6 @@ function formatText(v) {
     最低: ${v[3]}`
 }
 
-
 window.onload = () => {
     const username = $("#username").text();
     const csrftoken = getCookie('csrftoken');
@@ -482,13 +481,7 @@ window.onload = () => {
         },
     }
 
-    params.body = JSON.stringify(data);
 
-    fetch(`/trade/${username}`, params)
-        .then(response => { response.json() })
-        .then(data => {
-            console.log(data);
-        })
 
     $("#buy-btn").click(() => {
         var order = {
@@ -510,7 +503,7 @@ window.onload = () => {
         }
 
         params.body = JSON.stringify(data);
-        fetch(`/trade/${username}`, params)
+        fetch(`/trade/${username}/`, params)
             .then(response => response.json())
             .then(data => {
                 console.log("DATA:", data);
@@ -522,7 +515,7 @@ window.onload = () => {
 
     $("#sell-btn").click(() => {
         var order = {
-            type: 'buy',
+            type: 'sell',
             timestamp: new Date().getTime(),
             stockname: $("#stock-name input").val(),
             quantity: parseInt($("#quantity input").val()),
@@ -540,7 +533,7 @@ window.onload = () => {
         }
 
         params.body = JSON.stringify(data)
-        fetch(`/trade/${username}`, params)
+        fetch(`/trade/${username}/`, params)
             .then(response => response.json())
             .then(data => {
                 console.log("DATA:", data);;
@@ -557,11 +550,10 @@ window.onload = () => {
     const margin = { top: 10, right: 30, bottom: 30, left: 60 };
 
 
-
     const svg = d3.select('svg')
-        .attr('width', width)
-        .attr('height', height)
-        .attr('viewBox', [0, 0, width, height])
+    .attr('width', width)
+    .attr('height', height)
+    .attr('viewBox', [0, 0, width, height])
 
     var gx = drawAxisX(svg, width, height, margin)
     var yScale = drawAxisY(svg, width, height, margin)
@@ -573,47 +565,55 @@ window.onload = () => {
 
     // 订阅 WebSocket 实时推送的 K 线数据
 
-    const ws = new WebSocket('wss://stream.binance.com:9443/ws/btcusdt@kline_1s');
+    // const ws = new WebSocket('wss://stream.binance.com:9443/ws/btcusdt@kline_1s');
 
-    ws.onmessage = event => {
-        const data = JSON.parse(event.data);
-        // console.log('hightest price: ', data.k.h);
-        // console.log('lowest price: ', data.k.l);
-        // console.log('open price: ', data.k.o);
-        // console.log('close price: ', data.k.c);
-        // console.log('time:', timetrans(data.k.T));
-        console.log(trade_data.length)
-
-
-        text.selectAll('*').remove();
-        text.attr('x', width - margin.right)
-            .attr('y', margin.top / 2)
-            .attr('font-size', '0.85em')
-            .attr('fill', '#666')
-            .attr('text-anchor', 'end')
-            .attr('dominant-baseline', 'hanging')
-
-        // 使用setTimeout函数延迟数据处理
-        setTimeout(() => {
-            if (trade_data.length < max_size) {
-                console.log(timetrans(data.k.T))
-                trade_data.push([timetrans(data.k.T), parseFloat(data.k.o), parseFloat(data.k.h), parseFloat(data.k.l), parseFloat(data.k.c)])
-                // trade_data.push([timedata.k.T, parseFloat(data.k.o), parseFloat(data.k.h), parseFloat(data.k.l), parseFloat(data.k.c)])
-            }
-
-            text.text(formatText(trade_data[trade_data.length - 1]))
-            // 计算蜡烛图实线宽度
-            const getCandlestickWidth = dataLength => (width - margin.left - margin.right) / dataLength - 3
-
-            drawCandlestick(svg, width, height, trade_data, gx, yScale, margin)
+    // ws.onmessage = event => {
+    // const data = JSON.parse(event.data);
+    // console.log('hightest price: ', data.k.h);
+    // console.log('lowest price: ', data.k.l);
+    // console.log('open price: ', data.k.o);
+    // console.log('close price: ', data.k.c);
+    // console.log('time:', timetrans(data.k.T));
+    console.log(trade_data.length)
 
 
+    text.selectAll('*').remove();
+    text.attr('x', width - margin.right)
+        .attr('y', margin.top / 2)
+        .attr('font-size', '0.85em')
+        .attr('fill', '#666')
+        .attr('text-anchor', 'end')
+        .attr('dominant-baseline', 'hanging')
+
+    // 使用setTimeout函数延迟数据处理
+    params.body = JSON.stringify(data);
+    try {
+        setInterval(() => {
+            fetch(`/trade_websocket/`, params)
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data.price_data);
+                    if (trade_data.length < max_size) {
+                        console.log(timetrans(data.price_data.k.T))
+                        trade_data.push([timetrans(data.price_data.k.T), parseFloat(data.price_data.k.o), parseFloat(data.price_data.k.h), parseFloat(data.price_data.k.l), parseFloat(data.price_data.k.c)])
+                        // trade_data.push([timedata.k.T, parseFloat(data.k.o), parseFloat(data.k.h), parseFloat(data.k.l), parseFloat(data.k.c)])
+                    }
+
+                    text.text(formatText(trade_data[trade_data.length - 1]))
+                    // 计算蜡烛图实线宽度
+                    const getCandlestickWidth = dataLength => (width - margin.left - margin.right) / dataLength - 3
+
+                    drawCandlestick(svg, width, height, trade_data, gx, yScale, margin)
 
 
-            drawFocusLayout(svg, trade_data, width, height, xScale, yScale, margin, text, formatText)
-            // drawTitle(data.name)
-        }, 1000) // 延迟500毫秒进行数据处理
+
+
+                    drawFocusLayout(svg, trade_data, width, height, xScale, yScale, margin, text, formatText)
+                    drawTitle(data.name)
+                }) // 延迟500毫秒进行数据处理
+        }, 1000)
     }
-
-
+    catch (error) {
+        console.error(error)
+    }
 }

@@ -53,10 +53,38 @@ function drawAxisX(svg, width, height, margin) {
 }
 
 // 绘制竖标轴
-function drawAxisY(svg, width, height, margin) {
+function drawAxisY(svg, width, height, margin,yExtent) {
     // 找到最高价和最低价，用来作为蜡烛图的参照坐标
     //  const highPrices = d3.map(trade_data, v => v[2])
     //  const lowPrices = d3.map(trade_data, v => v[3])
+const scaleY=d3.scaleLinear()
+        .domain(yExtent)
+        .range([height-margin.bottom,margin.top])
+        .nice()
+
+const axisY=d3.axisLeft(scaleY)
+    .ticks(5)
+
+
+const gY=svg.select(",axisY")
+
+
+gY.call(axisY)
+    Transition()
+    .duration(500)
+    .attr("transform","translate("+margin.left+",0)")
+
+
+gY.selectAll('.tick line')
+    .clone()
+    .attr('stroke-opacity',0.1)
+    .attr('stroke-dasharray',5)
+    .attr.('x2',width-margin.left-margin.right)
+    
+
+
+
+
 
 
     //调整比例尺的定义域

@@ -79,8 +79,10 @@ gY.selectAll('.tick line')
     .clone()
     .attr('stroke-opacity',0.1)
     .attr('stroke-dasharray',5)
-    .attr.('x2',width-margin.left-margin.right)
-    
+    .attr('x2',width-margin.left-margin.right)
+
+return gY
+
 
 
 

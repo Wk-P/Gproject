@@ -12,7 +12,6 @@ import requests
 import websockets
 import asyncio
 import threading
-
 from hashlib import sha256
 from typing import List
 from django.utils import timezone

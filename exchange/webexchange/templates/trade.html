@@ -4,7 +4,7 @@
 <head>
     {% load static %}
 
-    <meta charset="UTF-8">
+    <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Trade</title>
@@ -22,20 +22,7 @@
 <body>
     {% csrf_token %}
     <header>
-        <div>
-            <div id="username">{{ username }}</div>
-            <div id="stock-name">
-                <div>NAME</div><input type="text">
-            </div>
-            <div id="quantity">
-                <div>QUANTITY</div><input type="text">
-            </div>
-            <div id="price">
-                <div>PRICE</div><input type="text">
-            </div>
-            <button id="buy-btn">BUY</button>
-            <button id="sell-btn">SELL</button>
-        </div>
+        
         <nav>
             <ul>
                 <li><a href="#">BTC/USDT</a></li>
@@ -107,6 +94,20 @@
                     <button>Market</button>
                     <button>Stop-limit</button>
 
+                </div>
+                <div>
+                    <div id="username">{{ username }}</div>
+                    <div id="stock-name">
+                        <div>NAME</div><input type="text">
+                    </div>
+                    <div id="quantity">
+                        <div>QUANTITY</div><input type="text">
+                    </div>
+                    <div id="price">
+                        <div>PRICE</div><input type="text">
+                    </div>
+                    <button id="buy-btn">BUY</button>
+                    <button id="sell-btn">SELL</button>
                 </div>
             </div>
         </div>

@@ -12,8 +12,7 @@ async def price_fetch():
                     response_data = []
                 response_data.append(json.loads(response))
             except json.JSONDecodeError as e:
-                # 如果不是完整的 JSON 字符串，继续接收数据并拼接
-                break
+                continue
             # 延时 1 秒，避免 CPU 过高
             await asyncio.sleep(1)
 

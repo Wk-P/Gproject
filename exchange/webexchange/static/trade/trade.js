@@ -85,73 +85,6 @@ function drawCandlestick(svg, trade_data, margin) {
         .attr('y2', (d) => yScale(d[3]) - margin.top)
         .attr('stroke', handleStrokeColor)
         .attr('stroke-width', 1);
-
-
-    const scales = [xScale, yScale];
-    return scales;
-}
-
-function drawFocusLayout(svg, trade_data, width, height, xScale, yScale, margin, text, formatText) {
-    // 计算蜡烛图实线宽度
-    const candlestickWidth = getCandlestickWidth(width, margin)
-
-    // 鼠标移入事件
-    const handleMouseOver = function (e) {
-        d3.select('#focusLineX').attr('display', '')
-        d3.select('#focusLineY').attr('display', '')
-    }
-
-    // 鼠标在图表中移动事件
-    const handleMouseMove = function (e) {
-        const [mx, my] = d3.pointer(e)
-        const i = d3.bisectCenter(trade_data.map((v, i) => i), xScale.invert(mx - margin.left));
-        const px = xScale(i) + margin.left + candlestickWidth / 2
-        const py = height - yScale(trade_data[i][2]) - margin.bottom
-        d3.select('#focusLineX').attr('x1', px).attr('x2', px)
-        d3.select('#focusLineY').attr('y1', py).attr('y2', py)
-        text.text(formatText(trade_data[i]))
-    }
-
-    // 涨跌幅: ${v[6]}% |
-    // 鼠标移出事件
-    const handleMouseOut = function (e) {
-        d3.select('#focusLineX').remove()
-        d3.select('#focusLineY').remove()
-        text.text(formatText(trade_data[trade_data.length - 1]))
-    }
-    // 绘制标识线
-    svg.append('line')
-        .attr('id', 'focusLineX')
-        .attr('x1', margin.left)
-        .attr('y1', margin.top)
-        .attr('x2', margin.left)
-        .attr('y2', height - margin.bottom)
-        .attr('stroke', 'steelblue')
-        .attr('stroke-width', 1)
-        .attr('opacity', 0.5)
-        .attr('display', 'none')
-
-    svg.append('line')
-        .attr('id', 'focusLineY')
-        .attr('x1', margin.left)
-        .attr('y1', margin.top)
-        .attr('x2', width - margin.right)
-        .attr('y2', margin.top)
-        .attr('stroke', 'steelblue')
-        .attr('stroke-width', 1)
-        .attr('opacity', 0.5)
-        .attr('display', 'none')
-
-    // 绘制鼠标事件触发区域
-    svg.append('rect')
-        .attr('x', margin.left)
-        .attr('y', margin.top)
-        .attr('width', width - margin.left - margin.right)
-        .attr('height', height - margin.top - margin.bottom)
-        .attr('opacity', 0)
-        .on('mouseover', handleMouseOver)
-        .on('mousemove', handleMouseMove)
-        .on('mouseout', handleMouseOut)
 }
 
 // 计算蜡烛图实线宽度
@@ -294,8 +227,7 @@ window.onload = () => {
                     parseFloat(data.price_data.k.c)])
                     text.text(formatText(trade_data[trade_data.length - 1]))
 
-                    const scales = drawCandlestick(svg, trade_data, margin)
-                    // drawFocusLayout(svg, trade_data, width, height, scales[0], scales[1], margin, text, formatText)
+                    drawCandlestick(svg, trade_data, margin)
                 })
         }, 1000)
     }

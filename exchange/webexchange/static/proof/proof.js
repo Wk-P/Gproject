@@ -27,13 +27,14 @@ window.onload = () => {
     // get balances
     const username = $("#username").text();
     const data = {
+        username: username,
         symbols: {
             btc: "BTC",
             eth: "ETH",
         }
     }
 
-    fetch(`/proof/`, {
+    fetch(`/proof/${username}/`, {
         method: "POST",
         headers: {
             'Content-Type': 'application/json',
@@ -42,6 +43,7 @@ window.onload = () => {
         body: JSON.stringify(data) 
     }).then(response => response.json())
     .then((data) => {
+        console.log(data)
         if (data.alert == "NO DATA") {
             console.log(data.alert);
         } else {

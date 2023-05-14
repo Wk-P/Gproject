@@ -13,6 +13,8 @@
 	<link rel="stylesheet" href="{% static '/proof/style.css' %}">
 </head>
 <body>
+	{% csrf_token %}
+	<div id="username">{{ username }}</div>
     <main>
 		<div id="up">
 			<div>

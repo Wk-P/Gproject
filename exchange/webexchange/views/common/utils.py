@@ -407,21 +407,20 @@ def get_user_data(user):
 
 def get_verification_information(user):
     all_users_data = []
-
     # all_user_data style
     # all user
     #   wallet_ID, user_ID, asset_amount
 
     # get all users data
     all_users = User.objects.all()
-    verifying_user_data = get_user_data()
+    verifying_user_data = get_user_data(user)
 
     if all_users.exists():
         for user in all_users:
-            user_data = get_user_data(user.user_name)
-            all_users_data.append({user.user_name: user_data})
+            user_data = get_user_data(user)
+            all_users_data.append(user_data)
 
-        information = combine_data(user_data)
+        information = combine_data(user_data, all_users_data)
         # verify
         """
             # 验证函数: 用户名和钱包数据
@@ -429,6 +428,7 @@ def get_verification_information(user):
             #   ...
             #   return data
         """
+
         return information
     else:
         return None

@@ -48,7 +48,7 @@ def combine_data(user_data, all_user_data):
             print(f"PROOF: {proof}, SIGNAL: {signal}")
 
             # run
-            verification_result = verify_proof(proof, signal, input_data['zk_data']['public'])
+            verification_result = verify_proof(proof, signal, input_data['zk_data']['public'])  #有问题  少参数
 
             # not run
             # run

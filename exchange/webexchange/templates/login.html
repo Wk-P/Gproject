@@ -6,14 +6,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     {% load static %}
-    <link rel="stylesheet" href="{% static '/login/style.css' %}">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="{% static '/lib/fnlib.js' %}"></script>
     <script src="{% static '/login/login.js' %}"></script>
+    <link rel="stylesheet" href="{% static '/login/style.css' %}">
     <title>Login</title>
 </head>
 
 <body>
+    {% csrf_token %}
     <nav>
         <ul>
             <li><a id="coin" href="{% url 'coins' %}">Coins</a></li>
@@ -40,30 +41,27 @@
             <li><a id="index" href="{% url 'index' %}" method="GET">Home</a></li>
         </ul>
     </nav>
-    <h1 id="title" class='title'>
-        <div class="title1">选择我们平台/购买/交易和持有350多种加密货币</div>
-    </h1>
     <div class="shangbutitle" class="titleshangbu">
         <h1 id="title" class='title'>
             <div class="title1">选择币安平台/购买/交易和持有350多种加密货币</div>
         </h1>
         <!-- <div class="tupian" class="tupiancss"> -->
-            <!-- <img src="{% static '/login/img1.png' %}" alt="lightImageUrl" class="tupian"> -->
+        <!-- <img src="{% static '/login/img1.png' %}" alt="lightImageUrl" class="tupian"> -->
         <!-- </div> -->
         <form method="post">
-            {% csrf_token %}
             <div id="user-title">User</div>
-            <input type="text" id="username" name="username">
+            <input type="text" id="username">
             <br>
             <div id="password-title">Password</div>
-            <input type="password" id="userpassword" name="userpassword" autocomplete="off">
+            <input type="password" id="userpassword" autocomplete="off">
             <br>
-    <div class="anniu">
-            <button id="submit" name="submit">Submit</button>
-            <button id="register" name="register">Register</button>
-            <button id="cancel" name="cancel">Cancel</button>
+            <div class="button">
+                <button id="submit" name="submit">Submit</button>
+                <button id="register" name="register">Register</button>
+                <button id="cancel" name="cancel">Cancel</button>
+            </div>
+        </form>
     </div>
-        </form></div>
 </body>
 
 </html>

@@ -1,5 +1,4 @@
 window.onload = () => {
-    $('#username').val("shdgwjdhgaej")
     const csrftoken = getCookie('csrftoken');
     $("#submit").click((event) => {
         event.preventDefault();        // prevent to jump a new page
@@ -8,7 +7,7 @@ window.onload = () => {
             'username': $('#username').val(),
             'userpassword': $('#userpassword').val(),
         };
-
+        
         fetch(`/login/`, {
             method: 'POST',
             headers: {
@@ -26,7 +25,7 @@ window.onload = () => {
                 } else if (data['alert'] == null) {
                     // no operator
                 } else {
-                    window.location.href = `/coins/`;
+                    window.location.href = `/usercenter/${data.username}/`;
                 }
             })
             .catch(error => console.log(error));

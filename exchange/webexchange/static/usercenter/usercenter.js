@@ -25,8 +25,9 @@ window.onload = () => {
     });
 
     // get balances
-    const username = $("#username").text();
+    const username = $("#username").text().replace(' ', '')
     const data = {
+        username: username,
         symbols: {
             btc: "BTC",
             eth: "ETH",
@@ -42,11 +43,10 @@ window.onload = () => {
         body: JSON.stringify(data) 
     }).then(response => response.json())
     .then((data) => {
-        if (data.alert == "NO DATA") {
-            console.log(data.alert);
+        if (data.alert == null) {
+            console.log("No Data");
         } else {
-            $("#customer-balances").text(data.alert);
-            $("#exchange-balances").text(data.balances * parseFloat(Math.random()*(1.34-1.03) + 1.03));
+            $("#customer-balances").text(data.user_data);
         }
     }).catch(error => console.log(error))
 }

@@ -22,4 +22,25 @@ class usercenter(View):
             return redirect('404')
         
     def post(self, request, **kwargs):
-        pass
+        response = {'alert': None}
+        
+        data = json.loads(request.body.decode('utf-8'))
+
+        user = get_user(user_name=data['username'])
+        user_data = get_user_data(user)
+        '''
+            user_data = {
+                'user_name': user_name,
+                'user_ID': user_ID,
+                'assets': {[
+                    'asset_amount': asset_amount,
+                    'asset_type': asset_type,
+                ]}
+            }
+        '''
+        trade_data = get_trade_history(data['username'])
+        if database_match(user_name=data['username']) is not None:
+            response['alert'] = 'success'
+            response['user_data'] = user_data
+            response['trade_data'] = trade_data
+        return JsonResponse(response)

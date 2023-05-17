@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.views import View
 from django.db.models import Q
-from webexchange.models import User, Wallets, Asset
+from webexchange.models import User, Wallets, Asset, User_Asset, User_Wallets, User_Trade_History
 import re
 import random
 import time
@@ -56,6 +56,9 @@ __all__ = [
     "User",
     "Wallets",
     "Asset",
+    "User_Asset", 
+    "User_Wallets", 
+    "User_Trade_History",
     "timezone",
     "reverse",
     "redirect",
@@ -70,6 +73,7 @@ __all__ = [
     "add_user",
     "get_user_data",
     # WALLET
+    "get_exchange_wallet",
     "get_wallet",
     "get_wallets",
     "add_wallet",
@@ -78,6 +82,9 @@ __all__ = [
     "get_assets",
     "add_asset",
     "fetch_assets_data",
+    # TRADE
+    "add_trade_history",
+    "get_trade_history",
     # ORDER class
     'Order',
     'OrderManager',
@@ -243,6 +250,13 @@ def fetch_user_data(**kw):
 """
 
 
+def get_exchange_wallet(user):
+    wallet_obj = list(Wallets.objects.filter(user=user))
+    if len(wallet_obj) > 0:
+        return wallet_obj[0]
+    else:
+        return None
+
 # RETURN OBJECT LIST
 def get_wallets():
     """
@@ -262,9 +276,9 @@ def get_wallet(wallet_ID):
         @Get Wallet Object \n
         @Return: Wallet Object | None
     """
-    wallet_obj = list(Wallets.objects.filter(wallet_ID=wallet_ID))
-    if len(wallet_obj) > 0:
-        return wallet_obj[0]  # first wallet_obj
+    wallet_obj = Wallets.objects.filter(wallet_ID=wallet_ID)
+    if wallet_obj.exists():
+        return wallet_obj.first()  # first wallet_obj
     else:
         return None
 
@@ -434,6 +448,20 @@ def get_verification_information(user):
         return None
 
 
+def add_trade_history(username, amount, asset_type, action):
+    user = get_user(user_name=username)
+    wallet = get_exchange_wallet(user)
+    # save trade history to DB
+    User_Trade_History(username=username, user_ID=user.user_ID, amount=amount, wallet_ID=wallet.wallet_ID, asset_type=asset_type, action=action).save()
+    
+def get_trade_history(username):
+    user = get_user(user_name=username)
+    history = list(User_Trade_History.objects.filter(user_ID=user.user_ID))
+    if len(history) > 0:
+        return history
+    else:
+        return None
+    
 """
     No File or Function
 """

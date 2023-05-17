@@ -28,7 +28,7 @@ class proof(View):
                         if asset_data['asset_type'] == symbol:
                             result_data[f"{symbol}"] += asset_data['asset_amount']
 
+        get_verification_information(user)
 
-        result_data = get_verification_information(get_user(username=username))
         response['data'] = result_data
         return JsonResponse(response)

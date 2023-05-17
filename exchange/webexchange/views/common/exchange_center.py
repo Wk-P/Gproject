@@ -1,28 +1,41 @@
 import threading
 import time
+import hashlib
 
 class Order:
-    def __init__(self, order_type, order_id, stock_name, price, quantity):
+    def __init__(self, order_type, order_id, stock_name, price, quantity, producer_name):
         self.order_type = order_type  # 订单类型，buy 或 sell
         self.order_id = order_id  # 订单编号
         self.stock_name = stock_name  # 股票名称
         self.price = price  # 订单价格
         self.quantity = quantity  # 订单数量
+        self.producer_name = producer_name
 
     def __str__(self):
-        return f"\n订单类型: {self.order_type},订单ID: {self.order_id},股票名称: {self.stock_name},价格: {self.price},数量: {self.quantity}\n"
+        return f"[ID]{self.order_id} [STOCK]{self.stock_name} [PRICE]{self.price} [QUANTITY]{self.quantity} [RPODUCER]{self.producer_name}"    
 
 
 class Ordered():
-    def __init__(self, order_id, stock_name, price, quantity):
-        self.order_id = order_id
+    def __init__(self, buy_order_id, sell_order_id, stock_name, price, quantity, producer_name):
+        self.buy_order_id = buy_order_id
+        self.sell_order_id = sell_order_id
         self.stock_name = stock_name
         self.price = price
         self.quantity = quantity
+        self.producer_name = producer_name
+
+    def info(self):
+        return {
+        'buy_order_id': self.buy_order_id,
+        'sell_order_id': self.sell_order_id,
+        'stock_name': self.stock_name,
+        'price': self.price,
+        'quantity': self.quantity,
+        'producer_name': self.producer_name
+    }
 
     def __str__(self):
-        return f"\n订单ID:{self.order_id},股票名称:{self.stock_name},价格:{self.price},数量:{self.quantity}\n"    
-    
+        return f"'sell_order_id':{self.sell_order_id},'buy_order_id':{self.buy_order_id},'stock_name':{self.stock_name},'price':{self.price},'quantity':{self.quantity},'producer':{self.producer_name}"    
 
 class OrderManager:
     def __init__(self):
@@ -55,14 +68,21 @@ class OrderManager:
     def match_orders(self):
         # match from buy_order
         while len(self.buy_orders) > 0 and len(self.sell_orders) > 0:
-            buy_order = sorted(self.buy_orders, key=lambda o: o.price)[-1]
-            sell_order = sorted(self.sell_orders, key=lambda o: o.price)[0]
+            # Test Code
+            # print(self.buy_orders)
+            # print(self.sell_orders)
+            self.buy_orders.sort(key=lambda o: o.price)
+            buy_order = self.buy_orders[-1]
+            sell_order = self.sell_orders.sort(key=lambda o: o.price)
+            sell_order = self.sell_orders[0]
             if buy_order.price == sell_order.price:
                 trade_quantity = min(buy_order.quantity, sell_order.quantity)
-                print(f"成交：{buy_order.order_id} 买入 {sell_order.stock_name} {trade_quantity} 股，单价 {sell_order.price}")
-                print(f"成交：{sell_order.order_id} 卖出 {sell_order.stock_name} {trade_quantity} 股，单价 {sell_order.price}")
-                print("-----------")
-                self.ordered_orders.append(Ordered((buy_order.order_id + sell_order.order_id), buy_order.stock_name, buy_order.price, trade_quantity))
+                # Message Code
+                print(f"[DEAL]{buy_order.order_id} [BUY-IN]{sell_order.stock_name} [QUANTITY]{trade_quantity} [PRICE]{sell_order.price}")
+                print(f"[DAEL]{sell_order.order_id} [SELL-OUT]{sell_order.stock_name} [QUANTITY]{trade_quantity} [PRICE]{sell_order.price}")
+                if len(self.ordered_orders) > 500:
+                    self.ordered_orders.pop(0)
+                self.ordered_orders.append(Ordered(buy_order.order_id, sell_order.order_id, buy_order.stock_name, buy_order.price, trade_quantity, buy_order.producer_name))
                 buy_order.quantity -= trade_quantity
                 sell_order.quantity -= trade_quantity
                 # change orders
@@ -87,19 +107,24 @@ class OrderManager:
     # 异步成交函数，返回成交数据
 
 class OrderProducer(threading.Thread):
-    def __init__(self, order_manager, order_type, stock_name, price, quantity):
+    def __init__(self, order_manager, order_type, stock_name, price, quantity, producer_name):
         super().__init__()
         self.order_manager = order_manager
+        self.producer_name = producer_name
         self.order_type = order_type
         self.stock_name = stock_name
         self.price = price
         self.quantity = quantity
+        # md5 hash code : SRC-STRING = str(timestamp * 100) + producer_name 
+        m = hashlib.md5()
+        m.update((str(int(time.time() * 100)) + self.producer_name).encode("utf-8"))
+        self.order_id = m.hexdigest()
+
+        # thread control
 
     def run(self):
-        order = Order(self.order_type, self.name, self.stock_name, self.price, self.quantity)
+        order = Order(self.order_type, self.order_id, self.stock_name, self.price, self.quantity, self.producer_name)
         self.order_manager.add_order(order)
-        print(f"提交订单：{order.order_id} {order.order_type} {order.stock_name} {order.quantity} 股，单价 {order.price}")
-
 
 class OrderConsumer(threading.Thread):
     def __init__(self, order_manager):
@@ -108,40 +133,3 @@ class OrderConsumer(threading.Thread):
 
     def run(self):
         self.order_manager.wait_for_orders()
-
-
-
-# order_manager = OrderManager()
-# order_consumer = OrderConsumer(order_manager)
-# order_consumer.start()
-
-# if __name__ == "__main__":
-
-
-    
-    # while True:
-    #     try:
-    #         order_producer1 = OrderProducer(order_manager, 'buy', 'ABC', 10, 100)
-    #         order_producer2 = OrderProducer(order_manager, 'sell', 'ABC', 10, 50)
-    #         order_producer3 = OrderProducer(order_manager, 'sell', 'ABC', 10, 50)
-    #         order_producer1.start()
-    #         order_producer2.start()
-    #         order_producer3.start()
-    #         # order_producer3 = OrderProducer(order_manager, 'sell', 'ABC', 10, 50)
-    #         # order_producer4 = OrderProducer(order_manager, 'sell', 'ABC', 10, 50)
-    #         # order_producer5 = OrderProducer(order_manager, 'buy', 'ABC', 10, 50)
-
-    #         # order_producer4.start()
-    #         # order_producer5.start()
-            
-    #         order_producer1.join()
-    #         order_producer2.join()
-    #         order_producer3.join()
-    #         # order_producer4.join()
-    #         # order_producer5.join()
-
-    #         time.sleep(1)
-    #     except:
-    #         print("Exception!")
-    #         time.sleep(100)
-    #         continue

@@ -37,10 +37,9 @@ body {
 #inner-nav a {
 	color: #fff;
 	text-decoration: none;
-	color: #333;
-  }
-  use 
-  {
+}
+
+use {
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -48,11 +47,12 @@ body {
 	padding: 0 20px;
 	text-decoration: none;
 	color: #333;
-  }
-  nav a:hover {
+}
+
+nav a:hover {
 	background-color: #666;
-  }
-  
+}
+
 .container {
 	width: 80%;
 	margin: 20px auto;
@@ -157,14 +157,16 @@ main {
 	justify-content: space-around;
 }
 
-#up, #down{
+#up,
+#down {
 	display: flex;
 	width: 100%;
 	flex-direction: row;
 	justify-content: space-around;
 }
 
-#up > div, #down > div {
+#up>div,
+#down>div {
 	font-family: Arial;
 	margin-top: 44px;
 }
@@ -191,14 +193,16 @@ ratio {
 	font-size: 35px;
 }
 
-#up div > div, #down div > div {
+#up div>div,
+#down div>div {
 	display: block;
 	font-weight: normal;
 	font-size: 19px;
 	margin-top: 10px;
 }
 
-customer-balances, exchange-balances {
+customer-balances,
+exchange-balances {
 	display: block;
 	width: 100%;
 	font-size: 32px;
@@ -206,5 +210,5 @@ customer-balances, exchange-balances {
 }
 
 customer-balances {
-	border-bottom: 2px solid #17f;	
+	border-bottom: 2px solid #17f;
 }

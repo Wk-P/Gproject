@@ -12,7 +12,6 @@ class login(View):
         
         response = {'alert': None}
         data = json.loads(request.body.decode('utf-8'))
-
         if data.get('click') == "submit":
             # fetch input
             username = data.get('username')

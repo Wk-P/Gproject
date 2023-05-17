@@ -115,9 +115,9 @@ function formatText(v) {
 window.onload = () => {
     const username = $("#username").text();
     const csrftoken = getCookie('csrftoken');
-    let data = {
+    let req_data = {
         username: username,
-        reqtype: ['match'],
+        reqtype: ""
     }
 
     let params = {
@@ -129,31 +129,39 @@ window.onload = () => {
     }
 
     $("#buy-btn").click(() => {
-        var order = {
+        let order = {
             type: 'buy',
             timestamp: new Date().getTime(),
             stockname: $("#stock-name input").val(),
             quantity: parseInt($("#quantity input").val()),
             price: parseFloat($("#price input").val()),
         }
-        data.order = order
-        data.reqtype.push('trade');
-
-        if (order.stockname == undefined || order.quantity == undefined || order.price == undefined) {
-            alert("Enter stock name or amount!");
+        req_data.order = order
+        req_data.reqtype = 'trade';
+        
+        console.log(order.stockname, order.price, order.quantity)
+        
+        if (order.stockname == "" || order.quantity == NaN || order.price == NaN) {
+            alert("Enter stock name or amount!"); return
         }
 
         if (order.quantity <= 0 || order.price <= 0) {
-            alert("Enter correct price or quantity!")
+            alert("Enter correct price or quantity!"); return
         }
 
-        params.body = JSON.stringify(data);
-        fetch(`/trade/${username}/`, params)
+        params.body = JSON.stringify(req_data);
+        fetch(`/trade_orders/${username}/`, params)
             .then(response => response.json())
             .then(data => {
                 alert(data.alert);
+                $("#stock-name input").val("");
+                $("#quantity input").val("");
+                $("#price input").val("");
             })
             .catch(error => console.log(error))
+
+        // reset request json data
+        req_data.reqtype = ""
     });
 
     $("#sell-btn").click(() => {
@@ -164,25 +172,47 @@ window.onload = () => {
             quantity: parseInt($("#quantity input").val()),
             price: parseFloat($("#price input").val()),
         }
-        data.order = order
-        data.reqtype.push('trade');
+        req_data.order = order
+        req_data.reqtype = 'trade';
 
-        if (order.stockname == undefined || order.quantity == undefined || order.price == undefined) {
-            alert("Enter stock name or amount!");
+
+        if (order.stockname == "" || order.quantity == NaN || order.price == NaN) {
+            alert("Enter stock name or amount!"); return
         }
 
         if (order.quantity <= 0 || order.price <= 0) {
-            alert("Enter correct price or quantity!")
+            alert("Enter correct price or quantity!"); return
         }
 
-        params.body = JSON.stringify(data)
-        fetch(`/trade/${username}/`, params)
+        params.body = JSON.stringify(req_data)
+        console.log(params.body)
+        fetch(`/trade_orders/${username}/`, params)
             .then(response => response.json())
             .then(data => {
                 alert(data.alert);
+                $("#stock-name input").val("");
+                $("#quantity input").val("");
+                $("#price input").val("");
             })
             .catch(error => console.log(error))
+
+        // reset request json data
+        req_data.reqtype = ""
     });
+
+    // get ordered result
+    setInterval(() => {
+        params.body = JSON.stringify(req_data)
+        console.log(params.body)
+        fetch(`/trade_orders/${username}/`, params)
+            .then(response => response.json())
+            .then(data => {
+                console.log(data.ordered)
+                // console.log(JSON.parse(data.ordered))
+            })
+            .catch(error => console.log(error))
+    }, 100)
+
 
     var trade_data = new Array();
     const width = $("#chart").width() * 0.9;
@@ -210,7 +240,7 @@ window.onload = () => {
 
 
     // 使用setTimeout函数延迟数据处理
-    params.body = JSON.stringify(data);
+    params.body = JSON.stringify(req_data);
     try {
         setInterval(() => {
             fetch(`/trade_websocket/`, params)

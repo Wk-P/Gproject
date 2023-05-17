@@ -55,7 +55,7 @@
 					<li><a href="{% url 'asset' username=username %}">Verification</a></li>
 					<li><a href="{% url 'wallet' username=username %}">Wallet Manage</a></li>
 					<li><a href="#">Transaction History</a></li>
-					<li><a href="{% url 'proof' %}">Proof of Reserves</a></li>
+					<li><a href="{% url 'proof' username=username %}">Proof of Reserves</a></li>
 				</ul>
 			</nav>
 		</div>
@@ -71,21 +71,6 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr>
-							<td>Deposit</td>
-							<td>2023-03-05 10:00:00</td>
-							<td>BTC</td>
-						</tr>
-						<tr>
-							<td>Withdrawal</td>
-							<td>2023-03-04 15:30:00</td>
-							<td>ETC</td>
-						</tr>
-						<tr>
-							<td>Transfer</td>
-							<td>2023-03-03 20:45:00</td>
-							<td>Luna</td>
-						</tr>
 					</tbody>
 				</table>
 			</div>

@@ -39,4 +39,13 @@ class User_Asset(models.Model):
     user_ID = models.CharField(max_length=255)
     asset_type = models.CharField(max_length=255)
     chain = models.CharField(max_length=255)
-    asset_amount = models.CharField(max_length=255)
+    asset_amount = models.FloatField(max_length=255)
+
+class User_Trade_History(models.Model):
+    time_point = models.DateTimeField(auto_now_add=True)
+    wallet_ID = models.CharField(max_length=255)
+    user_ID = models.CharField(max_length=255)
+    action = models.CharField(max_length=255)
+    amount = models.FloatField(default=0)
+    user_name = models.CharField(max_length=255)
+    asset_type = models.CharField(max_length=255)

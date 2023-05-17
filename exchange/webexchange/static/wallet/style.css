@@ -10,7 +10,8 @@
   }
   
   /* 导航样式 */
-  nav {
+  /* 导航样式 */
+nav {
     background-color: #fff;
     color: #333;
     height: 50px;
@@ -24,7 +25,7 @@
     justify-content: space-around;
     align-items: center;
     height: 100%;
-    width: 100%;
+    color:#333;
   }
   
   nav li {
@@ -33,6 +34,7 @@
     flex-direction: column;
     justify-content: space-around;
     height: 100%;
+    width: 100%;
   }
   
   nav a {
@@ -43,8 +45,6 @@
     padding: 0 20px;
     text-decoration: none;
     color: #333;
-    font-weight: bold;
-    transition: 0.3s all;
   }
   
   nav a:hover {

@@ -9,6 +9,7 @@ body {
   width: 100%;
 }
 /* 导航样式 */
+/* 导航样式 */
 nav {
   background-color: #fff;
   color: #333;
@@ -23,6 +24,7 @@ nav ul {
   justify-content: space-around;
   align-items: center;
   height: 100%;
+  color:#333;
 }
 
 nav li {

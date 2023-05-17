@@ -17,15 +17,19 @@ nav ul {
   margin: 0;
   padding: 0;
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: center;
   height: 100%;
   color:#333;
 }
 
 nav li {
+  font-weight: bold;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
   height: 100%;
-  margin: 0 10px;
+  width: 100%;
 }
 
 nav a {
@@ -36,13 +40,12 @@ nav a {
   padding: 0 20px;
   text-decoration: none;
   color: #333;
-  font-weight: bold;
 }
 
 nav a:hover {
-  background-color: #666;
+  color: #fff;
+  background-color: #333;
 }
-
 .market-info {
   background-color: #4d4dff;
   color: #fff;

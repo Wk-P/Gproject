@@ -63,18 +63,46 @@ width: 100%;
 
 
 
+/* 导航样式 */
+nav {
+  background-color: #fff;
+  color: #333;
+  height: 50px;
+}
+
 nav ul {
-  display: flex; /* Use flexbox to display the links horizontally */
-  list-style: none; /* Remove the bullet points */
-  margin: 10;
-  padding: 50;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  height: 100%;
+  color:#333;
 }
+
 nav li {
-  margin-right: 1em; /* Add spacing between the links */
+  font-weight: bold;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  height: 100%;
+  width: 100%;
 }
+
 nav a {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  padding: 0 20px;
   text-decoration: none;
-  color: black;
+  color: #333;
+}
+
+nav a:hover {
+  color: #fff;
+  background-color: #333;
 }
 
 

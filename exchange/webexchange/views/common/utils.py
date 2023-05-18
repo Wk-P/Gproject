@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.views import View
 from django.db.models import Q
-from webexchange.models import User, Wallets, Asset, User_Asset, User_Wallets, User_Trade_History
+from webexchange.models import User, Wallet, Asset, User_Asset, User_Wallets, User_Trade_History
 import re
 import random
 import time
@@ -54,7 +54,7 @@ __all__ = [
     "render",
     "View",
     "User",
-    "Wallets",
+    "Wallet",
     "Asset",
     "User_Asset", 
     "User_Wallets", 
@@ -71,17 +71,21 @@ __all__ = [
     # USER
     "get_user",
     "add_user",
-    "get_user_data",
+    "get_exchange_user_data",
     # WALLET
+    "get_user_private_wallet",
+    "get_user_private_wallets",
+    "add_exchange_wallet",
     "get_exchange_wallet",
     "get_wallet",
-    "get_wallets",
-    "add_wallet",
-    "fetch_wallets_data",
+    "get_all_exchange_wallets",
+    "add_user_private_wallet",
+    "fetch_exchange_wallets_data",
     # ASSET
-    "get_assets",
-    "add_asset",
-    "fetch_assets_data",
+    "get_user_private_asset",
+    "get_exchange_assets",
+    "add_exchange_asset",
+    "fetch_exchange_assets_data",
     # TRADE
     "add_trade_history",
     "get_trade_history",
@@ -181,7 +185,7 @@ def database_match(**kw):
         except DataException:
             return None
     elif key == 'wallet_id':
-        wallets = Wallets.objects.filter(wallet_ID=value)
+        wallets = Wallet.objects.filter(wallet_ID=value)
         try:
             if not wallets.exists():
                 raise DataException
@@ -225,10 +229,15 @@ def add_user(username, password):
 
 
 # RETURN JSON
-def fetch_user_data(**kw):
+def get_user_data(**kw):
     """
         @Get User Object JSON data \n
         @Return: User Object JSON | None
+        @return { \n
+            "user_name": user.user_name, \n
+            "user_ID": user.user_ID, \n
+            "user_create_date": user.user_create_date, \n
+        }
     """
     user_name = kw.get('user_name')
     user_id = kw.get('user_id')
@@ -244,62 +253,68 @@ def fetch_user_data(**kw):
         return None
 
 
+
 """
     WALLET OPERATION FUNCTION
     get_wallet, add_wallet, fetch_wallets_data
 """
 
-
-def get_exchange_wallet(user):
-    wallet_obj = list(Wallets.objects.filter(user=user))
-    if len(wallet_obj) > 0:
-        return wallet_obj[0]
+def get_exchange_wallet(**kw):
+    if 'user' in kw:
+        user = kw.get['user']
+    if 'wallet_ID' in kw:
+        wallet_ID = kw.get['wallet_ID']
+    wallet_obj = Wallet.objects.filter(Q(user_ID=user.user_ID)|Q(exchange_wallet_ID=wallet_ID))
+    if wallet_obj.exists():
+        return wallet_obj.first()
     else:
         return None
 
 # RETURN OBJECT LIST
-def get_wallets():
+def get_all_exchange_wallets():
     """
         @Get Wallets Objects \n
         @Return: Wallets Objects List | None
     """
-    wallets_obj = list(Wallets.objects.all())
-    if len(wallets_obj) > 0:
+    wallets_obj = Wallet.objects.all()
+    if wallets_obj.exists():
         return wallets_obj  # wallet objects list
     else:
         return None
 
 
 # RETURN OBJECT
-def get_wallet(wallet_ID):
+def get_user_private_wallet(wallet_ID):
     """
         @Get Wallet Object \n
         @Return: Wallet Object | None
     """
-    wallet_obj = Wallets.objects.filter(wallet_ID=wallet_ID)
+    wallet_obj = User_Wallets.objects.filter(wallet_ID=wallet_ID)
     if wallet_obj.exists():
         return wallet_obj.first()  # first wallet_obj
     else:
         return None
 
+def add_exchange_wallet(username):
+    user = get_user(user_name=username)
+    wallet_ID = hash_encrypt(user.user_ID[0:10])
+    Wallet(user_ID=user.user_ID, exchange_wallet_ID=wallet_ID).save()
+    
 
-def add_wallet(wallet_ID):
+def add_user_private_wallet(wallet_ID):
     # generate Wallet_ID
-    if wallet_ID == None:
-        return None
-    else:
-        wallet_ID = wallet_ID
+    wallet_ID = wallet_ID
     
     # check database
     if database_match(wallet_ID=wallet_ID) is None:
-        wallet = Wallets(wallet_ID=wallet_ID)
+        wallet = User_Wallets(wallet_ID=wallet_ID)
         wallet.save()
         return 1
     else:
         return None
 
 # RETURN JSON LIST
-def fetch_wallets_data():
+def fetch_exchange_wallets_data():
     """
         @Get Wallets Objects JSON data\n
         @Return: Wallets Objects JSON List | None
@@ -307,7 +322,7 @@ def fetch_wallets_data():
             "user_ID": user.user_ID,
             "wallet_ID": wallet_obj.wallet_ID
     """
-    wallets_obj = get_wallets()
+    wallets_obj = get_all_exchange_wallets()
     res_data = []
     if wallets_obj is not None:
         for wallet_obj in wallets_obj:
@@ -326,30 +341,32 @@ def fetch_wallets_data():
 
 
 # RETURN OBJECT LIST
-def get_assets(user):
+def get_exchange_assets(user):
     """
         @Get Assets Objects \n
         @Return: Assets Objects List | None
     """
-    assets_obj = list(Asset.objects.filter(user=user))
-    if len(assets_obj) > 0:
+    assets_obj = Asset.objects.filter(user=user)
+    if assets_obj.exists():
         return assets_obj
     else:
         return None
 
 
-def add_asset(user, chain, asset_type, asset_amount):
+def add_exchange_asset(user, chain, asset_type, asset_amount):
+    wallet = get_exchange_wallet(user=user)
     if user is not None:
         asset_obj = Asset(
             user=user,
             chain=chain,
+            wallet_ID=wallet.exchange_wallet_ID,
             asset_type=asset_type,
             asset_amount=asset_amount,
         )
         asset_obj.save()
 
 # RETURN JSON LIST
-def fetch_assets_data(user):
+def fetch_exchange_assets_data(user):
     """
         @Get Assets Objects JSON data\n
         @Return: Assets Objects JSON List | None
@@ -360,7 +377,7 @@ def fetch_assets_data(user):
             "asset_amount": asset_obj.asset_amount,
         }]
     """
-    assets_obj = get_assets(user)
+    assets_obj = get_exchange_assets(user)
     res_data = []
     if assets_obj is not None:
         for asset_obj in assets_obj:
@@ -378,7 +395,7 @@ def fetch_assets_data(user):
 """
     VERIFICATION FUNCTION
 """
-def get_user_data(user):
+def get_exchange_user_data(user):
     """
     @Get specified user object JSON data
     @@Return Style: \n
@@ -412,8 +429,9 @@ def get_user_data(user):
     if user is not None:
         user_data["user_name"] = user.user_name
         user_data["user_ID"] = user.user_ID
-        user_data['assets'] = []
-        user_data['assets'].append(fetch_assets_data(user))
+        wallet = get_exchange_wallet(user=user)
+        user_data['wallet_ID'] = wallet.exchange_wallet_ID
+        user_data['assets'] = fetch_exchange_assets_data(user)
         return user_data
     else:
         return None
@@ -427,11 +445,11 @@ def get_verification_information(user):
 
     # get all users data
     all_users = User.objects.all()
-    verifying_user_data = get_user_data(user)
+    verifying_user_data = get_exchange_user_data(user)
 
     if all_users.exists():
         for user in all_users:
-            user_data = get_user_data(user)
+            user_data = get_exchange_user_data(user)
             all_users_data.append(user_data)
 
         information = combine_data(user_data, all_users_data)
@@ -450,7 +468,7 @@ def get_verification_information(user):
 
 def add_trade_history(username, amount, asset_type, action):
     user = get_user(user_name=username)
-    wallet = get_exchange_wallet(user)
+    wallet = get_exchange_wallet(user=user)
     # save trade history to DB
     User_Trade_History(username=username, user_ID=user.user_ID, amount=amount, wallet_ID=wallet.wallet_ID, asset_type=asset_type, action=action).save()
     
@@ -461,7 +479,30 @@ def get_trade_history(username):
         return history
     else:
         return None
+
+def get_user_private_asset(username, wallet_ID, symbol, chain):
+    user = get_user(user_name=username)
+    asset = User_Asset.objects.filter(user_ID=user.user_ID, wallet_ID=wallet_ID, asset_type=symbol, chain=chain)
+    if asset.exists():
+        return asset.first()
+    else:
+        return None
+
+def get_user_private_wallets(username):
+    user = get_user(user_name=username)
+    wallets = User_Wallets.objects.filter(user_ID=user.user_ID)
+    if wallets.exists():
+        return wallets
+    else:
+        return None
     
+def get_user_private_wallet(wallet_ID):
+    wallet = User_Wallets.objects.filter(wallet_ID=wallet_ID)
+    if wallet.exists():
+        return wallet.first()
+    else:
+        return None
+
 """
     No File or Function
 """

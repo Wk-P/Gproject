@@ -19,7 +19,7 @@ class proof(View):
         for symbol in symbols:
             result_data[f"{symbol}"] = 0
             for user in users:
-                assets_data = fetch_assets_data(user)
+                assets_data = fetch_exchange_assets_data(user)
                 if assets_data == None:
                     response['alert'] = 'NO DATA'
                     return JsonResponse(response)

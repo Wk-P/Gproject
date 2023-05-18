@@ -30,7 +30,7 @@ window.onload = () => {
                     // register success jump to main page
                     // console.log(data)
                     // console.log(data.username)
-                    window.location.href = `/main/${data.username}/`;
+                    window.location.href = `/login/`;
                 }
             })
             .catch(error => console.log(error));

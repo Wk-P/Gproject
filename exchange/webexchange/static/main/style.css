@@ -66,5 +66,13 @@ select {
 }
 
 select:hover {
+	background-color: #333;
 	cursor: pointer;
+	color: #fff;
+}
+
+select:focus-visible {
+	cursor: pointer;
+	color: #fff;
+	background-color: #333;
 }

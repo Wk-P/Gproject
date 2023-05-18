@@ -5,7 +5,7 @@ class usercenter(View):
     def get(self, request, **kwargs):
         username = kwargs.get('username')
         user = get_user(user_name=username)
-        user_data = get_user_data(user)
+        user_data = get_exchange_user_data(user)
         '''
             user_data = {
                 'user_name': user_name,
@@ -27,7 +27,7 @@ class usercenter(View):
         data = json.loads(request.body.decode('utf-8'))
 
         user = get_user(user_name=data['username'])
-        user_data = get_user_data(user)
+        user_data = get_exchange_user_data(user)
         '''
             user_data = {
                 'user_name': user_name,

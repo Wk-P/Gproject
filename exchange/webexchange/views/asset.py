@@ -18,7 +18,7 @@ class asset(View):
 
         user = get_user(user_name=data['username'])
         if data['click'] == "no":
-            asset_data = fetch_assets_data(user)
+            asset_data = fetch_exchange_assets_data(user)
             if asset_data is not None:
                 res_data.append({"asset_data":asset_data})
             # res_data == [None]

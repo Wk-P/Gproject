@@ -3,14 +3,20 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: Hiragino Sans GB, MicroSoft YaHei;
 }
 
-body {
+.body {
+  margin-top: 200px;
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
 }
-/* 导航样式 */
+
 /* 导航样式 */
 nav {
+  text-align: center;
   background-color: #fff;
   color: #333;
   height: 50px;
@@ -24,7 +30,9 @@ nav ul {
   justify-content: space-around;
   align-items: center;
   height: 100%;
-  color:#333;
+  color: #333;
+  background-color: #999;
+  background-color: #fff;
 }
 
 nav li {
@@ -34,6 +42,7 @@ nav li {
   justify-content: space-around;
   height: 100%;
   width: 100%;
+
 }
 
 nav a {
@@ -52,9 +61,10 @@ nav a:hover {
 }
 
 body {
-  font-family: Arial, sans-serif;
   margin: 0;
   padding: 0;
+  background-color: #999;
+
 }
 
 select {
@@ -91,7 +101,7 @@ select:focus-visible {
   background-color: #333;
 }
 
-coin-type select {
+coin-type select, chain-type select {
   text-align: center;
   font-size: 16px;
   font-weight: bold;
@@ -102,44 +112,63 @@ coin-type select {
   padding-right: 10px;
 }
 
-coin-type select:hover {
+coin-type select:hover, chain-type select:hover {
   cursor: pointer;
   color: #fff;
   background-color: #999;
 }
 
-coin-type select:focus-visible {
+coin-type select:focus-visible, chain-type select:focus-visible {
   cursor: pointer;
   color: #fff;
   background-color: #999;
 }
 
-coin-type option {
+coin-type option, chain-type option {
   text-align: left;
 }
 
-.wallet-heading {
-  background-color: #f1f1f1;
-  color: #000;
+wallet-address {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  width: 100%;
+}
+
+wallet-address * {
+  width: 100%;
+  height: 100%;
+}
+
+.ewtitle {
+  font-size: 15px;
   font-weight: bold;
-  text-align: center;
-  padding: 10px;
-  cursor: pointer;
+}
+
+.ewtitle div {
+  font-weight: normal;
+}
+
+#send-out-wallet-address,
+#send-in-wallet-address {
+  width: 100%;
+  height: 30px;
+  padding: 5px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
 }
 
 .wallet-content {
-  display: none;
+  display: block;
   background-color: #fff;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
   border-radius: 5px;
   overflow: hidden;
 }
 
-.wallet-content.show {
-  display: block;
-}
 
 .wallet-content wallet,
+.wallet-content chain,
 .wallet-content coin {
   display: flex;
   flex-direction: column;
@@ -155,15 +184,62 @@ coin-type option {
   border-bottom: 1px solid #ddd;
 }
 
+.wallet-content chain {
+  border-bottom: 1px solid #ddd;
+}
+
 .wallet-content wallet-title,
+.wallet-content chain-type-title,
 .wallet-content coin-type-title,
 .wallet-content amount-title {
   font-weight: bold;
   color: #333;
+  font-size: 20px;
 }
 
-.wallet-content wallet-adderss,
+#buttons {
+  margin: 10px auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  height: 60px;
+  width: 75%;
+}
+
+#buttons button {
+  background-color: #fff;
+  color: #222;
+  font-size: 16px;
+  font-weight: bold;
+  text-align: center;
+  display: block;
+  border: none;
+  outline: none;
+  width: 100%;
+  border-radius: 10px;
+  margin: 5px 20px;
+}
+
+#buttons button:hover {
+  cursor: pointer;
+  background-color: #333;
+  color: #fff;
+}
+
+wallet-block {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  margin: 0 auto;
+  width: 100%;
+}
+
+wallet-block * {
+  width: 75%;
+}
+
 .wallet-content coin-type,
+.wallet-content chain-type,
 .wallet-content coin-amount {
   display: flex;
   gap: 10px;
@@ -171,6 +247,7 @@ coin-type option {
 }
 
 .wallet-content coin-type select,
+.wallet-content chain-type select,
 .wallet-content coin-amount input {
   width: 100%;
   height: 30px;
@@ -186,6 +263,58 @@ coin-type option {
   margin-top: 10px;
 }
 
+#log-btn {
+  width: 100%;
+  height: auto;
+  outline: none;
+  border: none;
+  font-size: 16px;
+  font-weight: bold;
+  background-color: #fff;
+  color: #333;
+}
 
+#log-btn:hover {
+  cursor: pointer;
+  background-color: #333;
+  color: #fff;
+}
 
+wallet {
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  width: 100%;
+}
 
+wallet * {
+  margin: auto;
+  width: 95%;
+}
+
+coin {
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  width: 100%;
+}
+
+coin * {
+  margin: auto;
+  width: 95%;
+}
+
+chain {
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  width: 100%;
+}
+
+chain * {
+  margin: auto;
+  width: 95%;
+}

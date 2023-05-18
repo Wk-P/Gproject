@@ -18,23 +18,21 @@
         <li><a id="coin" href="{% url 'coins' %}">Coins</a></li>
         <li><a id="exchanges" href="{% url 'exchange' %}">Exchanges</a></li>
         <li><a id="swap" href="#">Swap</a></li>
-        <!-- <li> <label for="exchange-dropdown">USD</label> -->
+        <li>
           <select id="exchange-dropdown">
-            <!-- <option value="">Select an exchange</option> -->
             <option value="binance">USD</option>
             <option value="coinbase">JPY</option>
             <option value="kraken">KRW</option>
           </select>
         </li>
-        <!-- <li> <label for="exchange-dropdown">English</label> -->
+        <li>
           <select id="language">
-            <!-- <option value="">Select an exchange</option> -->
             <option value="binance">English</option>
             <option value="coinbase">简体中文</option>
             <option value="kraken">한국어</option>
           </select>
         </li>
-        <!-- <li><a id="english" href="#">English</a></li> -->
+        <li><a id="index" href="{% url 'index' %}" method="GET">Home</a></li>
       </ul>
     </nav>
     <div>

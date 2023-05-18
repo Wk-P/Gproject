@@ -8,21 +8,45 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Trade</title>
-    <script src="{% static '/lib/fnlib.js' %}"></script>
-    <script src="{% static '/trade/trade.js' %}"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/6.7.0/d3.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://d3js.org/d3.v6.min.js"></script>
-    <!-- <script src="https://socket.io/socket.io.js"></script> -->
-
-    <link rel="stylesheet" href="{% static '/trade/trade.css' %}">
-
+    <script src="{% static '/lib/fnlib.js' %}"></script>
+    <script src="{% static '/trade/trade.js' %}"></script>
+    <link rel="stylesheet" href="{% static '/trade/style.css' %}">
 </head>
 
 <body>
     {% csrf_token %}
     <header>
-        
+        <div>
+            <nav>
+                <ul>
+                    <li><a id="coin" href="{% url 'coins' %}">Coins</a></li>
+                    <li><a id="exchanges" href="{% url 'exchange' %}">Exchanges</a></li>
+                    <li><a id="swap" href="#">Swap</a></li>
+                    <li id="">
+                        <select id="currency">
+                            <option value="binance">USD</option>
+                            <option value="coinbase">JPY</option>
+                            <option value="kraken">KRW</option>
+                        </select>
+                    </li>
+                    <li>
+                        <select id="language">
+                            <option value="English">English</option>
+                            <option value="Chinese">简体中文</option>
+                            <option value="Korean">한국어</option>
+                        </select>
+                    </li>
+                    <li><a id="index" href="{% url 'index' %}" method="GET">Home</a></li>
+                    <li><div id="username">{{ username }} </div></li>
+                    <li id="user-info">
+                        <a href="{% url 'usercenter' username=username %}" method="GET"> User Center </a>
+                        <a href="{% url 'login' %}">Log Out</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
         <nav>
             <ul>
                 <li><a href="#">BTC/USDT</a></li>

@@ -261,10 +261,14 @@ def get_user_data(**kw):
 
 def get_exchange_wallet(**kw):
     if 'user' in kw:
-        user = kw.get['user']
+        user = kw.get('user')
+    else:
+        user = None
     if 'wallet_ID' in kw:
-        wallet_ID = kw.get['wallet_ID']
-    wallet_obj = Wallet.objects.filter(Q(user_ID=user.user_ID)|Q(exchange_wallet_ID=wallet_ID))
+        exchange_wallet_ID = kw.get('wallet_ID')
+    else:
+        exchange_wallet_ID = ""
+    wallet_obj = Wallet.objects.filter(Q(user_ID=user.user_ID)|Q(exchange_wallet_ID=exchange_wallet_ID))
     if wallet_obj.exists():
         return wallet_obj.first()
     else:
@@ -378,6 +382,7 @@ def fetch_exchange_assets_data(user):
         }]
     """
     assets_obj = get_exchange_assets(user)
+    print(assets_obj)
     res_data = []
     if assets_obj is not None:
         for asset_obj in assets_obj:
@@ -415,6 +420,7 @@ def get_exchange_user_data(user):
         "user_ID": None,
         "assets": [],
     }
+    print(user_data)
     """
         user_data = {
             "user_name"
@@ -427,9 +433,9 @@ def get_exchange_user_data(user):
         }
     """
     if user is not None:
+        wallet = get_exchange_wallet(user=user)
         user_data["user_name"] = user.user_name
         user_data["user_ID"] = user.user_ID
-        wallet = get_exchange_wallet(user=user)
         user_data['wallet_ID'] = wallet.exchange_wallet_ID
         user_data['assets'] = fetch_exchange_assets_data(user)
         return user_data

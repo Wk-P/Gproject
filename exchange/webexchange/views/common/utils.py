@@ -19,6 +19,7 @@ from django.urls import reverse
 from django.http import JsonResponse
 from random import randint
 
+from sympy import FiniteField
 import pyfinite
 from pyfinite import genericmatrix
 

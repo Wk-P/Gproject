@@ -78,7 +78,6 @@ __all__ = [
     "get_user_private_wallets",
     "add_exchange_wallet",
     "get_exchange_wallet",
-    "get_wallet",
     "get_all_exchange_wallets",
     "add_user_private_wallet",
     "fetch_exchange_wallets_data",
@@ -461,7 +460,7 @@ def get_verification_information(user):
             #   ...
             #   return data
         """
-
+        print(information)
         return information
     else:
         return None

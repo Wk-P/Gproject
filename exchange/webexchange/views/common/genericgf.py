@@ -4,7 +4,7 @@ class GenericGF:
         self.modulus = modulus
         self.size = size
         self.primitive = primitive
-        self.exp_table = [0] * (size+1) # ?
+        self.exp_table = [0] * (size+1) 
         self.log_table = [0] * (size+1)      
         self.calculate_tables()
 

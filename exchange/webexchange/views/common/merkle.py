@@ -1,6 +1,4 @@
 from hashlib import sha256     
-#定义has
-
 from typing import List
 #类型提醒
 #从当前模块的相对路径中导入所有模块成员

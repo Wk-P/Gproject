@@ -66,6 +66,19 @@ function drawCandlestick(svg, trade_data, margin) {
         .append('g')
         .classed('candlestick', true)
         .attr('transform', (d) => `translate(${xScale(parseInt(d[0]))}, 0)`);
+<<<<<<< Updated upstream
+=======
+
+    // Append the candlestick elements to the main <g> elements
+    g.append('line')
+        .classed('candlestick-line', true)
+        .attr('x1', (d) => candlestickWidth / 2)
+        .attr('y1', (d) => height - yScale(d[2]) - margin.top)
+        .attr('x2', (d) => candlestickWidth / 2)
+        .attr('y2', (d) => height - margin.bottom)
+        .attr('stroke', handleStrokeColor)
+        .attr('stroke-width', 1);
+>>>>>>> Stashed changes
 
     candlesticks.append('rect')
         .classed('candlestick-rect', true)

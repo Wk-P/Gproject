@@ -27,6 +27,7 @@ button {
   padding: 10px 20px;
   border-radius: 5px;
   cursor: pointer;
+  transition: all 0.3s ease;
 }
 
 button:hover {
@@ -102,7 +103,7 @@ select {
   height: 100%;
   border-style: none;
   outline: none;
-  transition: 0.06s ease-in-out;
+  transition: 0.3s ease-in-out;
   background-color: #fff;
   color: #333;
 }

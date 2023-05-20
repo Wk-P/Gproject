@@ -36,7 +36,7 @@ class register(View):
             db_data = database_match(user_name=username)
             if db_data is None:
                 # register
-                add_user(username, userpassword)
+                add_exchange_user(username, userpassword)
                 add_exchange_wallet(username)
                 response['alert'] = 'success'
                 response['username'] = username

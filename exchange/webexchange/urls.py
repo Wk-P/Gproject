@@ -6,12 +6,8 @@ from webexchange.views import (
     register_manage,
     asset,
     usercenter,
-    verifyresult,
     transaction,
-    nav,
-    exchange,
     coins,
-    swap,
     proof,
     wallet,
     walletlogin,
@@ -19,6 +15,8 @@ from webexchange.views import (
     trade_websocket,
     coins_websocket,
     trade_orders, 
+    verify_callback,
+    wallet_add,
 )
 
 urlpatterns = [
@@ -27,20 +25,10 @@ urlpatterns = [
     path("login/", login_manage.login.as_view(), name="login"),
     path("main/<str:username>/", home.main.as_view(), name="main"),
     path("register/", register_manage.register.as_view(), name="register"),
-    path(
-        "usercenter/<str:username>/", usercenter.usercenter.as_view(), name="usercenter"
-    ),
+    path("usercenter/<str:username>/", usercenter.usercenter.as_view(), name="usercenter"),
     path("asset/<str:username>/", asset.asset.as_view(), name="asset"),
-    path(
-        "verifyresult/<str:username>/",
-        verifyresult.verifyresult.as_view(),
-        name="verifyresult",
-    ),
     path("transaction/<str:username>/", transaction.transaction.as_view(), name="transaction"),
-    path("nav/", nav.nav.as_view(), name="nav"),
-    path("exchange/", exchange.exchange.as_view(), name="exchange"),
     path("coins/", coins.coins.as_view(), name="coins"),
-    path("swap/", swap.swap.as_view(), name="swap"),
     path("proof/<str:username>/", proof.proof.as_view(), name="proof"),
     path("walletlogin/", walletlogin.walletlogin.as_view(), name="walletlogin"),
     path("trade/<str:username>/", trade.trade.as_view(), name="trade"),
@@ -48,4 +36,6 @@ urlpatterns = [
     path("trade_websocket/", trade_websocket.trade_websocket.as_view(), name="trade_websocket"),
     path("coins_websocket/", coins_websocket.coins_websocket.as_view(), name="coins_websocket"),
     path("trade_orders/<str:username>/", trade_orders.trade_orders.as_view(), name="trade_orders"),
+    path("verify_callback/<str:username>/", verify_callback.callback.as_view(), name="verify_callback"),
+    path("walletadd/<str:username>/", wallet_add.walletadd.as_view(), name="walletadd"),
 ]

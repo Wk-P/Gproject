@@ -31,30 +31,23 @@ def init():
     print(f"prime:{prime}")
     
     F = FiniteField(prime)
-    print(f"F : {F}")
 
     ''' 定义两个非零元素         
         두 개의 비 영 원소를 정의한다'''
     a = F(8)
-    print(f"a: {a}")
     b = F(15)
-    print(f"b: {b}")
     '''
          定义两个非零元素的积         
         두 개의 비 영 원소의 곱을 정의한다'''
     c = a * b
 
-    print(f"c : {c}")
     ''' 
         #증명하고자 하는 명제는 다음과 같습니다: x와 y 두 개의 숫자를 알고 있을 때, 
         그들의 곱이 z = x * y와 같다는 것을 증명한다'''
     x = F(20)
-    print(f"x : {x}")
     y = F(17)
-    print(f"y : {y}")
 
     z = x * y    #要证明的断言
-    print(f"z : {z}")
     '''要证明的断言是：已知两个数字x和y，使得它们的积等于z = x * y，为了证明这个断言 算法使用了一个随机的s和t，
         使得他们积等于z 然后生成2个哈希值h1和h2，并将它们作为证明的一部分。
         '''
@@ -66,11 +59,7 @@ def init():
         '''
   
     s = F(randint(1, prime-1))   #  s一旦可以实行 t也就可以
-    print(f"s : {s}")
     t = F(z/s)
-    print(f"t : {t}")
-
-    print(f"prime: {prime}")
 
     ''' 我们还需要定义一个随机的密钥 k，它将用于计算证明,并计算出ks 和kt的哈希值h1和h2
 
@@ -286,7 +275,7 @@ class FiniteField:
         self.field = GenericGF(prime,256,primitive=3)  #创建一个列表或数组，而访问的索引超出了范围。
             # self.field.append(primitive=2)
     def __call__(self, value):
-        print(value) #output
+        # print(f"value: {value}") #output
         # return self.field.inverse(int(str(value)))
         return self.field.inverse(int(value))  #8
     #value参数可以是任意整数值，表示要计算其逆元素的值

@@ -1,39 +1,8 @@
-function generate_table_contents(table_id, tr_size, td_id_arr, td_contents) {
-    let table = document.getElementById(table_id)
-    for (i in tr_size) {
-        let tr = document.createElement('tr');
-        for (td_id in td_id_arr) {
-            td = document.createElement('td');
-            td.id = td_id_arr[td_id];
-            td.innerHTML = td_contents[td_id];
-            tr.appendChild(td);
-        }
-        table.appendChild(tr);
-    }
-}
-
 window.onload = () => {
 
-    // generate hash exchange wallet hashcode
-    const username = $("#user-name").text();
-    let hashString = 0;
-    for (let character of username) {
-        let charCode = character.charCodeAt(0);
-        hashString = hashString << 5 - hashString + charCode;
-        hashString |= hashString;
-    }
-    
-    $("wallet-address").text(hashString);
-
-    let btn_count = 1;
-
+    const username = $("#username").text().replace(' ', '');
     const csrftoken = getCookie('csrftoken');
-    const td_id_array = [
-        `chain-${username}`, 
-        `cointype-${username}`, 
-        `amount-${username}`, 
-    ]
-    let data = {
+    let req_data = {
         username: username,
     }
     let params = {
@@ -43,22 +12,33 @@ window.onload = () => {
             'X-CSRFToken': csrftoken,
         },
     }
-    // For different post request
-    data.click = 'no';
-    params.body = JSON.stringify(data);
+    // For default post request
+    params.body = JSON.stringify(req_data);
 
-    tbody = $("#asset-tbody");
-    table = $("table");
-
+    let tbody = $("#asset-tbody");
     fetch(`/asset/${username}/`, params)
         .then(response => response.json())
         .then(data => {
-            // console.log(data);
-            // console.log(data.asset_data);
             if (data.alert == 'success') {
+                const asset_array = data.asset_data
                 // asset data is completed
-                if (data.asset_data != null) {
-                    tr = document.createElement('tr');
+                if (asset_array.length > 0) {
+                    for (let i = 0; i < asset_array.length; i++) {
+                        let tr = document.createElement('tr');
+                        let symbol_td = document.createElement('td');
+                        let chain_td = document.createElement('td');
+                        let amount_td = document.createElement('td');
+
+                        symbol_td.innerHTML = asset_array[i].asset_type
+                        chain_td.innerHTML = asset_array[i].chain
+                        amount_td.innerHTML = asset_array[i].asset_amount
+
+                        tr.appendChild(symbol_td)
+                        tr.appendChild(chain_td)
+                        tr.appendChild(amount_td)
+
+                        tbody.append(tr)
+                    }
                 } else {
                     let div = document.createElement('div')
                     div.innerHTML = "No Asset Data";
@@ -71,6 +51,84 @@ window.onload = () => {
             }
             td = document.createElement('td')
         })
-        .catch(error => {console.log(error)});
-    
+        .catch(error => { console.log(error) });
+
+    // display listener
+    let display = false;
+
+
+
+    // verify button click 
+    $("#verify").click(() => {
+        fetch(`/verify_callback/${username}/`, params)
+            .then(response => response.json())
+            .then(data => {
+                if (data.alert == 'success') {
+                    console.log(data);
+                    window.location.href = `/verify/${username}/`;
+                } else {
+                    // test
+                    console.log(display)
+                    if (display == false) {
+                        console.log(data.test);
+
+                        // result div
+                        let result_div = document.createElement('div');
+                        result_div.classList.add('result-div');
+                        result_div.setAttribute('id', 'result')
+
+                        // confirm button
+                        let confirm_button = document.createElement('button');
+                        confirm_button.setAttribute('id', 'confirm-btn');
+                        confirm_button.innerHTML = "Confirm"
+
+                        let li_list = {
+                            time: "Time",
+                            merkle_root_hash: "merkle_root_hash",
+                            zk_proof: "zk_proof",
+                            zk_verification_result: "zk_verification_result",
+                            assets: "assets",
+                            wallet_ID: "wallet_ID",
+                            asset_type: "asset_type",
+                            asset_amount: "asset_amount"
+                        };
+
+                        for (const li in li_list) {
+                            let div = document.createElement('div');
+                            div.innerHTML = li_list[li];
+                            div.setAttribute('id', li);
+                            result_div.appendChild(div);
+                        }
+
+                        result_div.appendChild(confirm_button);
+                        let parent = $(".result-parent");
+                        parent.append(result_div);
+
+                        // prevent append more div DOM node
+                        display = true;
+
+                        setTimeout(() => {
+                            result_div.classList.add('show');
+                        }, 100);
+                    }
+                }
+            })
+            .catch(error => console.log(error))
+    })
+    $(document).on('click', '#confirm-btn', () => {
+        console.log(display)
+        if (display == true) {
+            let result_div = document.getElementById('result');
+
+            // hidden DOM Element
+            result_div.classList.add('hidden');
+            display = false;
+            
+            // Listen for transitionend event
+            result_div.addEventListener('transitionend', () => {
+                // Remove result_div element
+                result_div.remove();
+            });
+        }
+    });
 }

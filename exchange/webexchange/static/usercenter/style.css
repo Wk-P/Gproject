@@ -85,6 +85,7 @@ use {
 	padding: 0 20px;
 	text-decoration: none;
 	color: #333;
+	transition: all 0.3s ease;
 }
 
 .top-nav a:hover {
@@ -99,7 +100,7 @@ use {
 	height: 100%;
 	border-style: none;
 	outline: none;
-	transition: 0.06s ease-in-out;
+	transition: 0.3s ease-in-out;
 }
 
 .top-nav select:hover {
@@ -221,6 +222,7 @@ customer-balances {
 	font-weight: bold;
 	background-color: #fff;
 	color: #333;
+	transition: all 0.3s ease;
 }
 
 #log-btn:hover {

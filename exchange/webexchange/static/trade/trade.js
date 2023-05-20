@@ -203,11 +203,9 @@ window.onload = () => {
     // get ordered result
     setInterval(() => {
         params.body = JSON.stringify(req_data)
-        console.log(params.body)
         fetch(`/trade_orders/${username}/`, params)
             .then(response => response.json())
             .then(data => {
-                console.log(data.ordered)
                 // console.log(JSON.parse(data.ordered))
             })
             .catch(error => console.log(error))

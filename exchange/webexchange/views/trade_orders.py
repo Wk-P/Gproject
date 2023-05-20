@@ -9,6 +9,7 @@ class trade_orders(View):
     async def post(self, request, **kwargs):
         response = {'alert': None}
         data = json.loads(request.body.decode('utf-8'))
+        # receive ordered
         if data['reqtype'] == 'trade':
             producer = OrderProducer(
                 order_manager=order_manager, order_type=data['order']['type'], 

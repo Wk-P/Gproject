@@ -4,14 +4,15 @@
 	padding: 0;
 	box-sizing: border-box;
 }
+
 /* 导航样式 */
 nav {
 	background-color: #fff;
 	color: #333;
 	height: 50px;
-  }
-  
-  nav ul {
+}
+
+nav ul {
 	list-style: none;
 	margin: 0;
 	padding: 0;
@@ -19,19 +20,19 @@ nav {
 	justify-content: space-around;
 	align-items: center;
 	height: 100%;
-	color:#333;
-  }
-  
-  nav li {
+	color: #333;
+}
+
+nav li {
 	font-weight: bold;
 	display: flex;
 	flex-direction: column;
 	justify-content: space-around;
 	height: 100%;
 	width: 100%;
-  }
-  
-  nav a {
+}
+
+nav a {
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -39,12 +40,13 @@ nav {
 	padding: 0 20px;
 	text-decoration: none;
 	color: #333;
-  }
-  
-  nav a:hover {
+	transition: all 0.3s ease;
+}
+
+nav a:hover {
 	color: #fff;
 	background-color: #333;
-  }
+}
 
 body {
 	margin: 0;
@@ -87,14 +89,16 @@ main {
 	justify-content: space-around;
 }
 
-#up, #down{
+#up,
+#down {
 	display: flex;
 	width: 100%;
 	flex-direction: row;
 	justify-content: space-around;
 }
 
-#up > div, #down > div {
+#up>div,
+#down>div {
 	font-family: Arial;
 	margin-top: 44px;
 }
@@ -121,14 +125,16 @@ ratio {
 	font-size: 35px;
 }
 
-#up div > div, #down div > div {
+#up div>div,
+#down div>div {
 	display: block;
 	font-weight: normal;
 	font-size: 19px;
 	margin-top: 10px;
 }
 
-customer-balances, exchange-balances {
+customer-balances,
+exchange-balances {
 	display: block;
 	width: 100%;
 	font-size: 32px;
@@ -136,5 +142,5 @@ customer-balances, exchange-balances {
 }
 
 customer-balances {
-	border-bottom: 2px solid #17f;	
+	border-bottom: 2px solid #17f;
 }

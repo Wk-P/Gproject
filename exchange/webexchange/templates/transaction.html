@@ -48,6 +48,7 @@
         </nav>
     </div>
     <div class="body">
+        <div class="content-title">Transaction</div>
         <wallet-block>
             <div class="wallet-content">
                 <wallet>
@@ -63,8 +64,8 @@
                     <wallet-adderss>
                         <div> Enter wallet address <input id="send-in-wallet-address" type="text"></div>
                         <div class="ewtitle">Your exchange wallet address
+                            <div>{{ wallet_address }}</div>
                         </div>
-                        <div>{{ wallet_address }}</div>
                     </wallet-adderss>
                 </wallet>
                 <coin>

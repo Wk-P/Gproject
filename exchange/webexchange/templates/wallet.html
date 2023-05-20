@@ -1,35 +1,55 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
   <meta charset="UTF-8">
-  <title>Coins</title>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wallet Manage</title>
   {% load static %}
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  <script src="{% static '/wallet/wallet.js' %}"></script>
   <script src="{% static '/lib/fnlib.js' %}"></script>
+  <script src="{% static '/wallet/wallet.js' %}"></script>
   <link rel="stylesheet" href="{% static '/wallet/style.css' %}">
 </head>
 
-{% csrf_token %}
 <body>
+  {% csrf_token %}
   <header>
     <nav>
       <ul>
-        <li>User id=3487893</li>
-        <li>User name:user1</li>
-        <!-- <li><a id="english" href="#">English</a></li> -->
+        <li class="userid">User ID<p>{{ userid }}</p>
+        </li>
+        <li class="username">User Name<p id="username">{{ username }}</p>
+        </li>
+        <li class="left-top">
+          <a href="{% url 'usercenter' username=username %}">usercenter</a>
+          <a href="{% url 'walletlogin' %}">Log Out</a>
+        </li>
       </ul>
     </nav>
   </header>
   <main>
-    <div>
-      <table id="in">
-        <tr class="thead">
-          <th>Symbol</th>
-          <th>Amount</th>
-          <th>Chain</th>
-        </tr>
+    <div class="add-wallet">
+      <div class="left">
+        <h4>Wallet Add</h4>
+        <input id="wallet-input" type="text">
+      </div>
+      <div class="right">
+        <button id="commit">Commit</button>
+      </div>
+    </div>
+    <div class="content">
+      <table>
+        <thead>
+          <tr>
+            <th>Wallet</th>
+            <th>Symbol</th>
+            <th>Amount</th>
+            <th>Chain</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
       </table>
     </div>
   </main>

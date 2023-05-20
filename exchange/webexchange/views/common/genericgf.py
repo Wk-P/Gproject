@@ -23,8 +23,8 @@ class GenericGF:
         return self.exp_table[(log_diff % self.modulus) + self.modulus]
 
     def inverse(self, a):
-        print(self.log_table[a])  #output 255
-        print(len(self.exp_table))  #output 257
+        # print(self.log_table[a])  #output 255
+        # print(len(self.exp_table))  #output 257
         return self.exp_table[self.modulus - self.log_table[a] - 1]
 
     # def inverse(self, a):
@@ -39,9 +39,9 @@ class GenericGF:
     def calculate_tables(self):
         x = 1
         for i in range(0, self.size):
-            print(self.exp_table)
-            print(self.log_table)
-            print(x)
+            # print(self.exp_table)
+            # print(self.log_table)
+            # print(x)
             self.exp_table[i] = x
             x = (x << 1) ^ ((x >> 7) * self.primitive)  # 乘法运算
 

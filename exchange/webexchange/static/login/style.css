@@ -39,6 +39,8 @@ nav a {
   height: 100%;
   padding: 0 20px;
   text-decoration: none;
+	transition: all 0.3s ease;
+
   color: #333;
 }
 
@@ -54,7 +56,7 @@ select {
   height: 100%;
   border-style: none;
   outline: none;
-  transition: 0.06s ease-in-out;
+  transition: 0.3s ease-in-out;
 }
 
 select:hover {

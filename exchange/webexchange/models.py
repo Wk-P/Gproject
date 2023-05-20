@@ -35,23 +35,24 @@ class Asset(models.Model):
 
 class User_Trade_History(models.Model):
     time_point = models.DateTimeField(auto_now_add=True)
-    wallet_ID = models.CharField(max_length=255)
+    out_wallet_ID = models.CharField(max_length=255)
+    in_wallet_ID = models.CharField(max_length=255)
+    chain = models.CharField(max_length=255)
     user_ID = models.CharField(max_length=255)
     action = models.CharField(max_length=255)
     amount = models.FloatField(default=0)
     user_name = models.CharField(max_length=255)
-    asset_type = models.CharField(max_length=255, default=None)
+    symbol = models.CharField(max_length=255, default=None)
 
 
-class User_Wallets(models.Model):
+class User_Wallet(models.Model):
     user_ID = models.CharField(max_length=255)
     wallet_ID = models.CharField(max_length=255)
-    chain = models.CharField(max_length=255)
 
 
 class User_Asset(models.Model):
     wallet_ID = models.CharField(max_length=255)
-    user_ID = models.CharField(max_length=255)
-    asset_type = models.CharField(max_length=255)
+    userid = models.CharField(max_length=255)
+    symbol = models.CharField(max_length=255)
     chain = models.CharField(max_length=255)
-    asset_amount = models.FloatField(max_length=255)
+    amount = models.FloatField(max_length=255)

@@ -15,85 +15,51 @@
 
 <body>
     {% csrf_token %}
-    <nav class="n1">
+    <nav>
         <ul>
             <li><a id="coin" href="{% url 'coins' %}">Coins</a></li>
-            <li><a id="exchanges" href="{% url 'exchange' %}">Exchanges</a></li>
-            <li><a id="swap" href="#">Swap</a></li>
+            <li><a id="trade" href="{% url 'trade' username=username %}">Trade</a></li>
+            <li><a id="proof" href="{% url 'proof' username=username %}">Proof</a></li>
             <li>
-                <!-- <label for="exchange-dropdown">USD</label> -->
-                <select id="exchange-dropdown">
-                    <!-- <option value="">Select an exchange</option> -->
+                <select id="currency">
                     <option value="binance">USD</option>
                     <option value="coinbase">JPY</option>
                     <option value="kraken">KRW</option>
                 </select>
             </li>
             <li>
-                <!-- <label for="exchange-dropdown">English</label> -->
-                <select id="exchange-dropdown">
-                    <!-- <option value="">Select an exchange</option> -->
-                    <option value="binance">English</option>
-                    <option value="coinbase">简体中文</option>
-                    <option value="kraken">한국어</option>
+                <select id="language">
+                    <option value="English">English</option>
+                    <option value="Chinese">简体中文</option>
+                    <option value="Korean">한국어</option>
                 </select>
             </li>
-            <li><a id="index" href="{% url 'main' username=username %}" method="GET">Home</a></li>
+            <li><a id="index" href="{% url 'index' %}" method="GET">Home</a></li>
+            <li>
+                <div id="username">{{ username }} </div>
+            </li>
             <li id="user-info">
-                <div>User Name : <span id="user-name">{{ username }}</span></div>
-                <a href="{% url 'usercenter' username=username %}" method="GET"> User Center </a>
+                <a href="{% url 'usercenter' username=username %}" method="GET">User Center</a>
+                <a href="{% url 'login' %}">Log Out</a>
             </li>
         </ul>
     </nav>
+    <div class="verify">
+        <button id="verify">Click Here To Verify Asset</button>
+    </div>
     <main>
-        <send-in>
-            <div>
-                <title1>Wallet Address</title1>
-                <wallet-address>
-                    <!-- random hash-->
-                </wallet-address>
-            </div>
-            <div>
-                <title2>Chain</title2>
-                <chain>
-                    <select>
-                        <option id="BTC">BTC</option>
-                        <option id="ETH">ETH</option>
-                        <option id="BNB">BNB</option>
-                    </select>
-                </chain>
-            </div>
-            <div>
-                <title3>Symbol</title3>
-                <select>
-                    <option id="BTC">BTC</option>
-                    <option id="ETH">ETH</option>
-                    <option id="BNB">BNB</option>
-                    <option id="DOGE">DOGE</option>
-                    <option id="DOGE">TRX</option>
-                    <option id="DOGE">SHIB</option>
-                </select>
-            </div>
-            <div>
-                <title4>Amount</title4>
-                <amount><input id="amount"></amount>
-            </div>
-        </send-in>
-        <send-out>
-
-        </send-out>
+        <table>
+            <thead>
+                <tr id="thead-row">
+                    <th>Chain</th>
+                    <th>Coin Type</th>
+                    <th>Amount</th>
+                </tr>
+            </thead>
+            <tbody id="asset-tbody">
+            </tbody>
+        </table>
     </main>
-    <table>
-        <thead>
-            <tr id="thead-row">
-                <th>Chain</th>
-                <th>Coin Type</th>
-                <th>Amount</th>
-            </tr>
-        </thead>
-        <tbody id="asset-tbody">
-        </tbody>
-    </table>
+    <div class="result-parent"></div>
 </body>
-
 </html>

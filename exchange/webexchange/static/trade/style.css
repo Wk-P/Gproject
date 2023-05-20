@@ -2,9 +2,6 @@
   font-family: Hiragino Sans GB, MicroSoft YaHei;
 }
 
-
-
-
 /* 导航样式 */
 nav {
   background-color: #fff;
@@ -20,7 +17,7 @@ nav ul {
   justify-content: space-around;
   align-items: center;
   height: 100%;
-  color:#333;
+  color: #333;
 }
 
 nav li {
@@ -41,6 +38,7 @@ nav a {
   padding: 0 20px;
   text-decoration: none;
   color: #333;
+  transition: all 0.3s ease;
 }
 
 nav a:hover {
@@ -55,7 +53,7 @@ select {
   height: 100%;
   border-style: none;
   outline: none;
-  transition: 0.06s ease-in-out;
+  transition: 0.3s ease-in-out;
   padding-right: 10px;
 }
 
@@ -66,7 +64,7 @@ option {
   height: 100%;
   border-style: none;
   outline: none;
-  transition: 0.06s ease-in-out;
+  transition: 0.3s ease-in-out;
   padding-right: 10px;
 }
 
@@ -91,6 +89,7 @@ select:focus-visible {
   font-weight: bold;
   background-color: #fff;
   color: #333;
+  transition: all 0.3s ease;
 }
 
 #log-btn:hover {
@@ -103,164 +102,209 @@ select:focus-visible {
 body {
   margin: 0;
   padding: 0;
+  height: 100%;
+  background-color: #aaa;
 }
 
 /* Set background color for the page */
 #backgroud {
   background-color: #f0f0f0;
-  height: 100vh; /* Set height to 100% of viewport height */
-  display: flex; /* Use flexbox to position child elements */
+  height: 88dvh;
+  /* Set height to 100% of viewport height */
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  width: 88%;
+  margin: 20px auto;
+  border: none;
+  border-radius: 30px;
+  box-shadow: 0 0 24px #333;
+  /* Use flexbox to position child elements */
+}
+
+#background * {
+  margin: 10px 20px;
+  padding: 10px;
+  overflow: hidden;
 }
 
 /* Set dimensions and background color for the left section */
-#left {
-  width: 25%;
-  background-color: #fff;
+#left, #right {
+  width: 20%;
   display: flex;
   flex-direction: column;
+  justify-content: space-around;
+  margin: 10px 10px;
+  border-radius: 30px;
 }
 
 /* Set dimensions and background color for the middle section */
-#operator, #chart  {
+#operator,
+#chart {
+  border: none;
+  margin: 10px 10px;
+  padding: 14px;
+  border-radius: 30px;
+  box-shadow: 0 0 6px #333;
   height: 50%;
-  border: 1px solid #ccc;
+  width: 100%;
+  font-size: 15px;
+  font-weight: 550;
 }
 
-
-
-/* Set dimensions and background color for the right section */
-#right {
-  width: 25%;
-  background-color: #fff;
+.order-block {
+  width: 100%;
   display: flex;
   flex-direction: column;
+  justify-content: space-around;
+}
+
+.order-block div {
+  margin: 5px auto;
+  width: 88%;
+}
+
+.order-username {
+  text-align: center;
+}
+
+.order-block input {
+  display: block;
+  width: 80%;
+  outline: none;
+  border: none;
+  font-size: 15px;
+  font-weight: normal;
+  border-radius: 20px;
+  box-shadow: 0 0 9px #333;
 }
 
 /* Style the sell and buy elements */
-#sell, #buy {
+#sell,
+#buy {
+  margin: 20px 20px;
   height: 50%;
-  border: 1px solid #ccc;
+  border-radius: 30px;
+  box-shadow: 0 0 10px #333;
+  padding: 10px;
+  overflow: hidden;
 }
 
 #mid {
-  width: 50%;
-  background-color: #fff;
+  width: 60%;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
-/* Style the operator element */
-#operator,#chart {
-height: 50%;
-border: 1px solid #ccc;
-width: 100%;
-}
+
 
 /* Style the market-cap and trade-details elements */
-#market-cap, #trade-details {
+#market-cap,
+#trade-details {
+  margin: 20px 20px;
   height: 50%;
-  border: 1px solid #ccc;
+  border-radius: 30px;
+  box-shadow: 0 0 10px #333;
+  padding: 14px;
+  overflow: hidden;
 }
 
 
 .time-button {
-width: 33.33%;
-text-align: center;
+  width: 33.33%;
+  text-align: center;
 }
 
 #time-buttons {
-display: flex;
-justify-content: center;
-align-items: center;
-margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
 }
 
-#time-buttonss {
-display: flex;
-justify-content: center;
-align-items: center;
-margin-top: 20px;
-}
 .time-button button {
-width: 100%;
-background-color: #ccc;
-color: #000;
-padding: 10px;
-border: none;
-border-radius: 5px;
-cursor: pointer;
+  width: 100%;
+  background-color: #ccc;
+  color: #000;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
 }
 
 .time-button button:hover {
-background-color: #aaa;
+  background-color: #aaa;
 }
 
 .trade-buttons {
-display: flex;
-justify-content: space-between;
-margin-bottom: 10px;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  transition: all 0.3s ease;
 }
 
 #k-line-chart {
-width: 100%;
-height: 400px;
-position: relative;
+  width: 100%;
+  height: 400px;
+  position: relative;
 }
 
 .k-line {
-stroke-width: 1px;
+  stroke-width: 1px;
 }
 
 .k-line-up {
-stroke: green;
+  stroke: green;
 }
 
 .k-line-down {
-stroke: red;
+  stroke: red;
 }
 
 .k-candle {
-stroke-width: 1px;
-fill: white;
+  stroke-width: 1px;
+  fill: white;
 }
 
 .k-candle-up {
-stroke: green;
+  stroke: green;
 }
 
 .k-candle-down {
-stroke: red;
+  stroke: red;
 }
 
 .k-candle-stick {
-stroke-width: 1px;
+  stroke-width: 1px;
 }
 
 .k-candle-stick-up {
-stroke: green;
+  stroke: green;
 }
 
 .k-candle-stick-down {
-stroke: red;
+  stroke: red;
 }
 
 .k-candle-shadow {
-stroke-width: 1px;
+  stroke-width: 1px;
 }
 
 .k-candle-shadow-up {
-stroke: green;
+  stroke: green;
 }
 
 .k-candle-shadow-down {
-stroke: red;
+  stroke: red;
 }
 
 .k-axis {
-stroke-width: 1px;
+  stroke-width: 1px;
 }
 
 .k-axis-label {
-font-size: 12px;
-text-anchor: middle;
+  font-size: 12px;
+  text-anchor: middle;
 }
+

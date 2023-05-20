@@ -22,9 +22,9 @@
             <nav>
                 <ul>
                     <li><a id="coin" href="{% url 'coins' %}">Coins</a></li>
-                    <li><a id="exchanges" href="{% url 'exchange' %}">Exchanges</a></li>
-                    <li><a id="swap" href="#">Swap</a></li>
-                    <li id="">
+                    <li><a id="trade" href="{% url 'trade' username=username %}">Trade</a></li>
+                    <li><a id="proof" href="{% url 'proof' username=username %}">Proof</a></li>
+                    <li>
                         <select id="currency">
                             <option value="binance">USD</option>
                             <option value="coinbase">JPY</option>
@@ -39,7 +39,9 @@
                         </select>
                     </li>
                     <li><a id="index" href="{% url 'index' %}" method="GET">Home</a></li>
-                    <li><div id="username">{{ username }} </div></li>
+                    <li>
+                        <div id="username">{{ username }} </div>
+                    </li>
                     <li id="user-info">
                         <a href="{% url 'usercenter' username=username %}" method="GET"> User Center </a>
                         <a href="{% url 'login' %}">Log Out</a>
@@ -61,7 +63,6 @@
 
     <div id="backgroud">
         <div id="left">
-
             <div id="sell">
                 <div id="table-container">
                     <table>
@@ -92,10 +93,6 @@
                     </table>
                 </div>
             </div>
-
-
-
-
             <div id="buy"></div>
         </div>
         <div id="mid">
@@ -109,9 +106,7 @@
                     <button>1W</button>
                 </div>
                 <svg></svg>
-
             </div>
-
             <div id="operator">
                 <div id="time-buttons">
                     <button class="active">Limit</button>
@@ -119,8 +114,8 @@
                     <button>Stop-limit</button>
 
                 </div>
-                <div>
-                    <div id="username">{{ username }}</div>
+                <div class="order-block">
+                    <div id="order-username">Order User - {{ username }}</div>
                     <div id="stock-name">
                         <div>NAME</div><input type="text">
                     </div>
@@ -148,7 +143,6 @@
 
                 </div>
             </div>
-
             <div id="trade-details">
                 <div id="time-buttonss" class="trade-buttonss">
                     <button class="active">Market</button>
@@ -160,11 +154,6 @@
                     <button>Time</button>
                 </div>
             </div>
-
-
-
-
-
         </div>
     </div>
 </body>

@@ -2,74 +2,47 @@ body {
 	font-family: Arial, sans-serif;
 	margin: 0;
 	padding: 0;
-  }
-  /* 导航样式 */
-nav {
-	background-color: #fff;
-	color: #333;
-	height: 50px;
-  }
-  
-  nav ul {
-	list-style: none;
-	margin: 0;
-	padding: 0;
-	display: flex;
-	justify-content: space-around;
-	align-items: center;
-	height: 100%;
-	color:#333;
-  }
-  
-  nav li {
-	font-weight: bold;
-	display: flex;
-	flex-direction: column;
-	justify-content: space-around;
-	height: 100%;
-	width: 100%;
-  }
-  
-  nav a {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	height: 100%;
-	padding: 0 20px;
-	text-decoration: none;
-	color: #333;
-  }
-  
-  nav a:hover {
-	color: #fff;
-	background-color: #333;
-  }
-  /* Header */
-  h1 {
+	background-color: #2196F3;
+	height: 800px;
+}
+
+/* Header */
+h1 {
 	text-align: center;
-	margin-top: 2rem;
-  }
-  
-  /* Form */
-  form {
+	margin-top: 9%;
+}
+
+/* Form */
+form {
+	
+	padding-top: 20px;
+	padding-bottom: 20px;
+	background-color: #eee;
+	width: 65%;
+	margin: 0 auto;
 	display: flex;
 	flex-direction: column;
-	justify-content: center;
+	justify-content: space-around;
 	align-items: center;
 	margin-top: 3rem;
-  }
-  
-  form input {
+	border: none;
+	border-radius: 20px 20px 20px 20px;
+	height: 100%;
+	box-shadow: 0 5px 20px #444;
+}
+
+form input {
 	padding: 0.5rem;
 	margin: 0.5rem;
-	border-radius: 0.3rem;
-	border: 1px solid #ccc;
+	border-radius: 1rem;
+	padding-left: 1rem;
+	border: 1px solid #aaa;
 	width: 100%;
 	max-width: 20rem;
 	font-size: 1rem;
-  }
-  
-  form button {
+}
+
+form button {
 	background-color: #4CAF50;
 	border: none;
 	color: white;
@@ -81,72 +54,39 @@ nav {
 	margin: 0.5rem;
 	cursor: pointer;
 	border-radius: 0.3rem;
-	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
-	transition: transform 0.3s ease;
+	box-shadow: 0 3px 10px #0000004d;
+	transition: all 0.3s ease;
 	width: 300px;
-  }
-  
-  form button:hover {
+}
+
+form button:hover {
+	cursor: pointer;
 	transform: translateY(-2px);
-  }
-  
-  #submit {
+}
+
+#submit {
 	background-color: #2196F3;
-  }
-  
-  #cancel {
+}
+
+#cancel {
 	background-color: #f44336;
-  }
-  
-  .title1 {
+}
+
+.title1 {
 	box-sizing: border-box;
 	margin: 0;
 	min-width: 0;
-	color: #1E2329;
+	color: #ddd;
 	font-weight: 600;
 	font-size: 32px;
 	line-height: 40px;
-  }
-  
-  .title1 {
 	box-sizing: border-box;
 	margin: 0;
 	min-width: 0;
 	/* min: height 1.2em; */
-  }
-  
-  @media screen and (min-width: 200px) {
-	.tupian {
-	  width: 300px;
-	  height: 500px;
-	  box-sizing: border-box;
-	  margin: 0;
-	  min-width: 0;
-	  max-width: 100%;
-	}
-  
-	img {
-	  border-style: none;
-	}
-  }
-  
-  select {
-	font-size: 16px;
+}
+
+.input-form {
+	font-size: 19px;
 	font-weight: bold;
-	height: 100%;
-	border-style: none;
-	outline: none;
-	transition: 0.06s ease-in-out;
-  }
-  
-  select:hover {
-	cursor: pointer;
-	color: #fff;
-	background-color: #333;
-  }
-  
-  select:focus-visible {
-	cursor: pointer;
-	color: #fff;
-	background-color: #333;
-  }
+}

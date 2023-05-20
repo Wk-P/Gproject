@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.views import View
 from django.db.models import Q
-from webexchange.models import User, Wallet, Asset, User_Asset, User_Wallets, User_Trade_History
+from webexchange.models import User, Wallet, Asset, User_Asset, User_Wallet, User_Trade_History
 import re
 import random
 import time
@@ -19,7 +19,6 @@ from django.urls import reverse
 from django.http import JsonResponse
 from random import randint
 
-from sympy import FiniteField
 import pyfinite
 from pyfinite import genericmatrix
 
@@ -58,7 +57,7 @@ __all__ = [
     "Wallet",
     "Asset",
     "User_Asset", 
-    "User_Wallets", 
+    "User_Wallet", 
     "User_Trade_History",
     "timezone",
     "reverse",
@@ -70,8 +69,8 @@ __all__ = [
     "is_wrong_format_input",
     "database_match",
     # USER
-    "get_user",
-    "add_user",
+    "get_exchange_user",
+    "add_exchange_user",
     "get_exchange_user_data",
     # WALLET
     "get_user_private_wallet",
@@ -87,8 +86,8 @@ __all__ = [
     "add_exchange_asset",
     "fetch_exchange_assets_data",
     # TRADE
-    "add_trade_history",
-    "get_trade_history",
+    "add_exchange_trade_history",
+    "get_exchange_trade_history",
     # ORDER class
     'Order',
     'OrderManager',
@@ -202,7 +201,7 @@ def database_match(**kw):
 
 
 # RETURN OBJECT
-def get_user(**kw):
+def get_exchange_user(**kw):
     """ 
         @Get User Object \n
         @Return: User Object | None
@@ -216,7 +215,7 @@ def get_user(**kw):
         return None
 
 
-def add_user(username, password):
+def add_exchange_user(username, password):
     # data packing
     user_ID = hash_encrypt(username)
     user_password = hash_encrypt(password)
@@ -229,7 +228,7 @@ def add_user(username, password):
 
 
 # RETURN JSON
-def get_user_data(**kw):
+def get_exchange_user_data(**kw):
     """
         @Get User Object JSON data \n
         @Return: User Object JSON | None
@@ -241,7 +240,7 @@ def get_user_data(**kw):
     """
     user_name = kw.get('user_name')
     user_id = kw.get('user_id')
-    user = get_user(user_name=user_name, user_id=user_id)
+    user = get_exchange_user(user_name=user_name, user_id=user_id)
     if user is not None:
         # get wallets
         return {
@@ -260,15 +259,19 @@ def get_user_data(**kw):
 """
 
 def get_exchange_wallet(**kw):
-    if 'user' in kw:
-        user = kw.get('user')
-    else:
-        user = None
-    if 'wallet_ID' in kw:
-        exchange_wallet_ID = kw.get('wallet_ID')
-    else:
-        exchange_wallet_ID = ""
-    wallet_obj = Wallet.objects.filter(Q(user_ID=user.user_ID)|Q(exchange_wallet_ID=exchange_wallet_ID))
+    user = kw.get('user', None)
+    exchange_wallet_ID = kw.get('wallet_ID', None)
+    if user is None and exchange_wallet_ID is None:
+        return None
+
+    # generate query filter expression
+    query = Q()
+    if user is not None:
+        query |= Q(user_ID=user.user_ID)
+    if exchange_wallet_ID is not None:
+        query |= Q(exchange_wallet_ID=exchange_wallet_ID)
+    
+    wallet_obj = Wallet.objects.filter(query)
     if wallet_obj.exists():
         return wallet_obj.first()
     else:
@@ -293,25 +296,26 @@ def get_user_private_wallet(wallet_ID):
         @Get Wallet Object \n
         @Return: Wallet Object | None
     """
-    wallet_obj = User_Wallets.objects.filter(wallet_ID=wallet_ID)
+    wallet_obj = User_Wallet.objects.filter(wallet_ID=wallet_ID)
     if wallet_obj.exists():
         return wallet_obj.first()  # first wallet_obj
     else:
         return None
 
 def add_exchange_wallet(username):
-    user = get_user(user_name=username)
+    user = get_exchange_user(user_name=username)
     wallet_ID = hash_encrypt(user.user_ID[0:10])
     Wallet(user_ID=user.user_ID, exchange_wallet_ID=wallet_ID).save()
     
 
 def add_user_private_wallet(wallet_ID):
     # generate Wallet_ID
-    wallet_ID = wallet_ID
     
+    check = User_Wallet.objects.filter(wallet_ID=wallet_ID)
+
     # check database
-    if database_match(wallet_ID=wallet_ID) is None:
-        wallet = User_Wallets(wallet_ID=wallet_ID)
+    if not check.exists():
+        wallet = User_Wallet(wallet_ID=wallet_ID)
         wallet.save()
         return 1
     else:
@@ -382,7 +386,6 @@ def fetch_exchange_assets_data(user):
         }]
     """
     assets_obj = get_exchange_assets(user)
-    print(assets_obj)
     res_data = []
     if assets_obj is not None:
         for asset_obj in assets_obj:
@@ -418,9 +421,8 @@ def get_exchange_user_data(user):
     user_data = {
         "user_name": None,
         "user_ID": None,
-        "assets": [],
+        "assets": None,
     }
-    print(user_data)
     """
         user_data = {
             "user_name"
@@ -466,44 +468,43 @@ def get_verification_information(user):
             #   ...
             #   return data
         """
-        print(information)
         return information
     else:
         return None
 
 
-def add_trade_history(username, amount, asset_type, action):
-    user = get_user(user_name=username)
+def add_exchange_trade_history(username, out_wallet, in_wallet, amount, asset_type, action, chain):
+    user = get_exchange_user(user_name=username)
     wallet = get_exchange_wallet(user=user)
     # save trade history to DB
-    User_Trade_History(username=username, user_ID=user.user_ID, amount=amount, wallet_ID=wallet.wallet_ID, asset_type=asset_type, action=action).save()
+    User_Trade_History(user_name=username, user_ID=user.user_ID, amount=amount, in_wallet_ID=in_wallet, out_wallet_ID=out_wallet, symbol=asset_type, action=action, chain=chain).save()
     
-def get_trade_history(username):
-    user = get_user(user_name=username)
-    history = list(User_Trade_History.objects.filter(user_ID=user.user_ID))
-    if len(history) > 0:
+def get_exchange_trade_history(username):
+    user = get_exchange_user(user_name=username)
+    history = User_Trade_History.objects.filter(user_ID=user.user_ID)
+    if history.exists():
         return history
     else:
         return None
 
 def get_user_private_asset(username, wallet_ID, symbol, chain):
-    user = get_user(user_name=username)
-    asset = User_Asset.objects.filter(user_ID=user.user_ID, wallet_ID=wallet_ID, asset_type=symbol, chain=chain)
+    user = get_exchange_user(user_name=username)
+    asset = User_Asset.objects.filter(userid=user.user_ID, wallet_ID=wallet_ID, symbol=symbol, chain=chain)
     if asset.exists():
         return asset.first()
     else:
         return None
 
 def get_user_private_wallets(username):
-    user = get_user(user_name=username)
-    wallets = User_Wallets.objects.filter(user_ID=user.user_ID)
+    user = get_exchange_user(user_name=username)
+    wallets = User_Wallet.objects.filter(user_ID=user.user_ID)
     if wallets.exists():
         return wallets
     else:
         return None
     
 def get_user_private_wallet(wallet_ID):
-    wallet = User_Wallets.objects.filter(wallet_ID=wallet_ID)
+    wallet = User_Wallet.objects.filter(wallet_ID=wallet_ID)
     if wallet.exists():
         return wallet.first()
     else:

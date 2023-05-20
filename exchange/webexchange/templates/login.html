@@ -18,21 +18,17 @@
     <nav>
         <ul>
             <li><a id="coin" href="{% url 'coins' %}">Coins</a></li>
-            <li><a id="exchanges" href="{% url 'exchange' %}">Exchanges</a></li>
-            <li><a id="swap" href="#">Swap</a></li>
-            <li id="">
-                <!-- <label for="exchange-dropdown">USD</label> -->
+            <li><a id="trade" href="{% url 'trade' username='james' %}">Trade</a></li>
+            <li><a id="proof" href="{% url 'proof' username='james' %}">Proof</a></li>
+            <li id>
                 <select id="currency">
-                    <!-- <option value="">Select an exchange</option> -->
                     <option value="binance">USD</option>
                     <option value="coinbase">JPY</option>
                     <option value="kraken">KRW</option>
                 </select>
             </li>
             <li>
-                <!-- <label for="exchange-dropdown">English</label> -->
                 <select id="language">
-                    <!-- <option value="">Select an exchange</option> -->
                     <option value="English">English</option>
                     <option value="Chinese">简体中文</option>
                     <option value="Korean">한국어</option>
@@ -43,11 +39,8 @@
     </nav>
     <div class="shangbutitle" class="titleshangbu">
         <h1 id="title" class='title'>
-            <div class="title1">选择币安平台/购买/交易和持有350多种加密货币</div>
+            <div class="title1">Choose the platform / Buy / Trade and hold over cryptocurrencies</div>
         </h1>
-        <!-- <div class="tupian" class="tupiancss"> -->
-        <!-- <img src="{% static '/login/img1.png' %}" alt="lightImageUrl" class="tupian"> -->
-        <!-- </div> -->
         <form method="post">
             <div id="user-title">User</div>
             <input type="text" id="username">

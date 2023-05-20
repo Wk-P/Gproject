@@ -55,7 +55,6 @@ def combine_data(user_data, all_user_data):
                 'asset_amount':asset['asset_amount']
             }
             output_data['assets'].append(output_asset)
-
         return output_data
     except Exception as e:
         print(e)

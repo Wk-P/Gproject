@@ -160,7 +160,7 @@ def generate_proof(secret,public):
     如果匹配，则返回True，否则返回False。
     '''
 
-def verify_proof(proof, z,prime,k):  # 最终的证明将包含s和t的值和哈希值的h1和h2，
+def verify_proof(proof, z, prime, k):  # 最终的证明将包含s和t的值和哈希值的h1和h2，
     s, t, hash_s, hash_t = proof
     print(f"s:{s}")
     print(f"z:{z}")

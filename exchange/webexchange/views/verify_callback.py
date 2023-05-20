@@ -3,19 +3,12 @@ from webexchange.views.common.utils import *
 class callback(View):
     def post(self, request, **kw):
         response = {'alert': None}
-
-        data = json.loads(request.body.decode())
-        username = data['username']        
-
-        user = get_exchange_user(user_name=username)
+        data = json.loads(request.body.decode('utf-8'))
+        username = data['username']
 
         # get all users assets data
-        # result = get_verification_information(user)
-        # if result is not None:
-        #     response['alert'] = 'success'
-        #     response['result'] = result
-        # else:
-        #     response['alert'] = "No Data"
-        
-        response['test'] = "TEST"
+        user = get_exchange_user(user_name=username)
+        verify_result = get_verification_information(user)
+
+        response['verify-result'] = verify_result
         return JsonResponse(response)

@@ -70,7 +70,7 @@ window.onload = () => {
                     // test
                     console.log(display)
                     if (display == false) {
-                        console.log(data.test);
+                        console.log(data);
 
                         // result div
                         let result_div = document.createElement('div');

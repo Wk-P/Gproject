@@ -2,7 +2,7 @@ from hashlib import sha256
 from random import randint
 # from decimal import Decimal #处理非常大的数字，并且不受Python整数范围的限制。
 # from sympy import Integer
-# import hashlib
+import hashlib
 # import sys
 from .genericgf import GenericGF
 

@@ -71,7 +71,7 @@ window.onload = () => {
                     console.log(display)
                     if (display == false) {
                         console.log(data);
-
+                        response = data['verify-result']
                         // result div
                         let result_div = document.createElement('div');
                         result_div.classList.add('result-div');
@@ -82,20 +82,36 @@ window.onload = () => {
                         confirm_button.setAttribute('id', 'confirm-btn');
                         confirm_button.innerHTML = "Confirm"
 
+
                         let li_list = {
-                            time: "Time",
-                            merkle_root_hash: "merkle_root_hash",
-                            zk_proof: "zk_proof",
-                            zk_verification_result: "zk_verification_result",
-                            assets: "assets",
-                            wallet_ID: "wallet_ID",
-                            asset_type: "asset_type",
-                            asset_amount: "asset_amount"
+                            'time': (() => {
+                                let date = new Date();
+                                let year = date.getFullYear()
+                                let month = (date.getMonth() + 1) < 10 ? '0' + (date.getMonth() + 1) : (date.getMonth() + 1);
+                                let day = date.getDate() < 10 ? '0' + (date.getDate()) : (date.getDate());
+                                let hours = date.getHours() < 10 ? '0' + (date.getHours()) : (date.getHours());
+                                let minutes = date.getMinutes() < 10 ? '0' + (date.getMinutes()) : (date.getMinutes());
+                                let seconds = date.getSeconds() < 10 ? '0' + (date.getSeconds()) : (date.getSeconds());
+                                return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`
+                            })(),
+                            'merkle_root_hash': response.merkle_root_hash,
+                            'zk_proof': response.zk_proof,
+                            'zk_verification_result': response.zk_verification_result,
+                            'wallet_ID': response.wallet_ID,
+                            'assets': (() => {
+                                let assets_str = new String();
+                                for (let a of response.assets) {
+                                   assets_str += `<br>Amount:${String(a.asset_amount)}`;
+                                   assets_str += `<br>Symbol:${a.asset_type}`;
+                                   assets_str += `<br>Chain:${a.chain}`;
+                                }
+                                return assets_str;
+                            })(),
                         };
 
                         for (const li in li_list) {
                             let div = document.createElement('div');
-                            div.innerHTML = li_list[li];
+                            div.innerHTML = `${li}<br>${li_list[li]}`;
                             div.setAttribute('id', li);
                             result_div.appendChild(div);
                         }
@@ -123,7 +139,7 @@ window.onload = () => {
             // hidden DOM Element
             result_div.classList.add('hidden');
             display = false;
-            
+
             // Listen for transitionend event
             result_div.addEventListener('transitionend', () => {
                 // Remove result_div element

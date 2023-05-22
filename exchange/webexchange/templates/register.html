@@ -15,24 +15,28 @@
 
 <body>
     <nav>
-        <ul>
-            <li><a id="coin" href="{% url 'coins' %}">Coins</a></li>
-            <li> 
-                <select id="exchange-dropdown">
-                    <option value="binance">USD</option>
-                    <option value="coinbase">JPY</option>
-                    <option value="kraken">KRW</option>
-                </select>
-            </li>
-            <li>
-                <select id="language">
-                    <option value="binance">English</option>
-                    <option value="coinbase">简体中文</option>
-                    <option value="kraken">한국어</option>
-                </select>
-            </li>
-            <li><a id="index" href="{% url 'index' %}" method="GET">Home</a></li>
-        </ul>
+        <nav>
+            <ul>
+                <li><a id="coin" href="{% url 'coins' %}">Coins</a></li>
+                <!-- <li><a id="trade" href="{% url 'trade' username='james' %}">Trade</a></li> -->
+                <li><a id="proof" href="{% url 'proof'%}">Proof</a></li>
+                <li id>
+                    <select id="currency">
+                        <option value="binance">USD</option>
+                        <option value="coinbase">JPY</option>
+                        <option value="kraken">KRW</option>
+                    </select>
+                </li>
+                <li>
+                    <select id="language">
+                        <option value="English">English</option>
+                        <option value="Chinese">简体中文</option>
+                        <option value="Korean">한국어</option>
+                    </select>
+                </li>
+                <li><a id="index" href="{% url 'index' %}" method="GET">Home</a></li>
+            </ul>
+        </nav>
     </nav>
     <div class="register-title">Register</div>
     <form method="post">

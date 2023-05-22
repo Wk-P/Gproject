@@ -113,7 +113,7 @@ function formatText(v) {
 }
 
 window.onload = () => {
-    const username = $("#username").text();
+    const username = $("#username").text().replace(' ', '');
     const csrftoken = getCookie('csrftoken');
     let req_data = {
         username: username,
@@ -128,6 +128,100 @@ window.onload = () => {
         },
     }
 
+    // test flag
+    let i = 0;
+
+    let buy_orders = new Array()
+    let sell_orders = new Array()
+    let finish_orders = new Array()
+
+    // get orders
+    setInterval(() => {
+        params.body = JSON.stringify(req_data);
+        fetch(`/trade_orders/${username}/`, params)
+            .then(response => response.json())
+            .then(data => {
+                console.log(data)
+                let sell_tbody = $("#sell tbody");
+                let buy_tbody = $("#buy tbody");
+                let finish_tbody = $("#trade-details tbody");
+
+                // add buy orders 
+                buy_orders = data.buy_orders;
+                console.log(buy_orders)
+                buy_tbody.empty()
+                if (buy_orders !== undefined) {
+                    for (let i in buy_orders) {
+                        let tr = document.createElement('tr');
+                        let name_td = document.createElement('td');
+                        let price_td = document.createElement('td');
+                        let quantity_td = document.createElement('td');
+
+                        // add data
+                        name_td.innerHTML = buy_orders[i].stock_name;
+                        price_td.innerHTML = buy_orders[i].price;
+                        quantity_td.innerHTML = buy_orders[i].quantity;
+
+                        tr.appendChild(name_td);
+                        tr.appendChild(price_td);
+                        tr.appendChild(quantity_td);
+                        tr.setAttribute('class', 'ordertr');
+                        buy_tbody.append(tr);
+                    }
+                }
+
+                // add sell orders
+                sell_orders = data.sell_orders;
+                console.log(sell_orders)
+                sell_tbody.empty();
+                if (sell_orders !== undefined) {
+                    for (let i in sell_orders) {
+                        let tr = document.createElement('tr');
+                        let name_td = document.createElement('td');
+                        let price_td = document.createElement('td');
+                        let quantity_td = document.createElement('td');
+
+                        // add data
+                        name_td.innerHTML = sell_orders[i].stock_name;
+                        price_td.innerHTML = sell_orders[i].price;
+                        quantity_td.innerHTML = sell_orders[i].quantity;
+
+                        tr.appendChild(name_td);
+                        tr.appendChild(price_td);
+                        tr.appendChild(quantity_td);
+                        tr.setAttribute('class', 'ordertr');
+
+                        sell_tbody.append(tr);
+                    }
+                }
+
+                // add finish orders
+                finish_orders = data.ordered
+                console.log(finish_orders)
+                finish_tbody.empty();
+                if (finish_orders !== undefined) {
+                    for (let i in finish_orders) {
+                        let tr = document.createElement('tr');
+                        let name_td = document.createElement('td');
+                        let price_td = document.createElement('td');
+                        let quantity_td = document.createElement('td');
+
+                        // add data
+                        name_td.innerHTML = finish_orders[i].stock_name;
+                        price_td.innerHTML = finish_orders[i].price;
+                        quantity_td.innerHTML = finish_orders[i].quantity;
+                        tr.appendChild(name_td);
+                        tr.appendChild(price_td);
+                        tr.appendChild(quantity_td);
+                        tr.setAttribute('class', 'ordertr');
+
+                        finish_tbody.append(tr);
+                    }
+                }
+            })
+            .catch(error => console.log(error));
+    }, 500)
+
     $("#buy-btn").click(() => {
         let order = {
             type: 'buy',
@@ -138,9 +232,9 @@ window.onload = () => {
         }
         req_data.order = order
         req_data.reqtype = 'trade';
-        
+
         console.log(order.stockname, order.price, order.quantity)
-        
+
         if (order.stockname == "" || order.quantity == NaN || order.price == NaN) {
             alert("Enter stock name or amount!"); return
         }
@@ -185,7 +279,6 @@ window.onload = () => {
         }
 
         params.body = JSON.stringify(req_data)
-        console.log(params.body)
         fetch(`/trade_orders/${username}/`, params)
             .then(response => response.json())
             .then(data => {
@@ -199,17 +292,6 @@ window.onload = () => {
         // reset request json data
         req_data.reqtype = ""
     });
-
-    // get ordered result
-    setInterval(() => {
-        params.body = JSON.stringify(req_data)
-        fetch(`/trade_orders/${username}/`, params)
-            .then(response => response.json())
-            .then(data => {
-                // console.log(JSON.parse(data.ordered))
-            })
-            .catch(error => console.log(error))
-    }, 100)
 
 
     var trade_data = new Array();

@@ -34,21 +34,25 @@ window.onload = () => {
         }
     }
 
-    fetch(`/proof/${username}/`, {
+    fetch(`/proof/`, {
         method: "POST",
         headers: {
             'Content-Type': 'application/json',
             'X-CSRFToken': csrftoken,
         },
-        body: JSON.stringify(data) 
     }).then(response => response.json())
     .then((data) => {
         console.log(data)
-        if (data.alert == "NO DATA") {
+        if (data.alert == "No Data") {
             console.log(data.alert);
         } else {
-            $("#customer-balances").text(data.alert);
-            $("#exchange-balances").text(data.balances * parseFloat(Math.random()*(1.34-1.03) + 1.03));
+            const symbol = data.assets_data[0].asset_type
+            const amount = data.assets_data[0].asset_amount
+            const ratio  = parseFloat(Math.random()*(1.04-1.03) + 1.03);
+            $("coin-name name").text(symbol)
+            $("customer-balances").text(amount);
+            $("exchange-balances").text(amount* ratio);
+            $("ratio").text(`${(ratio*100).toFixed(2)}%`);
         }
     }).catch(error => console.log(error))
 }

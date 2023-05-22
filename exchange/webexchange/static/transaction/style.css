@@ -6,6 +6,14 @@
   font-family: Hiragino Sans GB, MicroSoft YaHei;
 }
 
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #999;
+
+}
+
 .body {
   margin-top: 50px;
   width: 100%;
@@ -61,12 +69,6 @@ nav a:hover {
   background-color: #333;
 }
 
-body {
-  margin: 0;
-  padding: 0;
-  background-color: #999;
-
-}
 
 select {
   text-align: center;

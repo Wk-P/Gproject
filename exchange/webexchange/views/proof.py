@@ -3,32 +3,37 @@ from webexchange.views.common.utils import *
 
 class proof(View):
     def get(self, request, **kwargs):
+        # get all user asset amount sum
         username = kwargs.get('username')
-        return render(request, 'proof.html', context={'username': username})
+
+        return render(request, 'proof.html')
 
     def post(self, request, **kwargs):
-        # sum of all users
         response = {'alert': None}
-        # data = json.loads(request.body.decode('utf-8'))
-        # username = data['username']
-        # symbols = data.get('symbols')
 
-        # # get all users assets data
-        # users = User.objects.all()
-        # result_data = {}
-        # for symbol in symbols:
-        #     result_data[f"{symbol}"] = 0
-        #     for user in users:
-        #         assets_data = fetch_exchange_assets_data(user)
-        #         if assets_data == None:
-        #             response['alert'] = 'NO DATA'
-        #             return JsonResponse(response)
-        #         else:
-        #             for asset_data in assets_data:
-        #                 if asset_data['asset_type'] == symbol:
-        #                     result_data[f"{symbol}"] += asset_data['asset_amount']
+        # without request.body
 
-        # get_verification_information(user)
+        wallets = get_all_exchange_wallets()
+        
+        response['assets_data'] = []
 
-        # response['data'] = result_data
+        if wallets.exists():
+        # fetch data with wallets' ID
+            for wallet in wallets:
+                # every wallet assets data
+                assets_data = get_exchange_assets(wallet_ID=wallet.exchange_wallet_ID)
+                if assets_data.exists():
+                    # fetch asset data from assets data
+                    for asset in assets_data:
+                        if asset.asset_type in response['assets_data']:
+                            response['assets_data']['asset_type'] += asset.asset_amount
+                        else:
+                            response['assets_data'].append({
+                                "asset_type": asset.asset_type,
+                                "asset_amount": asset.asset_amount,
+                            })
+            
+        else:
+            response['alert'] = "No Data"
+
         return JsonResponse(response)

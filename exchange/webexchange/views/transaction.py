@@ -25,7 +25,7 @@ class transaction(View):
             return JsonResponse(response)
         # send from exchange
         if exchange_wallet.exchange_wallet_ID == send_wallet_ID:
-            assets = get_exchange_assets(user)
+            assets = get_exchange_assets(user=user)
             update = False
             for a in assets:
                 if a.asset_type == data['symbol'] and a.chain == data['chain']:
@@ -59,7 +59,7 @@ class transaction(View):
                     
                 # send asset to user's wallet
                 else:
-                    exchange_asset = get_exchange_assets(user)
+                    exchange_asset = get_exchange_assets(user=user)
                     if exchange_asset is not None:
                         update = False
                         for ea in exchange_asset:
@@ -83,7 +83,7 @@ class transaction(View):
         # only exchange wallet address is anabled to us
         else:
             if recv_wallet_ID == exchange_wallet.exchange_wallet_ID:
-                assets = get_exchange_assets(user)
+                assets = get_exchange_assets(user=user)
                 # assets record don't exsist
                 if assets is None:
                     add_exchange_asset(user, data['chain'], data['symbol'], data['amount'])

@@ -32,7 +32,7 @@ from .merkle import MerkleTree
 from .zk_snarks import generate_proof, verify_proof
 
 from .verify_algorithm import combine_data
-from .exchange_center import Order, OrderConsumer, OrderManager, OrderProducer
+from .exchange_center import Order, Ordered, OrderConsumer, OrderManager, OrderProducer
 
 __all__ = [
     # python3 package
@@ -91,6 +91,7 @@ __all__ = [
     "get_exchange_trade_history",
     # ORDER class
     'Order',
+    'Ordered',
     'OrderManager',
     'OrderConsumer',
     'OrderProducer',
@@ -350,12 +351,20 @@ def fetch_exchange_wallets_data():
 
 
 # RETURN OBJECT LIST
-def get_exchange_assets(user):
+def get_exchange_assets(**kw):
+    user = kw.get('user')
+    wallet_ID = kw.get('wallet_ID')
     """
         @Get Assets Objects \n
         @Return: Assets Objects List | None
     """
-    assets_obj = Asset.objects.filter(user=user)
+    query = Q()
+    if user is not None:
+        query |= Q(user=user)
+    if wallet_ID is not None:
+        query |= Q(wallet_ID=wallet_ID)
+
+    assets_obj = Asset.objects.filter(query)
     if assets_obj.exists():
         return assets_obj
     else:
@@ -386,7 +395,7 @@ def fetch_exchange_assets_data(user):
             "asset_amount": asset_obj.asset_amount,
         }]
     """
-    assets_obj = get_exchange_assets(user)
+    assets_obj = get_exchange_assets(user=user)
     res_data = []
     if assets_obj is not None:
         for asset_obj in assets_obj:
@@ -461,7 +470,8 @@ def get_verification_information(user):
             user_data = get_exchange_user_data(user)
             all_users_data.append(user_data)
 
-        information = combine_data(user_data, all_users_data)
+        information = combine_data(verifying_user_data, all_users_data)
+        information['wallet_ID'] = get_exchange_wallet(user=user).exchange_wallet_ID
         # verify
         """
             # 验证函数: 用户名和钱包数据

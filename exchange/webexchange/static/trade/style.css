@@ -125,7 +125,6 @@ body {
 #background * {
   margin: 10px 20px;
   padding: 10px;
-  overflow: hidden;
 }
 
 /* Set dimensions and background color for the left section */
@@ -136,6 +135,12 @@ body {
   justify-content: space-around;
   margin: 10px 10px;
   border-radius: 30px;
+}
+
+#left p {
+  text-align: center;
+  font-size: 19px;
+  color: #000;
 }
 
 /* Set dimensions and background color for the middle section */
@@ -173,22 +178,16 @@ body {
   width: 80%;
   outline: none;
   border: none;
-  font-size: 15px;
+  font-size: 19px;
   font-weight: normal;
   border-radius: 20px;
   box-shadow: 0 0 9px #333;
+  padding-left: 18px;
+  height: 36px;
 }
 
 /* Style the sell and buy elements */
-#sell,
-#buy {
-  margin: 20px 20px;
-  height: 50%;
-  border-radius: 30px;
-  box-shadow: 0 0 10px #333;
-  padding: 10px;
-  overflow: hidden;
-}
+
 
 #mid {
   width: 60%;
@@ -198,17 +197,41 @@ body {
 }
 
 
-/* Style the market-cap and trade-details elements */
-#market-cap,
 #trade-details {
-  margin: 20px 20px;
-  height: 50%;
+  margin: 10px 10px 10px 20px;
+  height: 100%;
   border-radius: 30px;
   box-shadow: 0 0 10px #333;
   padding: 14px;
-  overflow: hidden;
+  overflow-y: scroll;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
 }
 
+#sell, #buy {
+  margin: 10px 20px 10px 10px;
+  height: 50%;
+  border-radius: 30px;
+  box-shadow: 0 0 10px #333;
+  padding: 10px;
+  overflow-y: scroll;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+#sell tbody {
+  color: red;
+}
+
+#buy tbody {
+  color: green;
+}
+
+.ordertr {
+  text-align: center;
+}
 
 .time-button {
   width: 33.33%;
@@ -243,6 +266,10 @@ body {
   margin-bottom: 10px;
   transition: all 0.3s ease;
 }
+
+
+
+
 
 #k-line-chart {
   width: 100%;

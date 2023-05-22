@@ -14,6 +14,14 @@ class Order:
     def __str__(self):
         return f"[ID]{self.order_id} [STOCK]{self.stock_name} [PRICE]{self.price} [QUANTITY]{self.quantity} [RPODUCER]{self.producer_name}"    
 
+    def info(self):
+        return {
+            'order_id': self.order_id,
+            'stock_name': self.stock_name,
+            'price': self.price,
+            'quantity': self.quantity,
+            'producer_name': self.producer_name
+        }
 
 class Ordered():
     def __init__(self, buy_order_id, sell_order_id, stock_name, price, quantity, producer_name):
@@ -26,13 +34,13 @@ class Ordered():
 
     def info(self):
         return {
-        'buy_order_id': self.buy_order_id,
-        'sell_order_id': self.sell_order_id,
-        'stock_name': self.stock_name,
-        'price': self.price,
-        'quantity': self.quantity,
-        'producer_name': self.producer_name
-    }
+            'buy_order_id': self.buy_order_id,
+            'sell_order_id': self.sell_order_id,
+            'stock_name': self.stock_name,
+            'price': self.price,
+            'quantity': self.quantity,
+            'producer_name': self.producer_name
+        }
 
     def __str__(self):
         return f"'sell_order_id':{self.sell_order_id},'buy_order_id':{self.buy_order_id},'stock_name':{self.stock_name},'price':{self.price},'quantity':{self.quantity},'producer':{self.producer_name}"    

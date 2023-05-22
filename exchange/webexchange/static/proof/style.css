@@ -5,7 +5,13 @@
 	box-sizing: border-box;
 }
 
-/* 导航样式 */
+body {
+	margin: 0;
+	padding: 0;
+	font-family: Arial, sans-serif;
+	font-size: 16px;
+}
+
 nav {
 	background-color: #fff;
 	color: #333;
@@ -21,6 +27,8 @@ nav ul {
 	align-items: center;
 	height: 100%;
 	color: #333;
+	background-color: #999;
+	background-color: #fff;
 }
 
 nav li {
@@ -30,6 +38,7 @@ nav li {
 	justify-content: space-around;
 	height: 100%;
 	width: 100%;
+
 }
 
 nav a {
@@ -40,7 +49,7 @@ nav a {
 	padding: 0 20px;
 	text-decoration: none;
 	color: #333;
-	transition: all 0.3s ease;
+	transition: 0.3s ease-in-out;
 }
 
 nav a:hover {
@@ -48,12 +57,42 @@ nav a:hover {
 	background-color: #333;
 }
 
-body {
-	margin: 0;
-	padding: 0;
-	font-family: Arial, sans-serif;
+
+select {
+	text-align: center;
 	font-size: 16px;
+	font-weight: bold;
+	height: 100%;
+	border-style: none;
+	outline: none;
+	transition: 0.3s ease-in-out;
+	padding-right: 10px;
 }
+
+option {
+	text-align: center;
+	font-size: 16px;
+	font-weight: bold;
+	height: 100%;
+	border-style: none;
+	outline: none;
+	transition: 0.3s ease-in-out;
+	padding-right: 10px;
+}
+
+select:hover {
+	cursor: pointer;
+	color: #fff;
+	background-color: #333;
+}
+
+select:focus-visible {
+	cursor: pointer;
+	color: #fff;
+	background-color: #333;
+}
+
+
 
 #inner-nav {
 	background-color: #222;

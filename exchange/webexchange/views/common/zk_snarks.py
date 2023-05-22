@@ -65,32 +65,18 @@ def init():
     s = F(randint(1, prime-1))   #  s一旦可以实行 t也就可以
     print(f"s : {s}")
     t = F(z/s)
-<<<<<<< Updated upstream
     print(f"t : {t}")
 
     print(f"prime: {prime}")
-=======
-
->>>>>>> Stashed changes
 
     ''' 我们还需要定义一个随机的密钥 k，它将用于计算证明,并计算出ks 和kt的哈希值h1和h2
 
         우리는 또한 증명을 계산하는 데 사용될 임의의 키 k를 정의해야한다'''
     # k  = F(randint(1, prime-1))  # random K 생성한다
-<<<<<<< Updated upstream
     k  = F(randint(1, prime-1))
     print(f"k : {k}")
     print(f"k*s:{k*s}")
     print(f"k*t:{k*t}")
-=======
-    k  = F(randint(1, prime-1)) % 3+1
-
-    ''' 我们还需要定义一个随机的密钥 k，它将用于计算证明,并计算出ks 和kt的哈希值h1和h2
-
-        우리는 또한 증명을 계산하는 데 사용될 임의의 키 k를 정의해야한다'''
-    # k  = F(randint(1, prime-1))  # random K 생성한다
-    k  = F(randint(1, prime-1)) % 3+1
->>>>>>> Stashed changes
         
 
     return {

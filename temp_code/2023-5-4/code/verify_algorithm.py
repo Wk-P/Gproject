@@ -31,7 +31,7 @@ def combine_data(user_data, all_user_data):
             # 调用 Merkle Tree 函数
             tree = MerkleTree(data)
             merkle_root_hash = tree.get_root_hash().hex()
-
+            print(merkle_root_hash)
             # not run
             # run
             # print(merkle_root_hash)

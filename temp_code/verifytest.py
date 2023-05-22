@@ -1,40 +1,44 @@
-def post(self, request, **kwargs):
-        
-        # users request amount verification and send a request data package with wallet amount from users' local (or from server)
-        # 从服务器端直接验证
-        username = kwargs.get('username')
-        wallet = kwargs.get('wallet')
-        # wallet data from users
+from .merkle import MerkleTree
+from .zk_snarks import generate_proof, verify_proof
+import json
+
+def combine_data(user_data, all_user_data):
+    data = []
+    try:
+        for i in range(len(all_user_data)):
+            asset_string = ""
+            for index in range(len(all_user_data[i]['assets'])):
+                asset_string += all_user_data[i]['assets'][index]['asset_type'] + str(all_user_data[i]['assets'][index]['asset_amount'])
             
-        wallet_amount = kwargs.get('amount')
-        # 从服务器端数据库中找出用户服务器的数据
-        # get details wallet data from database
-        # take_wallet():
-        #   pass 
+            data.append(bytes(all_user_data[i]['user_ID'] + asset_string, encoding='utf8'))
 
-        if username_check(username):
-            self.url = 'wallet.html'
-            self.context['username'] = username
-
-
-            '''
-            # 验证函数: 用户名和钱包数据
-            # verify(name, wallet):
-            #   ...
-            #   return data
-            '''
-
+        input_data = {
+            'merkle_data': data,
+            'zk_data': {
+                'secret':  user_data['user_ID'],
+                'public': user_data['wallet_ID']
+            }
+        }
+        tree = MerkleTree(data)
+        merkle_root_hash = tree.get_root_hash().hex()
+        proof, signal,prime,k = generate_proof(input_data['zk_data']['secret'], input_data['zk_data']['public'])
+        verification_result = verify_proof(proof, signal,prime,k)
+        output_data = {
+            'user_name': user_data['user_name'],
+            'user_ID': user_data['user_ID'],
+            'merkle_root_hash': merkle_root_hash,
+            'zk_proof': proof,
+            'zk_verification_result': verification_result,
+            'assets':[]
+        }
+        for asset in user_data['assets']:
+            output_asset = {
+                'wallet_ID':asset['wallet_ID'],
+                'asset_type':asset['asset_type'],
+                'asset_amount':asset['asset_amount']
+            }
+            output_data['assets'].append(output_asset)
+        return output_data
+    except Exception as e:
+        print(e)
             
-        # 从验证函数中拿到数据返回前端 
-        # if status == ok:
-            # self.response_data = {
-            #     'status': 'ok',
-            #     'status': '
-            # }
-        
-
-        else:
-            self.url = '404.html'
-            return render(request, self.url, self.context)
-        return render(request, self.url, self.context)
-        pass

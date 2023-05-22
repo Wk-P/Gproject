@@ -1,8 +1,5 @@
 from hashlib import sha256     
 from typing import List
-#类型提醒
-#从当前模块的相对路径中导入所有模块成员
-
 # 定义默克尔树节点类  Merkle Tree 노드 클래스를 정의한다.
 # MerkleNode 表示 Merkle Tree 中的节点，每个节点包含一个数据块、其哈希值以及左右子节点。
 class MerkleNode:

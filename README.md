@@ -1,5 +1,18 @@
 # Gproject
-## 毕设代码
-  使用Django进行后端管理，接收前端请求和返回响应(html, text, json)
-  前端数据post使用csrf_token跨域验证
-  前端请求使用Django和Javascript内置fetch函数进行请求
+# Project 
+- Solve web exchange solve user asset self certification issue 
+- Issue:
+-   1.Prove that the exchange will not privately misappropriate user funds
+-   2.Implement functions such as transactions and data queries
+
+## Certification
+- 1.Merkle tree
+- 2.zk-snarks algorithm
+
+## Web page develop,emt
+- 1.Django framework
+- - 1.SQLite Database && ORM models class
+- - 2.HTML/CSS/Javascript
+- 2.Python
+- - 1.Using websocket to obtain network data
+- - 2.Django views handle client request

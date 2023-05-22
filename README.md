@@ -9,7 +9,7 @@
 - 1.Merkle tree
 - 2.zk-snarks algorithm
 
-## Web page developmemt
+## Web page development
 - 1.Django framework
 - - 1.SQLite Database && ORM models class
 - - 2.HTML/CSS/Javascript

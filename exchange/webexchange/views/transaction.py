@@ -82,36 +82,42 @@ class transaction(View):
         # send from exchange wallet
         # only exchange wallet address is anabled to us
         else:
-            if recv_wallet_ID == exchange_wallet.exchange_wallet_ID:
-                assets = get_exchange_assets(user=user)
-                # assets record don't exsist
-                if assets is None:
-                    add_exchange_asset(user, data['chain'], data['symbol'], data['amount'])
-                # assets record exists
-                else:
-                    update = False
-                    for a in assets:
-                        if a.asset_type == data['symbol'] and a.chain == data['chain']:
-                            a.asset_amount = float(a.asset_amount) + data['amount']
-                            a.save()
-                            
-                            update = True
-                            break
-                    if update == False:
-                        add_exchange_asset(user, data['chain'], data['symbol'], data['amount'])
-                
-                response['alert'] = 'success'
-            else:
-                check = User_Wallet.objects.filter(wallet_ID=recv_wallet_ID)
-                if check.exists():
-                    wallet = check.first()
-                    check_a = User_Asset.objects.filter(wallet_ID=wallet.wallet_ID, symbol=data['symbol'], chain=data['chain'])
-                    if check_a.exists():
-                        check_a.first().amount = float(check_a.first().amount) + data['amount']
+            user_private_asset = get_user_private_asset(username=username, wallet_ID=send_wallet_ID, symbol=data['symbol'], chain=data['chain']) 
+            if user_private_asset is not None:
+                if user_private_asset.amount >= data['amount']:
+                    if recv_wallet_ID == exchange_wallet.exchange_wallet_ID:
+                        assets = get_exchange_assets(user=user)
+                        # assets record don't exsist
+                        if assets is None:
+                            add_exchange_asset(user, data['chain'], data['symbol'], data['amount'])
+                        # assets record exists
+                        else:
+                            update = False
+                            for a in assets:
+                                if a.asset_type == data['symbol'] and a.chain == data['chain']:
+                                    a.asset_amount = float(a.asset_amount) + data['amount']
+                                    a.save()
+                                    
+                                    update = True
+                                    break
+                            if update == False:
+                                add_exchange_asset(user, data['chain'], data['symbol'], data['amount'])
+                        
+                        response['alert'] = 'success'
                     else:
-                        User_Asset(wallet_ID=wallet.wallet_ID, symbol=data['symbol'], chain=data['chain'], amount=data['amount']).save()
+                        check = User_Wallet.objects.filter(wallet_ID=recv_wallet_ID)
+                        if check.exists():
+                            wallet = check.first()
+                            check_a = User_Asset.objects.filter(wallet_ID=wallet.wallet_ID, symbol=data['symbol'], chain=data['chain'])
+                            if check_a.exists():
+                                check_a.first().amount = float(check_a.first().amount) + data['amount']
+                            else:
+                                User_Asset(wallet_ID=wallet.wallet_ID, symbol=data['symbol'], chain=data['chain'], amount=data['amount']).save()
 
-                response['alert'] = 'success'
-
-            add_exchange_trade_history(username=username, out_wallet=send_wallet_ID, in_wallet=recv_wallet_ID, amount=data['amount'], asset_type=data['symbol'], action="out", chain=data['chain'])
+                        response['alert'] = 'success'
+                    add_exchange_trade_history(username=username, out_wallet=send_wallet_ID, in_wallet=recv_wallet_ID, amount=data['amount'], asset_type=data['symbol'], action="in", chain=data['chain'])
+                else:
+                    response['alert'] = "Wrong Coin Symbol or Chain or Amount not Enough"
+            else:
+                response['alert'] = "Wrong Wallet Address, Symbol Or Chain"
         return JsonResponse(response)

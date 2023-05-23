@@ -5,3 +5,4 @@
 ./temp_code/__pycache__/*.pyc
 ./exchange/webexchange/migrations/*.py
 .DS_Store
+./exchange/db.sqlite3

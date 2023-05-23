@@ -3,4 +3,5 @@
 ./exchange/webexchange/views/__pycache__/*.pyc
 ./exchange/exchange/__pycache__/*.pyc
 ./temp_code/__pycache__/*.pyc
+./exchange/webexchange/migrations/*.py
 .DS_Store

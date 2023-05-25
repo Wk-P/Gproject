@@ -160,13 +160,60 @@ body {
 .order-block {
   width: 100%;
   display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  height: 100%;
+}
+
+.order-block .order-block-left {
+  margin: 5px auto;
+  width: 75%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  height: 100%;
+  margin: 0 auto;
+}
+
+.order-block-right {
+  width: 25%;
+  height: 100%;
+  display: flex;
   flex-direction: column;
   justify-content: space-around;
 }
 
-.order-block div {
-  margin: 5px auto;
-  width: 88%;
+.order-block-right button {
+  outline: none;
+  border: none;
+  border-radius: 10px;
+  box-shadow: 0 0 10px #312;
+  height: 45%;
+  font-size: 19px;
+}
+
+#buy-btn {
+  background-color: red;
+  transition: all 0.3 ease;
+  color: #fff;
+}
+
+#buy-btn:hover {
+  cursor: pointer;
+  background-color: #eee;
+  color: #111;
+}
+
+#sell-btn {
+  background-color: green;
+  transition: all 0.3s ease;
+  color: #fff;
+}
+
+#sell-btn:hover {
+  cursor: pointer;
+  background-color: #eee;
+  color: #111;
 }
 
 .order-username {
@@ -175,7 +222,7 @@ body {
 
 .order-block input {
   display: block;
-  width: 80%;
+  width: 95%;
   outline: none;
   border: none;
   font-size: 19px;
@@ -184,6 +231,7 @@ body {
   box-shadow: 0 0 9px #333;
   padding-left: 18px;
   height: 36px;
+  margin-top: 4px;
 }
 
 /* Style the sell and buy elements */

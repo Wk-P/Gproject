@@ -32,28 +32,52 @@ function fadeOut(element) {
 window.onload = () => {
     const td_id = ['rank', 'name', 'price', 'market-cap', 'vmap', 'supply', 'volume', 'change'];
 
+    let updatepage = true;
     setInterval(() => {
         fetchMarketInformation()
             .then(data => {
-                if (data['assets-data'].length) {
-                    for (let i = 0; i < 20; i++) {
-                        let tr = document.createElement('tr');
-                        const item = (data['assets-data'])[i];
-                        tr.id = item['id'];
-                        for (const id of td_id) {
-                            let td = document.createElement('td');
-                            td.id = id;
-                            if (id === 'rank') td.innerHTML = item['rank'];
-                            else if (id === 'name') td.innerHTML = item['name'];
-                            else if (id === 'price') td.innerHTML = parseFloat(item['priceUsd']).toFixed(2);
-                            else if (id === 'vmap') td.innerHTML = parseFloat(item['vwap24Hr']).toFixed(2);
-                            else if (id === 'supply') td.innerHTML = parseFloat(item['supply']).toFixed(2);
-                            else if (id === 'market-cap') td.innerHTML = parseFloat(item['marketCapUsd']).toFixed(2);
-                            else if (id === 'volume') td.innerHTML = parseFloat(item['volumeUsd24Hr']).toFixed(2);
-                            else if (id === 'change') td.innerHTML = parseFloat(item['changePercent24Hr']).toFixed(2);
-                            tr.appendChild(td);
+                if (updatepage) {
+                    if (data['assets-data'].length) {
+                        for (let i = 0; i < 20; i++) {
+                            let tr = document.createElement('tr');
+                            const item = (data['assets-data'])[i];
+                            tr.id = item['id'];
+                            for (const id of td_id) {
+                                let td = document.createElement('td');
+                                td.id = id;
+                                if (id === 'rank') td.innerHTML = item['rank'];
+                                else if (id === 'name') td.innerHTML = item['name'];
+                                else if (id === 'price') td.innerHTML = parseFloat(item['priceUsd']).toFixed(2);
+                                else if (id === 'vmap') td.innerHTML = parseFloat(item['vwap24Hr']).toFixed(2);
+                                else if (id === 'supply') td.innerHTML = parseFloat(item['supply']).toFixed(2);
+                                else if (id === 'market-cap') td.innerHTML = parseFloat(item['marketCapUsd']).toFixed(2);
+                                else if (id === 'volume') td.innerHTML = parseFloat(item['volumeUsd24Hr']).toFixed(2);
+                                else if (id === 'change') td.innerHTML = parseFloat(item['changePercent24Hr']).toFixed(2);
+                                tr.appendChild(td);
+                            }
+                            $('#coin-item').append(tr);
                         }
-                        $('#coin-item').append(tr);
+                    }
+                    updatepage = false
+                } else {
+                    if (data['assets-data'].length) {
+                        let tr_list = $("#coin-item tbody tr");
+                        for (let i = 0; i < tr_list.length; i++) {
+                            let tr = tr_list[i];
+                            const item = (data['assets-data'])[i];
+                            for (const j in td_id) {
+                                let td = tr.eq(j)
+                                td.id = id;
+                                if (id === 'rank') td.innerHTML = item['rank'];
+                                else if (id === 'name') td.innerHTML = item['name'];
+                                else if (id === 'price') td.innerHTML = parseFloat(item['priceUsd']).toFixed(2);
+                                else if (id === 'vmap') td.innerHTML = parseFloat(item['vwap24Hr']).toFixed(2);
+                                else if (id === 'supply') td.innerHTML = parseFloat(item['supply']).toFixed(2);
+                                else if (id === 'market-cap') td.innerHTML = parseFloat(item['marketCapUsd']).toFixed(2);
+                                else if (id === 'volume') td.innerHTML = parseFloat(item['volumeUsd24Hr']).toFixed(2);
+                                else if (id === 'change') td.innerHTML = parseFloat(item['changePercent24Hr']).toFixed(2);
+                            }
+                        }
                     }
                 }
 

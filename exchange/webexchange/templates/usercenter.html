@@ -34,7 +34,7 @@
 						<option value="Korean">한국어</option>
 					</select>
 				</li>
-				<li><a id="index" href="{% url 'main' username=username %}" method="GET">Home</a></li>
+				<li><a id="index" href="{% url 'index' %}" method="GET">Home</a></li>
 				<li><div id="username">{{ username }} </div></li>
 				<li id="user-info">
 					<a href="{% url 'usercenter' username=username %}" method="GET">User Center</a>

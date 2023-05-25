@@ -49,16 +49,6 @@
                 </ul>
             </nav>
         </div>
-        <nav>
-            <ul>
-                <li><a href="#">BTC/USDT</a></li>
-                <li><a href="#">24h涨跌</a></li>
-                <li><a href="#">24h最高价</a></li>
-                <li><a href="#">24h最低价</a></li>
-                <li><a href="#">24h成交量(BTC)</a></li>
-                <li><a href="#">24h成交量(USDT)</a></li>
-            </ul>
-        </nav>
     </header>
 
     <div id="backgroud">
@@ -95,28 +85,32 @@
             <div id="chart">
                 <div id="time-button">
                     <button class="active">1s</button>
-                    <button>15m</button>
-                    <button>1H</button>
-                    <button>4H</button>
-                    <button>1D</button>
-                    <button>1W</button>
+                    <button id="BTC-svg">BTC</button>
+                    <button id="ETH-svg">ETH</button>
+                    <button id="BNB-svg">BNB</button>
+                    <button id="XRP-svg">XRP</button>
                 </div>
+                <div id="svg-title-symbol">BTC</div>
                 <svg></svg>
             </div>
             <div id="operator">
                 <div class="order-block">
-                    <div id="order-username">Order User - {{ username }}</div>
-                    <div id="stock-name">
-                        <div>NAME</div><input type="text">
+                    <div class="order-block-left">
+                        <div id="order-username">Order User - {{ username }}</div>
+                        <div id="stock-name">
+                            <div>NAME</div><input type="text">
+                        </div>
+                        <div id="quantity">
+                            <div>QUANTITY</div><input type="text">
+                        </div>
+                        <div id="price">
+                            <div>PRICE</div><input type="text">
+                        </div>
                     </div>
-                    <div id="quantity">
-                        <div>QUANTITY</div><input type="text">
+                    <div class="order-block-right">
+                        <button id="buy-btn">BUY</button>
+                        <button id="sell-btn">SELL</button>
                     </div>
-                    <div id="price">
-                        <div>PRICE</div><input type="text">
-                    </div>
-                    <button id="buy-btn">BUY</button>
-                    <button id="sell-btn">SELL</button>
                 </div>
             </div>
         </div>

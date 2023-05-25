@@ -106,18 +106,21 @@ function timetrans(time) {
 
 function formatText(v) {
     return `${timetrans(v[0])}
-    开盘: ${v[1]} |
-    收盘: ${v[4]} |
-    最高: ${v[2]} |
-    最低: ${v[3]}`
+    Open: ${v[1]} |
+    Close: ${v[4]} |
+    Highest: ${v[2]} |
+    Lowest: ${v[3]}`
 }
+
+
 
 window.onload = () => {
     const username = $("#username").text().replace(' ', '');
     const csrftoken = getCookie('csrftoken');
     let req_data = {
         username: username,
-        reqtype: ""
+        reqtype: "",
+        symbol: 'btc',
     }
 
     let params = {
@@ -128,8 +131,8 @@ window.onload = () => {
         },
     }
 
-    // test flag
-    let i = 0;
+    // draw svg
+    var trade_data = new Array();
 
     let buy_orders = new Array()
     let sell_orders = new Array()
@@ -141,14 +144,14 @@ window.onload = () => {
         fetch(`/trade_orders/${username}/`, params)
             .then(response => response.json())
             .then(data => {
-                console.log(data)
+                // console.log(data)
                 let sell_tbody = $("#sell tbody");
                 let buy_tbody = $("#buy tbody");
                 let finish_tbody = $("#trade-details tbody");
 
                 // add buy orders 
                 buy_orders = data.buy_orders;
-                console.log(buy_orders)
+                // console.log(buy_orders)
                 buy_tbody.empty()
                 if (buy_orders !== undefined) {
                     for (let i in buy_orders) {
@@ -172,7 +175,7 @@ window.onload = () => {
 
                 // add sell orders
                 sell_orders = data.sell_orders;
-                console.log(sell_orders)
+                // console.log(sell_orders)
                 sell_tbody.empty();
                 if (sell_orders !== undefined) {
                     for (let i in sell_orders) {
@@ -197,7 +200,7 @@ window.onload = () => {
 
                 // add finish orders
                 finish_orders = data.ordered
-                console.log(finish_orders)
+                // console.log(finish_orders)
                 finish_tbody.empty();
                 if (finish_orders !== undefined) {
                     for (let i in finish_orders) {
@@ -222,18 +225,46 @@ window.onload = () => {
             .catch(error => console.log(error));
     }, 500)
 
+    $("#BTC-svg").click(() => {
+        trade_data.length = 0;
+        req_data.symbol = 'btc';
+        params.body = JSON.stringify(req_data);
+        $("#svg-title-symbol").text('BTC');
+    })
+
+    $("#ETH-svg").click(() => {
+        trade_data.length = 0;
+        req_data.symbol = 'eth';
+        params.body = JSON.stringify(req_data);
+        $("#svg-title-symbol").text('ETH');
+    })
+
+    $("#BNB-svg").click(() => {
+        trade_data.length = 0;
+        req_data.symbol = 'bnb';
+        params.body = JSON.stringify(req_data);
+        $("#svg-title-symbol").text('BNB');
+    })
+
+    $("#XRP-svg").click(() => {
+        trade_data.length = 0;
+        req_data.symbol = 'xrp';
+        params.body = JSON.stringify(req_data);
+        $("#svg-title-symbol").text('XRP');
+    })
+
     $("#buy-btn").click(() => {
         let order = {
             type: 'buy',
             timestamp: new Date().getTime(),
             stockname: $("#stock-name input").val(),
-            quantity: parseInt($("#quantity input").val()),
+            quantity: parseFloat($("#quantity input").val()),
             price: parseFloat($("#price input").val()),
         }
         req_data.order = order
         req_data.reqtype = 'trade';
 
-        console.log(order.stockname, order.price, order.quantity)
+        // console.log(order.stockname, order.price, order.quantity)
 
         if (order.stockname == "" || order.quantity == NaN || order.price == NaN) {
             alert("Enter stock name or amount!"); return
@@ -263,7 +294,7 @@ window.onload = () => {
             type: 'sell',
             timestamp: new Date().getTime(),
             stockname: $("#stock-name input").val(),
-            quantity: parseInt($("#quantity input").val()),
+            quantity: parseFloat($("#quantity input").val()),
             price: parseFloat($("#price input").val()),
         }
         req_data.order = order
@@ -294,7 +325,6 @@ window.onload = () => {
     });
 
 
-    var trade_data = new Array();
     const width = $("#chart").width() * 0.9;
     const height = $("#chart").height() * 0.9;
     const margin = { top: 10, right: 30, bottom: 30, left: 50 };
@@ -319,13 +349,13 @@ window.onload = () => {
         .attr('dominant-baseline', 'hanging')
 
 
-    // 使用setTimeout函数延迟数据处理
     params.body = JSON.stringify(req_data);
     try {
         setInterval(() => {
             fetch(`/trade_websocket/`, params)
                 .then(response => response.json())
                 .then(data => {
+                    console.log(data);
                     // push data to array with out shift
                     if (trade_data.length >= max_size) {
                         trade_data.shift()
@@ -336,7 +366,8 @@ window.onload = () => {
                     parseFloat(data.price_data.k.l),
                     parseFloat(data.price_data.k.c)])
                     text.text(formatText(trade_data[trade_data.length - 1]))
-
+                    
+                    // draw
                     drawCandlestick(svg, trade_data, margin)
                 })
         }, 1000)

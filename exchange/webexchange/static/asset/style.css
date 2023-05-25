@@ -191,7 +191,7 @@ tr:hover {
 .result-div.show {
   box-shadow: 0px 0px 15px #334;
   opacity: 1;
-  transform: translateY(0);
+  overflow-y: scroll;
 }
 
 #result div {

@@ -48,7 +48,7 @@ window.onload = () => {
         const send_out_wallet_address = $("#send-out-wallet-address").val().replace(' ', '');
         const send_in_wallet_address = $("#send-in-wallet-address").val().replace(' ', '');
         const amount = parseFloat($("#coin-amount").val());
-        const symbol = $("coin-type select option:selected").text().replace(' ', '');
+        const symbol = $("coin-type select option:selected").text();
         const chain = $("chain-type select option:selected").text().replace(' ', '');
 
         if (send_out_wallet_address == "" || send_in_wallet_address == "" || amount <= 0 || amount === NaN) {

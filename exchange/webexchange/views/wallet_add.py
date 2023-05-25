@@ -18,11 +18,11 @@ class walletadd(View):
                 'BitCoin', "Ethereum", 'Tether', 'BNB', 'USD Coin', 'XRP', 'Cardano', 'Dogecoin',
                 'Polygon', 'Solana', 'TRON', 'Litecoin', 'Shiba Inu'
             ]
-            coin_number = randint(1, len(default_coins))
-            if coin_number > 0:
-                for i in range(coin_number):
-                    coin_amount = randint(1, 20)
-                    User_Asset(userid=user.user_ID, wallet_ID=wallet_ID, chain="ETH", symbol=default_coins[i], amount=coin_amount).save()
+            for i in range(len(default_coins)):
+                coin_amount = randint(1, 20)
+                User_Asset(userid=user.user_ID, wallet_ID=wallet_ID, chain="BTC", symbol=default_coins[i], amount=coin_amount).save()
+                coin_amount = randint(1, 20)
+                User_Asset(userid=user.user_ID, wallet_ID=wallet_ID, chain="ETH", symbol=default_coins[i], amount=coin_amount).save()
             response['alert'] = 'success'
             response['wallet_ID'] = wallet_ID
         else:

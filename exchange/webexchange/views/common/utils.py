@@ -2,7 +2,6 @@ from django.shortcuts import render, redirect
 from django.views import View
 from django.db.models import Q
 from django.core.cache import cache
-from asgiref.sync import sync_to_async
 from webexchange.models import User, Wallet, Asset, User_Asset, User_Wallet, User_Trade_History
 import re
 import random
@@ -20,7 +19,6 @@ from django.utils import timezone
 from django.urls import reverse
 from django.http import JsonResponse
 from random import randint
-from django.db import transaction
 
 from sympy import FiniteField
 import pyfinite
@@ -53,7 +51,6 @@ __all__ = [
     "websockets",
     "asyncio",
     "threading",
-    "sync_to_async",
     # Django package
     "JsonResponse",
     "render",
@@ -68,7 +65,6 @@ __all__ = [
     "reverse",
     "redirect",
     "cache",
-    "transaction",
     # my function
     "toJson",
     "hash_encrypt",
@@ -209,7 +205,6 @@ def database_match(**kw):
 
 
 # RETURN OBJECT
-@sync_to_async
 def get_exchange_user(**kw):
     """ 
         @Get User Object \n

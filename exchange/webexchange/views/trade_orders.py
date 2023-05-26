@@ -59,17 +59,17 @@ class trade_orders(View):
             # if result == False:
                 # response['alert'] = "Error:!"
             
-        producer = OrderProducer(
-            order_manager=order_manager, 
-            order_type=ordertype,
-            stock_name=stockname,
-            price=price, 
-            quantity=quantity,
-            producer_name=username
-        )
-        producer.start()
-        producer.join()
-        response['alert'] = f"{data['order']['type']} 提交成功!"
+            producer = OrderProducer(
+                order_manager=order_manager, 
+                order_type=ordertype,
+                stock_name=stockname,
+                price=price, 
+                quantity=quantity,
+                producer_name=username
+            )
+            producer.start()
+            producer.join()
+            response['alert'] = f"{data['order']['type']} 提交成功!"
         
         
         ordered_list = []

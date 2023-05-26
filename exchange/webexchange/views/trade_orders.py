@@ -5,28 +5,7 @@ order_manager = OrderManager()
 consumer = OrderConsumer(order_manager=order_manager)
 consumer.start()
 
-def rest_amount_check(username, stockname, quantity):
-    user = get_exchange_user(user_name=username)
-    # only check when order type is 'sell'
-    assets = get_exchange_assets(user=user)
-    if assets is not None:
-        # find_r -> find result number
-        # trade_r -> traded flag
-        find_r, trade_r = 0, 0
-        for a in assets:
-            if a.asset_type == stockname and a.asset_amount >= quantity and find_r < 2: 
-                # find_r < 2 is for different chain
-                a.asset_amount -= quantity
-                a.save()
-                trade_r = 1
-                break
-            else:
-                continue
-        if trade_r == 0:
-            return False
-        return True
-    else:
-        return False
+
 
 
 
@@ -39,9 +18,6 @@ class trade_orders(View):
         username = data['username']
         
 
-
-
-
         # receive ordered
         if data['reqtype'] == 'trade':
             
@@ -50,31 +26,50 @@ class trade_orders(View):
             ordertype = data['order']['type']
             price = data['order']['price']
             
-            # database sync mothed
-            result_event = threading.Event()
-            result = None
-            async def get_result():
-                nonlocal result
-                # await 添加
-                result = rest_amount_check(username=username, stockname=stockname, quantity=quantity)
-                result_event.set()
+            # if ordertype == 'sell':
+            #     async with transaction.async_atomic:
+            #         user = await get_exchange_user(user_name=username)
+            #         # only check when order type is 'sell'
+            #         assets = await get_exchange_assets(user=user)
+            #         if assets is not None:
+            #             # find_r -> find result number
+            #             # trade_r -> traded flag
+            #             find_r, trade_r = 0, 0
+            #             for a in assets:
+            #                 if a.asset_type == stockname and a.asset_amount >= quantity and find_r < 2: 
+            #                     # find_r < 2 is for different chain
+            #                     a.asset_amount -= quantity
+            #                     await a.save()
+            #                     trade_r = 1
+            #                     break
+            #                 else:
+            #                     continue
+            #             if trade_r == 0:
+            #                 return False
+            #             return True
+            #         else:
+            #             return False
 
-            data_base_thread = threading.Thread(target=get_result)
-            data_base_thread.start()
-            data_base_thread.join()
+                # database sync mothed
+                # result = await rest_amount_check(username=username, stockname=stockname, quantity=quantity)
+
+                # await result
 
 
-            producer = OrderProducer(
-                order_manager=order_manager, 
-                order_type=ordertype,
-                stock_name=stockname,
-                price=price, 
-                quantity=quantity,
-                producer_name=username
-            )
-            producer.start()
-            producer.join()
-            response['alert'] = f"{data['order']['type']} 提交成功!"
+            # if result == False:
+                # response['alert'] = "Error:!"
+            
+        producer = OrderProducer(
+            order_manager=order_manager, 
+            order_type=ordertype,
+            stock_name=stockname,
+            price=price, 
+            quantity=quantity,
+            producer_name=username
+        )
+        producer.start()
+        producer.join()
+        response['alert'] = f"{data['order']['type']} 提交成功!"
         
         
         ordered_list = []

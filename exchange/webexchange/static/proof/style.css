@@ -128,7 +128,7 @@ main {
 	justify-content: space-around;
 }
 
-#up,
+#row-line,
 #down {
 	display: flex;
 	width: 100%;
@@ -136,7 +136,7 @@ main {
 	justify-content: space-around;
 }
 
-#up>div,
+#row-line>div,
 #down>div {
 	font-family: Arial;
 	margin-top: 44px;
@@ -144,7 +144,7 @@ main {
 
 coin-name {
 	align-items: center;
-	width: 25%;
+	width: 100%;
 	display: flex;
 }
 
@@ -164,7 +164,7 @@ ratio {
 	font-size: 35px;
 }
 
-#up div>div,
+#row-line div>div,
 #down div>div {
 	display: block;
 	font-weight: normal;

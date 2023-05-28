@@ -25,13 +25,15 @@ class proof(View):
                 if assets_data.exists():
                     # fetch asset data from assets data
                     for asset in assets_data:
-                        if asset.asset_type in response['assets_data']:
-                            response['assets_data']['asset_type'] += asset.asset_amount
+                        found_a = next((a for a in response['assets_data'] if a.get('asset_type') == asset.asset_type), None)
+                        if found_a:
+                            found_a['asset_amount'] += float(asset.asset_amount)
                         else:
                             response['assets_data'].append({
                                 "asset_type": asset.asset_type,
-                                "asset_amount": asset.asset_amount,
+                                "asset_amount": float(asset.asset_amount),
                             })
+                        print(response['assets_data'])
             
         else:
             response['alert'] = "No Data"

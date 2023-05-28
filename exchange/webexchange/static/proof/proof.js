@@ -1,6 +1,6 @@
 window.onload = () => {
     const csrftoken = getCookie('csrftoken');
-    
+
     // anv language change
     $('#language').on('change', (event) => {
         if (event.target.value === 'Chinese') {
@@ -41,18 +41,32 @@ window.onload = () => {
             'X-CSRFToken': csrftoken,
         },
     }).then(response => response.json())
-    .then((data) => {
-        console.log(data)
-        if (data.alert == "No Data") {
-            console.log(data.alert);
-        } else {
-            const symbol = data.assets_data[0].asset_type
-            const amount = data.assets_data[0].asset_amount
-            const ratio  = parseFloat(Math.random()*(1.04-1.03) + 1.03);
-            $("coin-name name").text(symbol)
-            $("customer-balances").text(amount);
-            $("exchange-balances").text(amount* ratio);
-            $("ratio").text(`${(ratio*100).toFixed(2)}%`);
-        }
-    }).catch(error => console.log(error))
+        .then((data) => {
+            console.log(data)
+            if (data.alert == "No Data") {
+                console.log(data.alert);
+            } else {
+                const id_list = ['#c1', '#c2', "#c3", "#c4", "#c5", '#c6', "#c7", "#c8"]
+                console.log(data.assets_data.length)
+                for (let i = 0; i < id_list.length;i++) {
+                    let symbol = "---"
+                    let amount = 0
+                    let ratio = 0
+                    
+                    if (i < data.assets_data.length) {
+                        // receive data
+                        symbol = data.assets_data[i].asset_type
+                        amount = data.assets_data[i].asset_amount
+                        ratio = parseFloat(Math.random() * (1.04 - 1.03) + 1.03);
+                    }
+
+                    // fill data
+
+                    $(`${id_list[i]} coin-name name`).text(symbol)
+                    $(`${id_list[i]} customer-balances`).text(amount);
+                    $(`${id_list[i]} exchange-balances`).text((amount * ratio).toFixed(16));
+                    $(`${id_list[i]} ratio`).text(`${(ratio * 100).toFixed(2)}%`);
+                }
+            }
+        }).catch(error => console.log(error))
 }

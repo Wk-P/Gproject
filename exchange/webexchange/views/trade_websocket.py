@@ -64,7 +64,7 @@ def stop_websocket_thread():
 def stop_websocket_coroutine():
     global websocket_coroutine_stop_event, websocket_thread
     websocket_coroutine_stop_event.set()
-    websocket_thread.join()
+    # websocket_thread.join()
 
 websocket_thread = threading.Thread(target=start_websocket_thread,args=(start_url,))
 websocket_thread.start()

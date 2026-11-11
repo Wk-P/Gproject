@@ -1,3 +1,5 @@
+> **ARCHIVED NOTICE:** Finished coursework / study project, kept for reference. No longer maintained.
+
 # Gproject
 # Project 
 - Solve web exchange solve user asset self certification issue 
